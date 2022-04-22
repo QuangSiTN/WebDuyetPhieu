@@ -1,0 +1,92 @@
+﻿@inherits LayoutComponentBase
+@inject MudBlazor.ISnackbar snackBar
+@inject NavigationManager navigation
+@inject MudBlazor.ISnackbar snackBar
+@inject NavigationManager UriHelper
+@inject IJSRuntime JSRuntime
+@inject AuthenticationStateProvider auth
+<MudLayout>
+	<MudAppBar Style="background-color: #F9E5A4; ">
+		<MudSpacer />
+		@*<MudMenu StartIcon="@Icons.Filled.Translate" EndIcon="@Icons.Filled.KeyboardArrowDown" Label="Swedish" Color="Color.Primary" Variant="Variant.Filled">
+			<MudMenuItem>Swedish</MudMenuItem>#EFFAF9
+			<MudMenuItem>Old Norse</MudMenuItem>
+		</MudMenu>
+		<MudMenu StartIcon="@Icons.Filled.Translate" EndIcon="@Icons.Filled.KeyboardArrowDown" Label="Swedish" Color="Color.Primary" Variant="Variant.Filled">
+			<MudMenuItem>Swedish</MudMenuItem>
+			<MudMenuItem>Old Norse</MudMenuItem>
+		</MudMenu>
+		<MudMenu StartIcon="@Icons.Filled.Translate" EndIcon="@Icons.Filled.KeyboardArrowDown" Label="Swedish" Color="Color.Primary" Variant="Variant.Filled">
+			<MudMenuItem>Swedish</MudMenuItem>
+			<MudMenuItem>Old Norse</MudMenuItem>
+		</MudMenu>*@
+		<MudSpacer />
+		<AuthorizeView>
+			<Authorized>
+				<MudMenu StartIcon="@Icons.Material.Filled.Person" Color="Color.Primary" Label=@context.User.Identity.Name>
+					@*<MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Primary" Size="Size.Medium"></MudIconButton>*@
+					@*<p style="margin-top: 15px; font-weight: bold;color:black;">Hello @context.User.Identity.Name !</p>*@
+					<MudMenuItem Icon="@Icons.Material.Filled.Person" Href="/profile?tab=0" Size="Size.Small" Color="Color.Inherit">Profile</MudMenuItem>
+					<MudMenuItem Icon="@Icons.Material.Filled.ExitToApp" Href="/logout" Size="Size.Small" Color="Color.Inherit">Log Out</MudMenuItem>
+				</MudMenu>
+				<MudMenu StartIcon="@Icons.Material.Filled.Email" Size="Size.Medium" Color="Color.Primary" />
+				<MudButton StartIcon="@Icons.Material.Outlined.Notifications" Size="Size.Medium" Color="Color.Primary" Variant="Variant.Text" OnClick="@OpenDrawer"></MudButton>
+
+			</Authorized>
+			<NotAuthorized>
+				<a href="login" style="color:white;font-style:oblique;">Login</a>
+			</NotAuthorized>
+		</AuthorizeView>
+	</MudAppBar>
+	<MudDrawer Elevation="1" @bind-Open="@_drawerOpen">
+		<NavMenu />
+	</MudDrawer>
+
+	<MudMainContent>
+		@Body
+	</MudMainContent>
+	<MudDrawer @bind-Open="@open" Fixed="false" Anchor="@Anchor.Right" Elevation="1" Variant="@DrawerVariant.Temporary">
+		<MudDrawerHeader>
+			<MudText Typo="Typo.h6">Notification</MudText>
+		</MudDrawerHeader>
+		<MudNavMenu>
+			<MudNavLink Match="NavLinkMatch.All">New Notification</MudNavLink>
+			<MudNavLink Match="NavLinkMatch.All">Old Notifications</MudNavLink>
+		</MudNavMenu>
+	</MudDrawer>
+</MudLayout>
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+@code {
+	bool _drawerOpen = true;
+
+	void DrawerToggle()
+	{
+		_drawerOpen = !_drawerOpen;
+	}
+	bool open =false;
+
+	void OpenDrawer()
+	{
+		open = true;
+	}
+	[Inject]
+	public AuthenticationStateProvider AccessTokenProvider { get; set; }
+	[Inject]
+	public AccessTokenStorage storage { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		Console.WriteLine();
+		var user = "";
+		var checkAuth = await auth.GetAuthenticationStateAsync();
+		if (checkAuth != null)
+		{
+			user = checkAuth.User.Identity.Name;
+		}
+		else
+		{
+			Console.WriteLine("Authen nulll");
+		}
+	}
+}

@@ -1,0 +1,204 @@
+﻿@page "/"
+@inject IDialogService DialogService
+<div style="margin-left: 10px;  margin-top: 10px; margin-right: 10px;">
+	@*<EditForm Model="testModel">
+		<DataAnnotationsValidator />*@
+	<MudCard>
+		<MudCardContent>
+			<MudGrid>
+				<MudItem xs="12" sm="6" md="3">
+					<MudTextField T="string" Label="Số Phiếu Biên Nhận" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="3">
+					<MudSelect T="string" MultiSelection="true" @bind-Value="value" @bind-SelectedValues="options" Label="Chọn loại chứng từ" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="3">
+					<MudSelect T="string" MultiSelection="true" @bind-Value="value" @bind-SelectedValues="options" Label="Chọn loại hàng" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="3">
+					<MudSelect T="string" Variant="Variant.Outlined" MultiSelection="true" @bind-Value="value" @bind-SelectedValues="options" Label=" Hàng Của Chi Nhánh " AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudTextField T="string" Label="Mã ID Biên Bảng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudDatePicker Label="Ngày Hẹn Trả " Editable="true" @bind-Date="date" @bind-Value="strDate" Variant="Variant.Outlined" Placeholder="Chọn ngày" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudDatePicker Label="Ngày Hẹn Nhận " Editable="true" @bind-Date="date" @bind-Value="strDate" Variant="Variant.Outlined" Placeholder="Chọn ngày" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudSelect T="string" MultiSelection="true" Variant="Variant.Outlined" @bind-Value="value" @bind-SelectedValues="options" Label="Nhận từ " AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudSelect T="string" Variant="Variant.Outlined" MultiSelection="true" @bind-Value="value" @bind-SelectedValues="options" Label="Nhân Viên Nhận" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					</MudSelect>
+				</MudItem>
+
+				<MudItem xs="12" sm="6" md="2">
+					<MudDatePicker Label="Ngày Mua " Variant="Variant.Outlined" Editable="true" @bind-Date="date" @bind-Value="strDate" Placeholder="Chọn ngày" Margin="Margin.Dense" />
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
+	<MudCard Style="margin-top:2px;">
+		<MudCardContent>
+			<b style="font-size:large;">Khách hàng</b>
+			<MudGrid>
+				<MudItem xs="12" sm="6" md="2">
+					<MudTextField T="string" Label="Tên Khách Hàng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudTextField T="string" Label="Điện Thoại" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="3">
+					<MudSelect T="string" MultiSelection="true" Variant="Variant.Outlined" @bind-Value="value" @bind-SelectedValues="options" Label="Ngành Hàng" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="3">
+					<MudSelect T="string" MultiSelection="true" Variant="Variant.Outlined" @bind-Value="value" @bind-SelectedValues="options" Label="Trạm Bảo Hành" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudTextField T="string" Label="Ghi Chú" Required="true" Variant="Variant.Outlined" Lines="3" Margin="Margin.Dense" />
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
+	<MudCard Style="margin-top:2px;">
+		<MudCardContent>
+			<b style="font-size:large;">Thông tin thiết bị</b>
+			<MudGrid>
+
+				<MudItem xs="12" sm="6" md="2">
+					<MudTextField T="string" Label="Mã Hàng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="3">
+					<MudTextField T="string" Label="Tên Hàng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="3">
+					<MudSelect T="string" MultiSelection="true" @bind-Value="value" @bind-SelectedValues="options" Label="Chọn loại chứng từ" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="1">
+					<MudIconButton Icon="@Icons.Material.Filled.AddCircle" Color="Color.Success">  Size="Size.Small" Color="Color.Tertiary"></MudIconButton>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudSelect T="string" MultiSelection="true" @bind-Value="value" @bind-SelectedValues="options" Label="Trạm Bảo Hành" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="1">
+					<MudIconButton Icon="@Icons.Material.Filled.AddCircle" Color="Color.Success">  Size="Size.Small" Color="Color.Tertiary"></MudIconButton>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudTextField T="string" Label="Serial" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="1">
+					<MudButton Variant="Variant.Filled" Color="Color.Primary">
+						Scan
+					</MudButton>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudTextField T="int" Label="Số Lượng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudSelect T="string" MultiSelection="true" Variant="Variant.Outlined" @bind-Value="value" @bind-SelectedValues="options" Label="Loại dịch vụ" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudTextField T="string" Label="Mô tả lỗi" Required="true" Lines="2" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="3">
+					<MudTextField T="string" Label="Ghi Chú" Required="true" Variant="Variant.Outlined" Lines="2" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="3">
+					<MudDatePicker Label="Ngày Phát Sinh Hư" Editable="true" @bind-Date="date" @bind-Value="strDate" Variant="Variant.Outlined" Placeholder="Chọn ngày" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudDatePicker Label="Ngày Xử Lý Hư" Editable="true" @bind-Date="date" @bind-Value="strDate" Variant="Variant.Outlined" Placeholder="Chọn ngày" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudTextField T="int" Label="Số Tháng BH" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudTextField T="int" Label="SLoc Bảo Hành" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudSelect T="string" MultiSelection="true" Variant="Variant.Outlined" @bind-Value="value" @bind-SelectedValues="options" Label="Nguồn Gốc Lỗi" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" sm="6" md="1">
+					<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Thêm</MudButton>
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
+	<MudPaper Class="mx-auto pa-2" Style="margin-top:2px; height:50px; width: 470px;">
+		<MudButtonGroup Size="Size.Small" DisableElevation="false" Style="margin-bottom: 20%;" Color="Color.Primary" Variant="Variant.Filled">
+			<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Them</MudButton>
+			<MudButton Disabled="@disableUpdate" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sua</MudButton>
+			<MudButton Disabled="@disableFind" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tim</MudButton>
+			<MudButton Disabled="@disableDelete" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Xoa</MudButton>
+			<MudButton Disabled="@disableUndo" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Tro lai</MudButton>
+			<MudButton Disabled="@disableSave" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Luu</MudButton>
+		</MudButtonGroup>
+	</MudPaper>
+
+	@*</EditForm>*@
+	<MudTable Items="@Elements" FixedHeader="true" FixedFooter="true" Height="250px;" Style="margin-top:5px;">
+		<HeaderContent>
+			<MudTh>a</MudTh>
+			<MudTh>b</MudTh>
+
+		</HeaderContent>
+		<RowTemplate>
+			<MudTd DataLabel="a">@context.a</MudTd>
+			<MudTd DataLabel="b">@context.b</MudTd>
+		</RowTemplate>
+	</MudTable>
+	
+</div>
+@code{
+	private TestModel testModel;
+	Justify _justify = Justify.Center;
+	private bool disableAdd =false;
+	private bool disableUpdate= false;
+	private bool disableDelete = false;
+	private bool disableSave = true;
+	private bool disableUndo = true;
+	private bool disableFind = false;
+	private string value { get; set; } = "Chọn loại chứng từ";
+	private IEnumerable<string> options { get; set; } = new HashSet<string>() { };
+	private DateTime? date = DateTime.Today;
+	private string strDate;
+	public class TestModel
+	{
+		public string a { get; set; }
+		public string b { get; set; }
+	};
+	private IEnumerable<TestModel> Elements = new List<TestModel>();
+	private void UpdateStateButtonAdd()
+	{
+		disableAdd = true;
+		disableUpdate = true;
+		disableDelete = true;
+		disableFind = true;
+		disableSave = false;
+		disableUndo = false;
+	}
+	private void UpdateStateButtonUndo()
+	{
+		disableAdd = false;
+		disableUpdate = false;
+		disableDelete = false;
+		disableFind = false;
+		disableSave = true;
+		disableUndo = true;
+	}
+	
+}
+

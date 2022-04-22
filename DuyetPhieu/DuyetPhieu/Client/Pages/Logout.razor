@@ -1,0 +1,32 @@
+﻿@page "/logout"
+@inject IUserService UserService
+@inject MudBlazor.ISnackbar snackBar
+@inject AuthenticationStateProvider auth
+@inject NavigationManager NavigationManager
+@code {
+	protected override async Task OnInitializedAsync()
+	{
+		var user = "";
+		var checkAuth = await auth.GetAuthenticationStateAsync();
+		if (checkAuth != null)
+		{
+			user = checkAuth.User.Identity.Name;
+			var rs = await UserService.Logout(user);
+			if(rs.Successful)
+			{
+				snackBar.Add("Đăng xuất thành công ! ", Severity.Success);
+				NavigationManager.NavigateTo("/login", true);
+			}
+			else
+			{
+				snackBar.Add("Đăng xuất khong  thành công ! ", Severity.Warning);
+			}
+
+		}
+		else
+		{
+			Console.WriteLine("authen null");
+		}
+
+	}
+}

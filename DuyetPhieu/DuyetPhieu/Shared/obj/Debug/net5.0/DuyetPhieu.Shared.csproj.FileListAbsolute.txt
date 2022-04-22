@@ -1,0 +1,11 @@
+C:\Users\lequa\source\repos\DuyetPhieu\DuyetPhieu\Shared\bin\Debug\net5.0\DuyetPhieu.Shared.deps.json
+C:\Users\lequa\source\repos\DuyetPhieu\DuyetPhieu\Shared\bin\Debug\net5.0\DuyetPhieu.Shared.dll
+C:\Users\lequa\source\repos\DuyetPhieu\DuyetPhieu\Shared\bin\Debug\net5.0\ref\DuyetPhieu.Shared.dll
+C:\Users\lequa\source\repos\DuyetPhieu\DuyetPhieu\Shared\bin\Debug\net5.0\DuyetPhieu.Shared.pdb
+C:\Users\lequa\source\repos\DuyetPhieu\DuyetPhieu\Shared\obj\Debug\net5.0\DuyetPhieu.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lequa\source\repos\DuyetPhieu\DuyetPhieu\Shared\obj\Debug\net5.0\DuyetPhieu.Shared.AssemblyInfoInputs.cache
+C:\Users\lequa\source\repos\DuyetPhieu\DuyetPhieu\Shared\obj\Debug\net5.0\DuyetPhieu.Shared.AssemblyInfo.cs
+C:\Users\lequa\source\repos\DuyetPhieu\DuyetPhieu\Shared\obj\Debug\net5.0\DuyetPhieu.Shared.csproj.CoreCompileInputs.cache
+C:\Users\lequa\source\repos\DuyetPhieu\DuyetPhieu\Shared\obj\Debug\net5.0\DuyetPhieu.Shared.dll
+C:\Users\lequa\source\repos\DuyetPhieu\DuyetPhieu\Shared\obj\Debug\net5.0\ref\DuyetPhieu.Shared.dll
+C:\Users\lequa\source\repos\DuyetPhieu\DuyetPhieu\Shared\obj\Debug\net5.0\DuyetPhieu.Shared.pdb
