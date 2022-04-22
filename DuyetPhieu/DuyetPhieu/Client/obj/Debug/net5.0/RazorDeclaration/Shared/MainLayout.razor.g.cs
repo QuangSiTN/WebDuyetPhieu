@@ -139,7 +139,7 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 61 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Shared\MainLayout.razor"
+#line 46 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Shared\MainLayout.razor"
        
 	bool _drawerOpen = true;
 

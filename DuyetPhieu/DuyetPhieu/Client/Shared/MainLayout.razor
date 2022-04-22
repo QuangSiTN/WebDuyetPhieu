@@ -8,24 +8,9 @@
 <MudLayout>
 	<MudAppBar Style="background-color: #F9E5A4; ">
 		<MudSpacer />
-		@*<MudMenu StartIcon="@Icons.Filled.Translate" EndIcon="@Icons.Filled.KeyboardArrowDown" Label="Swedish" Color="Color.Primary" Variant="Variant.Filled">
-			<MudMenuItem>Swedish</MudMenuItem>#EFFAF9
-			<MudMenuItem>Old Norse</MudMenuItem>
-		</MudMenu>
-		<MudMenu StartIcon="@Icons.Filled.Translate" EndIcon="@Icons.Filled.KeyboardArrowDown" Label="Swedish" Color="Color.Primary" Variant="Variant.Filled">
-			<MudMenuItem>Swedish</MudMenuItem>
-			<MudMenuItem>Old Norse</MudMenuItem>
-		</MudMenu>
-		<MudMenu StartIcon="@Icons.Filled.Translate" EndIcon="@Icons.Filled.KeyboardArrowDown" Label="Swedish" Color="Color.Primary" Variant="Variant.Filled">
-			<MudMenuItem>Swedish</MudMenuItem>
-			<MudMenuItem>Old Norse</MudMenuItem>
-		</MudMenu>*@
-		<MudSpacer />
 		<AuthorizeView>
 			<Authorized>
 				<MudMenu StartIcon="@Icons.Material.Filled.Person" Color="Color.Primary" Label=@context.User.Identity.Name>
-					@*<MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Primary" Size="Size.Medium"></MudIconButton>*@
-					@*<p style="margin-top: 15px; font-weight: bold;color:black;">Hello @context.User.Identity.Name !</p>*@
 					<MudMenuItem Icon="@Icons.Material.Filled.Person" Href="/profile?tab=0" Size="Size.Small" Color="Color.Inherit">Profile</MudMenuItem>
 					<MudMenuItem Icon="@Icons.Material.Filled.ExitToApp" Href="/logout" Size="Size.Small" Color="Color.Inherit">Log Out</MudMenuItem>
 				</MudMenu>

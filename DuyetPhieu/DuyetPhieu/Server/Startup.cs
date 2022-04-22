@@ -34,7 +34,7 @@ namespace DuyetPhieu.Server
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddDatabaseDeveloperPageExceptionFilter();
-			/*services.Configure<IdentityOptions>(option =>
+			services.Configure<IdentityOptions>(option =>
 			{
 				option.Password.RequireUppercase = false;
 				option.Password.RequireLowercase = false;
@@ -44,7 +44,7 @@ namespace DuyetPhieu.Server
 				// Lockout settings
 				option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
 				option.Lockout.MaxFailedAccessAttempts = 3;
-			});*/
+			});
 			services.AddAuthentication(options =>
 			{
 				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
