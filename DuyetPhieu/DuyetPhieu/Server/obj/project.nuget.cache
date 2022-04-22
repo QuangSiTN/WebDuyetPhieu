@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Za6wAa/UECsej1v+0+AK3rHn0W/eUXU3QT48dVhA86XwwZgPyN/UcXbzqVZNUPAQ4qzj5xMAO0cTeHof6w3+Nw==",
+  "dgSpecHash": "FfxuXsLIfJQ8moGx6Gcl7wu5v5UDPNGr+au4vN2FPrVfGTqYQ4MV05DnR8L7t3vz5C/iLI+rZk43WZMyNgMWCw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lequa\\source\\repos\\DuyetPhieu\\DuyetPhieu\\Server\\DuyetPhieu.Server.csproj",
+  "projectFilePath": "C:\\Users\\lequa\\OneDrive\\Documents\\GitHub\\WebDuyetPhieu\\DuyetPhieu\\DuyetPhieu\\Server\\DuyetPhieu.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lequa\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\lequa\\.nuget\\packages\\blazored.localstorage\\4.2.0\\blazored.localstorage.4.2.0.nupkg.sha512",

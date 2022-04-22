@@ -6398,11 +6398,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lequa\\source\\repos\\DuyetPhieu\\DuyetPhieu\\Client\\DuyetPhieu.Client.csproj",
+      "projectUniqueName": "C:\\Users\\lequa\\OneDrive\\Documents\\GitHub\\WebDuyetPhieu\\DuyetPhieu\\DuyetPhieu\\Client\\DuyetPhieu.Client.csproj",
       "projectName": "DuyetPhieu.Client",
-      "projectPath": "C:\\Users\\lequa\\source\\repos\\DuyetPhieu\\DuyetPhieu\\Client\\DuyetPhieu.Client.csproj",
+      "projectPath": "C:\\Users\\lequa\\OneDrive\\Documents\\GitHub\\WebDuyetPhieu\\DuyetPhieu\\DuyetPhieu\\Client\\DuyetPhieu.Client.csproj",
       "packagesPath": "C:\\Users\\lequa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lequa\\source\\repos\\DuyetPhieu\\DuyetPhieu\\Client\\obj\\",
+      "outputPath": "C:\\Users\\lequa\\OneDrive\\Documents\\GitHub\\WebDuyetPhieu\\DuyetPhieu\\DuyetPhieu\\Client\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lequa\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6419,8 +6419,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\lequa\\source\\repos\\DuyetPhieu\\DuyetPhieu\\Shared\\DuyetPhieu.Shared.csproj": {
-              "projectPath": "C:\\Users\\lequa\\source\\repos\\DuyetPhieu\\DuyetPhieu\\Shared\\DuyetPhieu.Shared.csproj"
+            "C:\\Users\\lequa\\OneDrive\\Documents\\GitHub\\WebDuyetPhieu\\DuyetPhieu\\DuyetPhieu\\Shared\\DuyetPhieu.Shared.csproj": {
+              "projectPath": "C:\\Users\\lequa\\OneDrive\\Documents\\GitHub\\WebDuyetPhieu\\DuyetPhieu\\DuyetPhieu\\Shared\\DuyetPhieu.Shared.csproj"
             }
           }
         }

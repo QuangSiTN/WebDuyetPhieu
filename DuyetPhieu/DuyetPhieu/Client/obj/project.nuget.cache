@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "L1dC2vqg9BpToQSeQa4WiPGP3kqjuugyW/gt+A7TEJ5a+CmKK34R0jMEwsU8DOSgX6PgAP5NXTKjXijUxJQZxg==",
+  "dgSpecHash": "GtpHEqClzsz3tFPJvDHLsIRwyXuT95snnsYOhC0v6G32rIroAtBMTnUwgk7E1PVr5emq/pORShcsb5nxVhJ9tQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lequa\\source\\repos\\DuyetPhieu\\DuyetPhieu\\Client\\DuyetPhieu.Client.csproj",
+  "projectFilePath": "C:\\Users\\lequa\\OneDrive\\Documents\\GitHub\\WebDuyetPhieu\\DuyetPhieu\\DuyetPhieu\\Client\\DuyetPhieu.Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lequa\\.nuget\\packages\\blazored.localstorage\\4.2.0\\blazored.localstorage.4.2.0.nupkg.sha512",
     "C:\\Users\\lequa\\.nuget\\packages\\microsoft.aspnetcore.authorization\\5.0.13\\microsoft.aspnetcore.authorization.5.0.13.nupkg.sha512",
