@@ -207,15 +207,15 @@
       "mscorlib.dll": "sha256-CbcIR45\/xUFaZJqGIle6bb7v2kWYjp4kOFpKNnCkd4I=",
       "netstandard.dll": "sha256-qE0Q70OyVlHYY\/Y3nwMjfh+zissea9uhfvWMvPWfI7w=",
       "System.Private.CoreLib.dll": "sha256-pdkcl2+OojCfrhxX5eFmKI30wAmhL6s+sCLp7s175k0=",
-      "DuyetPhieu.Shared.dll": "sha256-aU2e25vNWf\/HLgj+2Hc4HQ81\/oxL3oBo6zAs2I7cyOY=",
-      "DuyetPhieu.Client.dll": "sha256-HK0yNSP0mPhM1w5LLNQRf7S0PHiKqudHNuozfaMOvpY="
+      "DuyetPhieu.Shared.dll": "sha256-sE5aolehAwwMseu4uc+\/rdlnDyO6zRzd84cHndxbdE8=",
+      "DuyetPhieu.Client.dll": "sha256-\/g0vchidGqMhYJjR1h2H3dqjoXA+AQJywIH2UfpDn\/o="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "DuyetPhieu.Shared.pdb": "sha256-ZVNa9PWAP4MV3pYT9hSPAziK1Yej9tnc4JdKssmyULY=",
-      "DuyetPhieu.Client.pdb": "sha256-PJa6XhWhWLIsglfUnAiYDtoVUOwlUaSxZmlp+K5LuuE="
+      "DuyetPhieu.Shared.pdb": "sha256-Yj9wAJTQb9pcbfJwW7hTqVeLxhMNtl66m0qdO2Xg2UI=",
+      "DuyetPhieu.Client.pdb": "sha256-F\/StjihsfTPHAEOZamtTGM9KvDGrrp2jJEiXr\/RDg88="
     },
     "runtime": {
       "dotnet.timezones.blat": "sha256-ootDKSA6cNAbgJLmPhrHsPVvVqkGEYdRZxucC22LWjw=",

@@ -126,6 +126,20 @@ using DuyetPhieu.Shared;
 #nullable disable
 #nullable restore
 #line 17 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
+using DuyetPhieu.Shared.Model;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 18 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
+using DuyetPhieu.Shared.Model.Details;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 19 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
 using MudBlazor;
 
 #line default
@@ -140,16 +154,19 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 165 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\Index.razor"
+#line 183 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\Index.razor"
       
 	private TestModel testModel;
 	Justify _justify = Justify.Center;
-	private bool disableAdd =false;
-	private bool disableUpdate= false;
+	//disable button
+	private bool disableAdd = false;
+	private bool disableUpdate = false;
 	private bool disableDelete = false;
 	private bool disableSave = true;
 	private bool disableUndo = true;
 	private bool disableFind = false;
+	//disable textfield
+	private bool disabletxtSbn = false;
 	private string value { get; set; } = "Chọn loại chứng từ";
 	private IEnumerable<string> options { get; set; } = new HashSet<string>() { };
 	private DateTime? date = DateTime.Today;
@@ -168,6 +185,7 @@ using MudBlazor;
 		disableFind = true;
 		disableSave = false;
 		disableUndo = false;
+		disabletxtSbn = false;
 	}
 	private void UpdateStateButtonUndo()
 	{
@@ -177,12 +195,52 @@ using MudBlazor;
 		disableFind = false;
 		disableSave = true;
 		disableUndo = true;
+		disabletxtSbn = true;
 	}
-	
+	//model
+	//chi nhanh
+	private ListInformationChiNhanh listChiNhanh { get; set; } = new ListInformationChiNhanh();
+	private IEnumerable<InformationChiNhanhModel> listInfChiNhanh { get; set; }
+	private InformationChiNhanhModel infChiNhanhModel { get; set; } = new InformationChiNhanhModel();
+	//loai hang bao hanh
+	private IEnumerable<MnLoaiHangBhModel> listLoaiHangBH { get; set; }
+	private MnLoaiHangBhModel mnLoaiHangBhModel { get; set; } = new MnLoaiHangBhModel();
+	protected override async Task OnInitializedAsync()
+	{
+		listChiNhanh = await ChiNhanhService.GetAllChiNhanh();
+		if (listChiNhanh.Error == 0)
+		{
+			listInfChiNhanh = listChiNhanh.Data;
+		}
+		else
+		{
+			snackBar.Add("Khong lay dc du lieu ", Severity.Warning);
+		}
+		listLoaiHangBH = (await LoaiHangBHService.ListLoaiBaoHanh()).ToList();
+		if(listLoaiHangBH.Count() == 0)
+		{
+			Console.WriteLine("Bao hang null");
+		}
+	}
+	//convert
+	Func<InformationChiNhanhModel, string> converterChiNhanh = p => p?.TenChiNhanh;
+	Func<MnLoaiHangBhModel, string> converterLoaiHangBH = p => p?.TenLoaiHang;
+	//search chi  nhanh
+	private async Task<IEnumerable<InformationChiNhanhModel>> SearchChiNhanh(string value)
+
+	{
+		await Task.Delay(5);
+		if(string.IsNullOrEmpty(value))
+			return listInfChiNhanh;
+		return listInfChiNhanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase)||x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+	}
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ILoaiHangBHService LoaiHangBHService { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IChiNhanhService ChiNhanhService { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private MudBlazor.ISnackbar snackBar { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDialogService DialogService { get; set; }
     }
 }

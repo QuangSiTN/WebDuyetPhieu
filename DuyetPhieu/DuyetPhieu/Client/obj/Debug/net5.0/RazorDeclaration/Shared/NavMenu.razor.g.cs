@@ -126,6 +126,20 @@ using DuyetPhieu.Shared;
 #nullable disable
 #nullable restore
 #line 17 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
+using DuyetPhieu.Shared.Model;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 18 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
+using DuyetPhieu.Shared.Model.Details;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 19 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
 using MudBlazor;
 
 #line default
@@ -139,9 +153,9 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 56 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Shared\NavMenu.razor"
+#line 57 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Shared\NavMenu.razor"
        
-	string[] headings = {"Name", "Email" };
+	string[] headings = { "Name", "Email" };
 	string[] rows = {
 		@"Krishna kpartner0@usatoday.com",
 		@"Webb wstitle1@ning.com",

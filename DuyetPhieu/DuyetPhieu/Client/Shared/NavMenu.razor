@@ -1,60 +1,61 @@
 ﻿<MudItem>
 	<image src="image/logo-dmcl.png" style="width:240px;height:65px;"></image>
 </MudItem>
+<MudCard>
+	@*Style="background-color:#F9E5A4; "*@
+	<h4 style="text-align:center;">Duyệt chứng từ</h4>
+	<MudCardContent>
+		<MudGrid>
+			<MudItem xs="6" sm="12" Style="font-size: small; margin-left: 4px; margin-right: 4px;">
+
+				<MudForm>
+					<MudTextField T="string" Style="font-weight:400;" Label="Số phiếu" Variant="Variant.Outlined" Margin="Margin.Dense" Adornment="Adornment.End" />
+					<MudTextField T="string" Style="font-display:inherit;" Label="Loại phiếu" Variant="Variant.Outlined" Margin="Margin.Dense" Adornment="Adornment.End" />
+					<MudTextField T="string" Style="font-display:inherit;" Label="Ghi chú" Variant="Variant.Outlined" Lines="2" />
+				</MudForm>
+			</MudItem>
+			<MudItem xs="6" sm="12">
+				<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info">Xem</MudButton>
+				<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info">Duyệt</MudButton>
+				<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info">Hủy</MudButton>
+			</MudItem>
+			<MudItem Class="pt-1 pb-1 d-flex flex-1" xs="6" sm="12">
+				<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info" FullWidth="true">Load Danh Sach</MudButton>
+			</MudItem>
+		</MudGrid>
+	</MudCardContent>
+</MudCard>
+<MudSimpleTable Hover="true" Dense="true" FixedHeader="true" Style="overflow-x: auto;height:300px;">
+	<thead>
+		<tr>
+			@foreach (var h in headings)
+			{
+				<th style="font-size:10px;font-style:initial;background-color:cornflowerblue;">@h</th>
+			}
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var row in rows)
+		{
+			<tr>
+				@foreach (var x in row.Split())
+				{
+					<td style="font-size:10px;">@x</td>
+				}
+			</tr>
+		}
+	</tbody>
+</MudSimpleTable>
 <AuthorizeView>
 	<Authorized>
-		<MudCard>
-			@*Style="background-color:#F9E5A4; "*@
-			<h4 style="text-align:center;">Duyệt chứng từ</h4>
-			<MudCardContent>
-				<MudGrid>
-					<MudItem xs="6" sm="12" Style="font-size: small; margin-left: 4px; margin-right: 4px;">
 
-						<MudForm>
-							<MudTextField T="string" Style="font-weight:400;" Label="Số phiếu" Variant="Variant.Outlined" Margin="Margin.Dense" Adornment="Adornment.End" />
-							<MudTextField T="string" Style="font-display:inherit;" Label="Loại phiếu" Variant="Variant.Outlined" Margin="Margin.Dense" Adornment="Adornment.End" />
-							<MudTextField T="string" Style="font-display:inherit;" Label="Ghi chú" Variant="Variant.Outlined" Lines="2" />
-						</MudForm>
-					</MudItem>
-					<MudItem xs="6" sm="12">
-						<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info">Xem</MudButton>
-						<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info">Duyệt</MudButton>
-						<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info">Hủy</MudButton>
-					</MudItem>
-					<MudItem Class="pt-1 pb-1 d-flex flex-1" xs="6" sm="12">
-						<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info" FullWidth="true">Load Danh Sach</MudButton>
-					</MudItem>
-				</MudGrid>
-			</MudCardContent>
-		</MudCard>
-		<MudSimpleTable Hover="true" Dense="true" FixedHeader="true" Style="overflow-x: auto;height:300px;">
-			<thead>
-				<tr>
-					@foreach (var h in headings)
-					{
-						<th style="font-size:10px;font-style:initial;background-color:cornflowerblue;">@h</th>
-					}
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var row in rows)
-				{
-					<tr>
-						@foreach (var x in row.Split())
-						{
-							<td style="font-size:10px;">@x</td>
-						}
-					</tr>
-				}
-			</tbody>
-		</MudSimpleTable>
 	</Authorized>
-		<NotAuthorized></NotAuthorized>
-	</AuthorizeView>
-	
+	<NotAuthorized></NotAuthorized>
+</AuthorizeView>
+
 
 @code {
-	string[] headings = {"Name", "Email" };
+	string[] headings = { "Name", "Email" };
 	string[] rows = {
 		@"Krishna kpartner0@usatoday.com",
 		@"Webb wstitle1@ning.com",
