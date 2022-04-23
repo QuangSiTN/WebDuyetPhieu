@@ -154,7 +154,7 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 183 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\Index.razor"
+#line 217 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\Index.razor"
       
 	private TestModel testModel;
 	Justify _justify = Justify.Center;
@@ -202,44 +202,89 @@ using MudBlazor;
 	private ListInformationChiNhanh listChiNhanh { get; set; } = new ListInformationChiNhanh();
 	private IEnumerable<InformationChiNhanhModel> listInfChiNhanh { get; set; }
 	private InformationChiNhanhModel infChiNhanhModel { get; set; } = new InformationChiNhanhModel();
+	//tram bao hanh
+	private ListInformationChiNhanh listTramBaoHanh { get; set; } = new ListInformationChiNhanh();
+	private IEnumerable<InformationChiNhanhModel> listInfTramBaoHanh { get; set; }
+	private InformationChiNhanhModel infTramBaoHanhModel { get; set; } = new InformationChiNhanhModel();
+
 	//loai hang bao hanh
 	private IEnumerable<MnLoaiHangBhModel> listLoaiHangBH { get; set; }
 	private MnLoaiHangBhModel mnLoaiHangBhModel { get; set; } = new MnLoaiHangBhModel();
+	//loai chung tu
+	private IEnumerable<LoaiChungTuModel> listLoaiChungTu { get; set; }
+	private LoaiChungTuModel loaiChungTuModel { get; set; } = new LoaiChungTuModel();
+	// nguon goc loi bao hanh
+	private IEnumerable<MnNguonGocLoiBaoHanhModel> listNguonGocLoi { get; set; }
+	private MnNguonGocLoiBaoHanhModel mnNguonGocLoiBaoHanhModel { get; set; } = new MnNguonGocLoiBaoHanhModel();
+	// loai dich vu
+	private IEnumerable<MnLoaiDichVuBhModel> listLoaiDichVu { get; set; }
+	private MnLoaiDichVuBhModel mnLoaiDichVuBhModel { get; set; } = new MnLoaiDichVuBhModel();
+
+
 	protected override async Task OnInitializedAsync()
 	{
-		listChiNhanh = await ChiNhanhService.GetAllChiNhanh();
+		listLoaiHangBH = (await MNService.ListLoaiBaoHanh()).ToList();
+		if (listLoaiHangBH.Count() == 0)
+		{
+			Console.WriteLine("Bao hang null");
+		}
+		listChiNhanh = await MNService.GetAllChiNhanh();
 		if (listChiNhanh.Error == 0)
 		{
-			listInfChiNhanh = listChiNhanh.Data;
+			listInfChiNhanh = listChiNhanh.Data.OrderBy(x=>x.TenChiNhanh);
 		}
 		else
 		{
 			snackBar.Add("Khong lay dc du lieu ", Severity.Warning);
 		}
-		listLoaiHangBH = (await LoaiHangBHService.ListLoaiBaoHanh()).ToList();
-		if(listLoaiHangBH.Count() == 0)
+		listLoaiChungTu = (await MNService.ListChungTu()).ToList();
+		listTramBaoHanh = await MNService.ListTramBaoHanh();
+		if(listTramBaoHanh.Error == 0)
 		{
-			Console.WriteLine("Bao hang null");
+			listInfTramBaoHanh = listTramBaoHanh.Data.OrderBy(x => x.TenChiNhanh);
+		}
+		listNguonGocLoi = (await MNService.ListNguonGocBaoHanh()).ToList();
+		listLoaiDichVu = (await MNService.ListLoaiDichVu()).ToList();
+	}
+	private void Luu()
+	{
+		if (infChiNhanhModel == null)
+		{
+			Console.WriteLine("Model chi nhanh null ");
+		}
+		else
+		{
+			Console.WriteLine("Ban dang chon chi nhanh " + infChiNhanhModel.TenChiNhanh + " Ma kho "+infChiNhanhModel.MaChiNhanh);
 		}
 	}
 	//convert
 	Func<InformationChiNhanhModel, string> converterChiNhanh = p => p?.TenChiNhanh;
+	Func<InformationChiNhanhModel, string> converterTramBaoHanh = p => p?.TenChiNhanh;
 	Func<MnLoaiHangBhModel, string> converterLoaiHangBH = p => p?.TenLoaiHang;
+	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.MoTa;
+	Func<MnNguonGocLoiBaoHanhModel, string> converterNguonGocLoiBH = p => p?.DienGiai;
+	Func<MnLoaiDichVuBhModel, string> converterLoaiDichVu = p => p?.TenLoaiDichVu;
 	//search chi  nhanh
 	private async Task<IEnumerable<InformationChiNhanhModel>> SearchChiNhanh(string value)
-
 	{
 		await Task.Delay(5);
 		if(string.IsNullOrEmpty(value))
 			return listInfChiNhanh;
-		return listInfChiNhanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase)||x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+		return listInfChiNhanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase) || x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
 	}
+	private async Task<IEnumerable<InformationChiNhanhModel>> SearchTramBaoHanh(string value)
+	{
+		await Task.Delay(5);
+		if(string.IsNullOrEmpty(value))
+			return listInfTramBaoHanh;
+		return listInfTramBaoHanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase)||x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+	}
+
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ILoaiHangBHService LoaiHangBHService { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IChiNhanhService ChiNhanhService { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IMNService MNService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private MudBlazor.ISnackbar snackBar { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDialogService DialogService { get; set; }
     }

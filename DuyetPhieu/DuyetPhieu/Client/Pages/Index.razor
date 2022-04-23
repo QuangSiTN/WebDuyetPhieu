@@ -1,11 +1,28 @@
 ﻿@page "/"
 @inject IDialogService DialogService
 @inject MudBlazor.ISnackbar snackBar
-@inject IChiNhanhService ChiNhanhService
-@inject ILoaiHangBHService LoaiHangBHService
+@inject IMNService MNService
 <div style="margin-left: 10px;  margin-top: 10px; margin-right: 10px;">
 	@*<EditForm Model="testModel">
 		<DataAnnotationsValidator />*@
+	<MudCard Style="margin:10px 10% 10px 10%;">
+		<MudCardContent>
+			<MudGrid>
+				<MudItem xs="12" sm="6" md="4">
+					<MudTextField T="string" Label="Số Phiếu Biên Nhận" Required="true" Disabled="@disabletxtSbn" Variant="Variant.Outlined" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="3">
+					<MudDatePicker Label="Từ Ngày" Variant="Variant.Outlined" Editable="true" @bind-Date="date" @bind-Value="strDate" Placeholder="Chọn ngày" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="3">
+					<MudDatePicker Label="Đến Ngày" Variant="Variant.Outlined" Editable="true" @bind-Date="date" @bind-Value="strDate" Placeholder="Chọn ngày" Margin="Margin.Dense" />
+				</MudItem>
+				<MudItem xs="12" sm="6" md="2">
+					<MudButton ButtonType="ButtonType.Submit" Size="Size.Small"  Style="margin-top:8px;" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Tìm kiếm</MudButton>
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
 	<MudCard>
 		<MudCardContent>
 			<MudGrid>
@@ -17,10 +34,10 @@
 					</MudSelect>
 				</MudItem>
 				<MudItem xs="12" sm="6" md="3">
-					<MudSelect T="MnLoaiHangBhModel"@bind-Value="@mnLoaiHangBhModel" ToStringFunc="@converterLoaiHangBH" Label="Chọn loại hàng" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
-						@if(listLoaiHangBH != null)
+					<MudSelect T="MnLoaiHangBhModel" @bind-Value="@mnLoaiHangBhModel" ToStringFunc="@converterLoaiHangBH" Label="Chọn loại hàng" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+						@if (listLoaiHangBH != null)
 						{
-							@foreach(var lh in listLoaiHangBH)
+							@foreach (var lh in listLoaiHangBH)
 							{
 								<MudSelectItem Value="@lh">@lh.TenLoaiHang</MudSelectItem>
 							}
@@ -28,16 +45,7 @@
 					</MudSelect>
 				</MudItem>
 				<MudItem xs="12" sm="6" md="3">
-					@*<MudSelect T="InformationChiNhanhModel" Variant="Variant.Outlined" @bind-Value="@infChiNhanhModel"   ToStringFunc="@converterChiNhanh" Label=" Hàng Của Chi Nhánh " AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
-						@if (listInfChiNhanh != null)
-						{
-							@foreach (var cn in listInfChiNhanh)
-							{
-								<MudSelectItem Value="@cn">@cn.TenChiNhanh (@cn.MaChiNhanh)</MudSelectItem>
-							}
-						}
-					</MudSelect>*@
-					<MudAutocomplete T="InformationChiNhanhModel" Variant="Variant.Outlined" @bind-Value="@infChiNhanhModel" SearchFunc="@SearchChiNhanh"   ToStringFunc="@converterChiNhanh" Label=" Hàng Của Chi Nhánh " AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense"/>
+					<MudAutocomplete T="InformationChiNhanhModel" MaxItems="null" Variant="Variant.Outlined" @bind-Value="@infChiNhanhModel" SearchFunc="@SearchChiNhanh" ToStringFunc="@converterChiNhanh" Label=" Hàng Của Chi Nhánh " AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense" />
 				</MudItem>
 
 				<MudItem xs="12" sm="6" md="2">
@@ -74,12 +82,18 @@
 					<MudTextField T="string" Label="Điện Thoại" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
 				</MudItem>
 				<MudItem xs="12" sm="6" md="3">
-					<MudSelect T="string" MultiSelection="true" Variant="Variant.Outlined" @bind-Value="value" @bind-SelectedValues="options" Label="Ngành Hàng" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					<MudSelect T="MnLoaiHangBhModel" @bind-Value="@mnLoaiHangBhModel" ToStringFunc="@converterLoaiHangBH" Label="Chọn loại hàng" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+						@if (listLoaiHangBH != null)
+						{
+							@foreach (var lh in listLoaiHangBH)
+							{
+								<MudSelectItem Value="@lh">@lh.TenLoaiHang</MudSelectItem>
+							}
+						}
 					</MudSelect>
 				</MudItem>
 				<MudItem xs="12" sm="6" md="3">
-					<MudSelect T="string" MultiSelection="true" Variant="Variant.Outlined" @bind-Value="value" @bind-SelectedValues="options" Label="Trạm Bảo Hành" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
-					</MudSelect>
+					<MudAutocomplete T="InformationChiNhanhModel" MaxItems="null" Variant="Variant.Outlined" @bind-Value="@infTramBaoHanhModel" SearchFunc="@SearchTramBaoHanh" ToStringFunc="@converterTramBaoHanh" Label="Trạm Bảo Hành" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense" />
 				</MudItem>
 				<MudItem xs="12" sm="6" md="2">
 					<MudTextField T="string" Label="Ghi Chú" Required="true" Variant="Variant.Outlined" Lines="3" Margin="Margin.Dense" />
@@ -99,15 +113,21 @@
 					<MudTextField T="string" Label="Tên Hàng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
 				</MudItem>
 				<MudItem xs="12" sm="6" md="3">
-					<MudSelect T="string" MultiSelection="true" @bind-Value="value" @bind-SelectedValues="options" Label="Chọn loại chứng từ" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					<MudSelect T="LoaiChungTuModel" @bind-Value="@loaiChungTuModel" Label="Chọn loại chứng từ" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTu" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+						@if (listLoaiChungTu != null)
+						{
+							@foreach (var ct in listLoaiChungTu)
+							{
+								<MudSelectItem Value="@ct">@ct.MoTa</MudSelectItem>
+							}
+						}
 					</MudSelect>
 				</MudItem>
 				<MudItem xs="12" sm="6" md="1">
 					<MudIconButton Icon="@Icons.Material.Filled.AddCircle" Color="Color.Success">  Size="Size.Small" Color="Color.Tertiary"></MudIconButton>
 				</MudItem>
 				<MudItem xs="12" sm="6" md="2">
-					<MudSelect T="string" MultiSelection="true" @bind-Value="value" @bind-SelectedValues="options" Label="Trạm Bảo Hành" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
-					</MudSelect>
+					<MudAutocomplete T="InformationChiNhanhModel" MaxItems="null" Variant="Variant.Outlined" @bind-Value="@infTramBaoHanhModel" SearchFunc="@SearchTramBaoHanh" ToStringFunc="@converterTramBaoHanh" Label="Trạm Bảo Hành"  AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense" />
 				</MudItem>
 				<MudItem xs="12" sm="6" md="1">
 					<MudIconButton Icon="@Icons.Material.Filled.AddCircle" Color="Color.Success">  Size="Size.Small" Color="Color.Tertiary"></MudIconButton>
@@ -116,7 +136,7 @@
 					<MudTextField T="string" Label="Serial" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
 				</MudItem>
 				<MudItem xs="12" sm="6" md="1">
-					<MudButton Variant="Variant.Filled" Color="Color.Primary">
+					<MudButton Style="margin-top:5px;" Variant="Variant.Filled" Color="Color.Primary">
 						Scan
 					</MudButton>
 				</MudItem>
@@ -124,7 +144,14 @@
 					<MudTextField T="int" Label="Số Lượng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
 				</MudItem>
 				<MudItem xs="12" sm="6" md="2">
-					<MudSelect T="string" MultiSelection="true" Variant="Variant.Outlined" @bind-Value="value" @bind-SelectedValues="options" Label="Loại dịch vụ" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					<MudSelect T="MnLoaiDichVuBhModel" @bind-Value="@mnLoaiDichVuBhModel" Label="Loại dịch vụ" Variant="Variant.Outlined" ToStringFunc="@converterLoaiDichVu" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+						@if (listLoaiDichVu != null)
+						{
+							@foreach (var dv in listLoaiDichVu)
+							{
+								<MudSelectItem Value="@dv">@dv.TenLoaiDichVu</MudSelectItem>
+							}
+						}
 					</MudSelect>
 				</MudItem>
 				<MudItem xs="12" sm="6" md="2">
@@ -146,23 +173,30 @@
 					<MudTextField T="int" Label="SLoc Bảo Hành" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
 				</MudItem>
 				<MudItem xs="12" sm="6" md="2">
-					<MudSelect T="string" MultiSelection="true" Variant="Variant.Outlined" @bind-Value="value" @bind-SelectedValues="options" Label="Nguồn Gốc Lỗi" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					<MudSelect T="MnNguonGocLoiBaoHanhModel" @bind-Value="@mnNguonGocLoiBaoHanhModel" Label="Nguồn Gốc Lỗi" Variant="Variant.Outlined" ToStringFunc="@converterNguonGocLoiBH" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+						@if (listLoaiChungTu != null)
+						{
+							@foreach (var gl in listNguonGocLoi)
+							{
+								<MudSelectItem Value="@gl">@gl.DienGiai</MudSelectItem>
+							}
+						}
 					</MudSelect>
 				</MudItem>
 				<MudItem xs="12" sm="6" md="1">
-					<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Thêm</MudButton>
+					<MudButton Style="margin-top:5px;" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Thêm</MudButton>
 				</MudItem>
 			</MudGrid>
 		</MudCardContent>
 	</MudCard>
-	<MudPaper Class="mx-auto pa-2" Style="margin-top:2px; height:50px; width: 470px;">
+	<MudPaper Class="mx-auto pa-2" Style="margin-top:2px; height:50px; width: 485px;">
 		<MudButtonGroup Size="Size.Small" DisableElevation="false" Style="margin-bottom: 20%;" Color="Color.Primary" Variant="Variant.Filled">
-			<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Them</MudButton>
-			<MudButton Disabled="@disableUpdate" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sua</MudButton>
-			<MudButton Disabled="@disableFind" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tim</MudButton>
-			<MudButton Disabled="@disableDelete" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Xoa</MudButton>
-			<MudButton Disabled="@disableUndo" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Tro lai</MudButton>
-			<MudButton Disabled="@disableSave" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Luu</MudButton>
+			<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
+			<MudButton Disabled="@disableUpdate" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
+			<MudButton Disabled="@disableFind" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tìm</MudButton>
+			<MudButton Disabled="@disableDelete" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error">Xóa</MudButton>
+			<MudButton Disabled="@disableUndo" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Trở lại</MudButton>
+			<MudButton Disabled="@disableSave" Variant="Variant.Filled" Size="Size.Small" OnClick="@Luu" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
 		</MudButtonGroup>
 	</MudPaper>
 
@@ -227,37 +261,83 @@
 	private ListInformationChiNhanh listChiNhanh { get; set; } = new ListInformationChiNhanh();
 	private IEnumerable<InformationChiNhanhModel> listInfChiNhanh { get; set; }
 	private InformationChiNhanhModel infChiNhanhModel { get; set; } = new InformationChiNhanhModel();
+	//tram bao hanh
+	private ListInformationChiNhanh listTramBaoHanh { get; set; } = new ListInformationChiNhanh();
+	private IEnumerable<InformationChiNhanhModel> listInfTramBaoHanh { get; set; }
+	private InformationChiNhanhModel infTramBaoHanhModel { get; set; } = new InformationChiNhanhModel();
+
 	//loai hang bao hanh
 	private IEnumerable<MnLoaiHangBhModel> listLoaiHangBH { get; set; }
 	private MnLoaiHangBhModel mnLoaiHangBhModel { get; set; } = new MnLoaiHangBhModel();
+	//loai chung tu
+	private IEnumerable<LoaiChungTuModel> listLoaiChungTu { get; set; }
+	private LoaiChungTuModel loaiChungTuModel { get; set; } = new LoaiChungTuModel();
+	// nguon goc loi bao hanh
+	private IEnumerable<MnNguonGocLoiBaoHanhModel> listNguonGocLoi { get; set; }
+	private MnNguonGocLoiBaoHanhModel mnNguonGocLoiBaoHanhModel { get; set; } = new MnNguonGocLoiBaoHanhModel();
+	// loai dich vu
+	private IEnumerable<MnLoaiDichVuBhModel> listLoaiDichVu { get; set; }
+	private MnLoaiDichVuBhModel mnLoaiDichVuBhModel { get; set; } = new MnLoaiDichVuBhModel();
+
+
 	protected override async Task OnInitializedAsync()
 	{
-		listChiNhanh = await ChiNhanhService.GetAllChiNhanh();
+		listLoaiHangBH = (await MNService.ListLoaiBaoHanh()).ToList();
+		if (listLoaiHangBH.Count() == 0)
+		{
+			Console.WriteLine("Bao hang null");
+		}
+		listChiNhanh = await MNService.GetAllChiNhanh();
 		if (listChiNhanh.Error == 0)
 		{
-			listInfChiNhanh = listChiNhanh.Data;
+			listInfChiNhanh = listChiNhanh.Data.OrderBy(x=>x.TenChiNhanh);
 		}
 		else
 		{
 			snackBar.Add("Khong lay dc du lieu ", Severity.Warning);
 		}
-		listLoaiHangBH = (await LoaiHangBHService.ListLoaiBaoHanh()).ToList();
-		if(listLoaiHangBH.Count() == 0)
+		listLoaiChungTu = (await MNService.ListChungTu()).ToList();
+		listTramBaoHanh = await MNService.ListTramBaoHanh();
+		if(listTramBaoHanh.Error == 0)
 		{
-			Console.WriteLine("Bao hang null");
+			listInfTramBaoHanh = listTramBaoHanh.Data.OrderBy(x => x.TenChiNhanh);
+		}
+		listNguonGocLoi = (await MNService.ListNguonGocBaoHanh()).ToList();
+		listLoaiDichVu = (await MNService.ListLoaiDichVu()).ToList();
+	}
+	private void Luu()
+	{
+		if (infChiNhanhModel == null)
+		{
+			Console.WriteLine("Model chi nhanh null ");
+		}
+		else
+		{
+			Console.WriteLine("Ban dang chon chi nhanh " + infChiNhanhModel.TenChiNhanh + " Ma kho "+infChiNhanhModel.MaChiNhanh);
 		}
 	}
 	//convert
 	Func<InformationChiNhanhModel, string> converterChiNhanh = p => p?.TenChiNhanh;
+	Func<InformationChiNhanhModel, string> converterTramBaoHanh = p => p?.TenChiNhanh;
 	Func<MnLoaiHangBhModel, string> converterLoaiHangBH = p => p?.TenLoaiHang;
+	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.MoTa;
+	Func<MnNguonGocLoiBaoHanhModel, string> converterNguonGocLoiBH = p => p?.DienGiai;
+	Func<MnLoaiDichVuBhModel, string> converterLoaiDichVu = p => p?.TenLoaiDichVu;
 	//search chi  nhanh
 	private async Task<IEnumerable<InformationChiNhanhModel>> SearchChiNhanh(string value)
-
 	{
 		await Task.Delay(5);
 		if(string.IsNullOrEmpty(value))
 			return listInfChiNhanh;
-		return listInfChiNhanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase)||x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+		return listInfChiNhanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase) || x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
 	}
+	private async Task<IEnumerable<InformationChiNhanhModel>> SearchTramBaoHanh(string value)
+	{
+		await Task.Delay(5);
+		if(string.IsNullOrEmpty(value))
+			return listInfTramBaoHanh;
+		return listInfTramBaoHanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase)||x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+	}
+
 }
 
