@@ -18,5 +18,6 @@ namespace DuyetPhieu.Client.Service.IService
 		Task<IEnumerable<MnLoaiHangBhModel>> ListLoaiBaoHanh();
 		Task<IEnumerable<MnNguonGocLoiBaoHanhModel>> ListNguonGocBaoHanh();
 		Task<IEnumerable<MnLoaiDichVuBhModel>> ListLoaiDichVu();
+		Task<IEnumerable<MnTinhTrangBhModel>> ListTinhTrangBaoHanh();
 	}
 }

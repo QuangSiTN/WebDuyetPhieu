@@ -1,4 +1,5 @@
 ﻿using DuyetPhieu.Shared;
+using DuyetPhieu.Shared.Model;
 using System.Threading.Tasks;
 
 namespace DuyetPhieu.Client.Service.IService
@@ -7,6 +8,6 @@ namespace DuyetPhieu.Client.Service.IService
 	{
 		Task<ResultModel> Login(LoginModel model);
 		Task<ResultModel> Logout(string username);
-		Task<string> GiaiNen(string password);
+		Task<ListThongTinNhanVien> ListThongTinNhanVien();
 	}
 }

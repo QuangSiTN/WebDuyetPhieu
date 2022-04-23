@@ -1,6 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using DuyetPhieu.Client.Service.IService;
 using DuyetPhieu.Shared;
+using DuyetPhieu.Shared.Model;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Net.Http;
@@ -44,9 +45,9 @@ namespace DuyetPhieu.Client.Service
 			_httpClient.DefaultRequestHeaders.Authorization = null;
 			return new ResultModel { Successful = true,Token=null };
 		}
-		public async Task<string> GiaiNen(string password)
+		public async Task<ListThongTinNhanVien> ListThongTinNhanVien()
 		{
-			return await _httpClient.GetFromJsonAsync<string>($"api/user/giainen?password=" + password);
+			return await _httpClient.GetFromJsonAsync<ListThongTinNhanVien>($"api/user/listthongtinnhanvien");
 		}
 	}
 }

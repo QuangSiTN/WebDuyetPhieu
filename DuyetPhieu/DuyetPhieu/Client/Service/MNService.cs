@@ -44,5 +44,10 @@ namespace DuyetPhieu.Client.Service
 		{
 			return await _httpClient.GetFromJsonAsync<IEnumerable<MnLoaiDichVuBhModel>>($"api/mn/listloaidichvu");
 		}
+
+		public async Task<IEnumerable<MnTinhTrangBhModel>> ListTinhTrangBaoHanh()
+		{
+			return await _httpClient.GetFromJsonAsync<IEnumerable<MnTinhTrangBhModel>>($"api/mn/listtinhtrangbaohanh");
+		}
 	}
 }

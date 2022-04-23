@@ -154,7 +154,7 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 217 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\Index.razor"
+#line 231 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\Index.razor"
       
 	private TestModel testModel;
 	Justify _justify = Justify.Center;
@@ -219,6 +219,9 @@ using MudBlazor;
 	// loai dich vu
 	private IEnumerable<MnLoaiDichVuBhModel> listLoaiDichVu { get; set; }
 	private MnLoaiDichVuBhModel mnLoaiDichVuBhModel { get; set; } = new MnLoaiDichVuBhModel();
+	// tinh trang bao hanh
+	private IEnumerable<MnTinhTrangBhModel> listTinhTrangBH { get; set; }
+	private MnTinhTrangBhModel mnTinhTrangBhModel { get; set; } = new MnTinhTrangBhModel();
 
 
 	protected override async Task OnInitializedAsync()
@@ -245,6 +248,7 @@ using MudBlazor;
 		}
 		listNguonGocLoi = (await MNService.ListNguonGocBaoHanh()).ToList();
 		listLoaiDichVu = (await MNService.ListLoaiDichVu()).ToList();
+		listTinhTrangBH = (await MNService.ListTinhTrangBaoHanh()).ToList();
 	}
 	private void Luu()
 	{
@@ -264,6 +268,7 @@ using MudBlazor;
 	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.MoTa;
 	Func<MnNguonGocLoiBaoHanhModel, string> converterNguonGocLoiBH = p => p?.DienGiai;
 	Func<MnLoaiDichVuBhModel, string> converterLoaiDichVu = p => p?.TenLoaiDichVu;
+	Func<MnTinhTrangBhModel, string> converterTinhTrangBH = p => p?.TinhTrang;
 	//search chi  nhanh
 	private async Task<IEnumerable<InformationChiNhanhModel>> SearchChiNhanh(string value)
 	{

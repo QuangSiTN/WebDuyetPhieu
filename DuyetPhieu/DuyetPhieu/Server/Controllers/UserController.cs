@@ -1,7 +1,10 @@
 ﻿using DuyetPhieu.Server.CodeMD5;
 using DuyetPhieu.Server.Data;
 using DuyetPhieu.Shared;
+using DuyetPhieu.Shared.Model;
+using DuyetPhieu.Shared.Model.Details;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -51,11 +54,23 @@ namespace DuyetPhieu.Server.Controllers
 			return Ok(new ResultModel { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) });
 		}
 		[HttpGet]
-		public IActionResult GiaiNen(string password)
+		public async Task<IActionResult> ListThongTinNhanVien()
 		{
-			CryptMD5 cryptMD5 = new CryptMD5();
-			string passa = cryptMD5.Decrypt(password, "cf", true);
-			return Ok(passa);
+			var list = await (from nv in _deleiveryDBContext.NhanViens
+							  where nv.Active == true && nv.DepartMentId != null && nv.StatusDichVu == 0
+							  select new ThongTinNhanVienModel
+							  {
+								  MaNhanVien = nv.MaNhanVien,
+								  TenNhanVien = nv.TenNhanVien,
+								  MaChiNhanh = nv.MaChiNhanh,
+								  DienThoai = nv.DienThoai,
+								  DepartMentId = nv.DepartMentId,
+								  DepartMentName = nv.DepartMentName,
+								  DiaChi = nv.DiaChi,
+								  MaBaCodeId = nv.MaBaCodeId
+							  }).ToListAsync();
+			if (list.Count() == 0) return Ok(new ListThongTinNhanVien { Error = 0, Message = "Khong co du lieu ", Data = null });
+			return Ok(new ListThongTinNhanVien { Error = 1, Message = "Lay du lieu thanh cong", Data = list });
 		}
 	}
 	

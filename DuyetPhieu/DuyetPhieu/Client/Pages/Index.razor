@@ -30,7 +30,14 @@
 					<MudTextField T="string" Label="Số Phiếu Biên Nhận" Required="true" Disabled="@disabletxtSbn" Variant="Variant.Outlined" Margin="Margin.Dense" />
 				</MudItem>
 				<MudItem xs="12" sm="6" md="3">
-					<MudSelect T="string" MultiSelection="true" @bind-Value="value" @bind-SelectedValues="options" Label="Chọn loại chứng từ" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					<MudSelect T="LoaiChungTuModel" @bind-Value="@loaiChungTuModel" Label="Chọn loại chứng từ" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTu" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+						@if (listLoaiChungTu != null)
+						{
+							@foreach (var ct in listLoaiChungTu)
+							{
+								<MudSelectItem Value="@ct">@ct.MoTa</MudSelectItem>
+							}
+						}
 					</MudSelect>
 				</MudItem>
 				<MudItem xs="12" sm="6" md="3">
@@ -58,7 +65,14 @@
 					<MudDatePicker Label="Ngày Hẹn Nhận " Editable="true" @bind-Date="date" @bind-Value="strDate" Variant="Variant.Outlined" Placeholder="Chọn ngày" Margin="Margin.Dense" />
 				</MudItem>
 				<MudItem xs="12" sm="6" md="2">
-					<MudSelect T="string" MultiSelection="true" Variant="Variant.Outlined" @bind-Value="value" @bind-SelectedValues="options" Label="Nhận từ " AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					<MudSelect T="MnTinhTrangBhModel" @bind-Value="@mnTinhTrangBhModel" ToStringFunc="@converterTinhTrangBH" Label="Nhận từ "  Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+						@if (listTinhTrangBH != null)
+						{
+							@foreach (var bh in listTinhTrangBH)
+							{
+								<MudSelectItem Value="@bh">@bh.TinhTrang</MudSelectItem>
+							}
+						}
 					</MudSelect>
 				</MudItem>
 				<MudItem xs="12" sm="6" md="2">
@@ -278,6 +292,9 @@
 	// loai dich vu
 	private IEnumerable<MnLoaiDichVuBhModel> listLoaiDichVu { get; set; }
 	private MnLoaiDichVuBhModel mnLoaiDichVuBhModel { get; set; } = new MnLoaiDichVuBhModel();
+	// tinh trang bao hanh
+	private IEnumerable<MnTinhTrangBhModel> listTinhTrangBH { get; set; }
+	private MnTinhTrangBhModel mnTinhTrangBhModel { get; set; } = new MnTinhTrangBhModel();
 
 
 	protected override async Task OnInitializedAsync()
@@ -304,6 +321,7 @@
 		}
 		listNguonGocLoi = (await MNService.ListNguonGocBaoHanh()).ToList();
 		listLoaiDichVu = (await MNService.ListLoaiDichVu()).ToList();
+		listTinhTrangBH = (await MNService.ListTinhTrangBaoHanh()).ToList();
 	}
 	private void Luu()
 	{
@@ -323,6 +341,7 @@
 	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.MoTa;
 	Func<MnNguonGocLoiBaoHanhModel, string> converterNguonGocLoiBH = p => p?.DienGiai;
 	Func<MnLoaiDichVuBhModel, string> converterLoaiDichVu = p => p?.TenLoaiDichVu;
+	Func<MnTinhTrangBhModel, string> converterTinhTrangBH = p => p?.TinhTrang;
 	//search chi  nhanh
 	private async Task<IEnumerable<InformationChiNhanhModel>> SearchChiNhanh(string value)
 	{

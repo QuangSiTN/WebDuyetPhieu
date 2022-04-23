@@ -130,5 +130,19 @@ namespace DuyetPhieu.Server.Controllers
 							  }).ToListAsync();
 			return Ok(list);
 		}
+		//MnTinhTrangBhModel
+		[HttpGet]
+		public async Task<IActionResult> ListTinhTrangBaoHanh()
+		{
+			var list = await (from bh in _deleiveryDBContext.MnTinhTrangBhs
+							  where bh.Active == true
+							  select new MnTinhTrangBhModel
+							  {
+								  TinhTrangId = bh.TinhTrangId,
+								  TinhTrang = bh.TinhTrang,
+								  Active = Convert.ToInt32(bh.Active)
+							  }).ToListAsync();
+			return Ok(list);
+		}
 	}
 }
