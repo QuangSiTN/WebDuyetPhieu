@@ -23,16 +23,11 @@ namespace DuyetPhieu.Server.Controllers
 		[HttpGet]
 		public async Task<IActionResult> ListChungTu()
 		{
-			var list = await (from ct in _deleiveryDBContext.EmsLctxetduyets
-							  where ct.Levels == 3
+			var list = await (from ct in _deleiveryDBContext.EmsLoaiPhieus
 							  select new LoaiChungTuModel
 							  {
-								  MaXetDuyet = ct.MaXetDuyet,
-								  LoaiChungTu = ct.LoaiChungTu,
-								  Levels = Convert.ToInt32(ct.Levels),
-								  MoTa = ct.MoTa,
-								  NgayTao = Convert.ToString(ct.NgayTao),
-								  NguoiTao = ct.NguoiTao
+								  SoChungTu = ct.SoChungTu,
+								  LoaiPhieu = ct.LoaiPhieu
 							  }).ToListAsync();
 			return Ok(list);
 		}
@@ -59,6 +54,16 @@ namespace DuyetPhieu.Server.Controllers
 							  }).ToListAsync();
 			if (list.Count() == 0) return Ok(new ListInformationChiNhanh { Error = 1, Message = "Khong co du lieu", Data = null });
 			return Ok(new ListInformationChiNhanh { Error = 0, Message = "Lay du lieu thanh cong ", Data = list });
+		}
+		//get ten chi nhanh theo user name
+		[HttpGet]
+		public IActionResult GetNameSiteByUserName(string username)
+		{
+			var user = _deleiveryDBContext.TblUsers.Where(x => x.LockedUser == false && x.TenDangNhap == username).FirstOrDefault();
+			if (user == null) return Ok(new ChiNhanhLoginModel { TenChiNhanh = "Không có chi nhánh ", MaChiNhanh = "Không tồn tại" });
+			var site = _deleiveryDBContext.ChiNhanhs.Where(x => x.MaChiNhanh == user.MaChiNhanh).FirstOrDefault();
+			if (site == null) return Ok(new ChiNhanhLoginModel { TenChiNhanh = " Chi Nhanh Không tồn tại ", MaChiNhanh = "Không tồn tại" });
+			return Ok(new ChiNhanhLoginModel { TenChiNhanh = site.TenChiNhanh, MaChiNhanh = site.MaChiNhanh});
 		}
 		[HttpGet]
 		public async Task<IActionResult> ListTramBaoHanh()
@@ -103,15 +108,27 @@ namespace DuyetPhieu.Server.Controllers
 		}
 		//MN_NguonGocLoiBaoHanh
 		[HttpGet]
-		public async Task<IActionResult> ListNguonGocBaoHanh()
+		public async Task<IActionResult> ListNguonGocLoi()
 		{
-			var list = await (from bh in _deleiveryDBContext.MnNguonGocLoiBaoHanhs
-							  where bh.Active == true
-							  select new MnNguonGocLoiBaoHanhModel
+			var list = await (from bh in _deleiveryDBContext.EmsNguyenNhanLois
+							  select new MnNguonGocLoiModel
 							  {
-								  NguonGocLoiId = bh.NguonGocLoiId,
-								  DienGiai = bh.DienGiai,
-								  Active = Convert.ToInt32(bh.Active)
+								  SoChungTu = bh.SoChungTu,
+								  LoaiLoi = bh.LoaiLoi
+							  }).ToListAsync();
+			return Ok(list);
+		}
+		//Hinmh thuc chinh sua
+		[HttpGet]
+		public async Task<IActionResult> ListLCTXETDUYET()
+		{
+			var list = await (from xd in _deleiveryDBContext.EmsLctxetduyets
+							  where xd.Levels == 3
+							  select new LCTXETDUYETModel
+							  {
+								  LoaiChungTu  = xd.LoaiChungTu,
+								  MaXetDuyet = xd.MaXetDuyet,
+								  MoTa = xd.MoTa
 							  }).ToListAsync();
 			return Ok(list);
 		}

@@ -126,20 +126,34 @@ using DuyetPhieu.Shared;
 #nullable disable
 #nullable restore
 #line 17 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
-using DuyetPhieu.Shared.Model;
+using DuyetPhieu.Shared.ThongTinTiepNhan;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 18 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
-using DuyetPhieu.Shared.Model.Details;
+using DuyetPhieu.Shared.ThongTinTiepNhan.Details;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 19 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
+using DuyetPhieu.Shared.Model;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 20 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
+using DuyetPhieu.Shared.Model.Details;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 21 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
 using MudBlazor;
 
 #line default
@@ -158,6 +172,14 @@ using MudBlazor;
       
 	private TestModel testModel;
 	Justify _justify = Justify.Center;
+	//thong tin  search
+	private ThongTinTiepNhanSearch searchModel { get; set; } = new ThongTinTiepNhanSearch();
+	private DateTime? dateFrom = DateTime.Today;
+	private DateTime ndFrom;
+	private string strDateFrom;
+	private DateTime? dateTo = DateTime.Today;
+	private DateTime ndTo;
+	private string strDateTo;
 	//disable button
 	private bool disableAdd = false;
 	private bool disableUpdate = false;
@@ -214,8 +236,8 @@ using MudBlazor;
 	private IEnumerable<LoaiChungTuModel> listLoaiChungTu { get; set; }
 	private LoaiChungTuModel loaiChungTuModel { get; set; } = new LoaiChungTuModel();
 	// nguon goc loi bao hanh
-	private IEnumerable<MnNguonGocLoiBaoHanhModel> listNguonGocLoi { get; set; }
-	private MnNguonGocLoiBaoHanhModel mnNguonGocLoiBaoHanhModel { get; set; } = new MnNguonGocLoiBaoHanhModel();
+	private IEnumerable<MnNguonGocLoiModel> listNguonGocLoi { get; set; }
+	private MnNguonGocLoiModel mnNguonGocLoiBaoHanhModel { get; set; } = new MnNguonGocLoiModel();
 	// loai dich vu
 	private IEnumerable<MnLoaiDichVuBhModel> listLoaiDichVu { get; set; }
 	private MnLoaiDichVuBhModel mnLoaiDichVuBhModel { get; set; } = new MnLoaiDichVuBhModel();
@@ -227,18 +249,10 @@ using MudBlazor;
 	protected override async Task OnInitializedAsync()
 	{
 		listLoaiHangBH = (await MNService.ListLoaiBaoHanh()).ToList();
-		if (listLoaiHangBH.Count() == 0)
-		{
-			Console.WriteLine("Bao hang null");
-		}
 		listChiNhanh = await MNService.GetAllChiNhanh();
 		if (listChiNhanh.Error == 0)
 		{
 			listInfChiNhanh = listChiNhanh.Data.OrderBy(x=>x.TenChiNhanh);
-		}
-		else
-		{
-			snackBar.Add("Khong lay dc du lieu ", Severity.Warning);
 		}
 		listLoaiChungTu = (await MNService.ListChungTu()).ToList();
 		listTramBaoHanh = await MNService.ListTramBaoHanh();
@@ -246,7 +260,7 @@ using MudBlazor;
 		{
 			listInfTramBaoHanh = listTramBaoHanh.Data.OrderBy(x => x.TenChiNhanh);
 		}
-		listNguonGocLoi = (await MNService.ListNguonGocBaoHanh()).ToList();
+		listNguonGocLoi = (await MNService.ListNguonGocLoi()).ToList();
 		listLoaiDichVu = (await MNService.ListLoaiDichVu()).ToList();
 		listTinhTrangBH = (await MNService.ListTinhTrangBaoHanh()).ToList();
 	}
@@ -265,8 +279,8 @@ using MudBlazor;
 	Func<InformationChiNhanhModel, string> converterChiNhanh = p => p?.TenChiNhanh;
 	Func<InformationChiNhanhModel, string> converterTramBaoHanh = p => p?.TenChiNhanh;
 	Func<MnLoaiHangBhModel, string> converterLoaiHangBH = p => p?.TenLoaiHang;
-	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.MoTa;
-	Func<MnNguonGocLoiBaoHanhModel, string> converterNguonGocLoiBH = p => p?.DienGiai;
+	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
+	Func<MnNguonGocLoiModel, string> converterNguonGocLoiBH = p => p?.LoaiLoi;
 	Func<MnLoaiDichVuBhModel, string> converterLoaiDichVu = p => p?.TenLoaiDichVu;
 	Func<MnTinhTrangBhModel, string> converterTinhTrangBH = p => p?.TinhTrang;
 	//search chi  nhanh
@@ -284,7 +298,18 @@ using MudBlazor;
 			return listInfTramBaoHanh;
 		return listInfTramBaoHanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase)||x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
 	}
+	//xu ly button search
+	private async Task SearchThongTinPhieuBienNhan()
+	{
+		ndFrom = Convert.ToDateTime(dateFrom);
+		strDateFrom = ndFrom.ToString("MM/dd/yyyy");
+		ndTo = Convert.ToDateTime(dateTo);
+		strDateTo = ndTo.ToString("MM/dd/yyyy");
+		Console.WriteLine("Du lieu ra : So phieu " + searchModel.SoPhieuBienNhan);
+		Console.WriteLine("Tu ngay " + strDateFrom);
+		Console.WriteLine("Den ngay : " + strDateTo);
 
+	}
 
 #line default
 #line hidden

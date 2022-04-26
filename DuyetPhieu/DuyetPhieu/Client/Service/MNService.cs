@@ -35,9 +35,9 @@ namespace DuyetPhieu.Client.Service
 			return await _httpClient.GetFromJsonAsync<IEnumerable<MnLoaiHangBhModel>>($"api/mn/listloaibaohanh");
 		}
 
-		public async Task<IEnumerable<MnNguonGocLoiBaoHanhModel>> ListNguonGocBaoHanh()
+		public async Task<IEnumerable<MnNguonGocLoiModel>> ListNguonGocLoi()
 		{
-			return await _httpClient.GetFromJsonAsync<IEnumerable<MnNguonGocLoiBaoHanhModel>>($"api/mn/listnguongocbaohanh");
+			return await _httpClient.GetFromJsonAsync<IEnumerable<MnNguonGocLoiModel>>($"api/mn/listnguongocloi");
 		}
 
 		public async Task<IEnumerable<MnLoaiDichVuBhModel>> ListLoaiDichVu()
@@ -48,6 +48,16 @@ namespace DuyetPhieu.Client.Service
 		public async Task<IEnumerable<MnTinhTrangBhModel>> ListTinhTrangBaoHanh()
 		{
 			return await _httpClient.GetFromJsonAsync<IEnumerable<MnTinhTrangBhModel>>($"api/mn/listtinhtrangbaohanh");
+		}
+
+		public async Task<ChiNhanhLoginModel> GetNameSiteByUserName(string username)
+		{
+			return await _httpClient.GetFromJsonAsync<ChiNhanhLoginModel>($"api/mn/getnamesitebyusername?username="+username);
+		}
+
+		public async Task<IEnumerable<LCTXETDUYETModel>> ListLCTXETDUYET()
+		{
+			return await _httpClient.GetFromJsonAsync<IEnumerable<LCTXETDUYETModel>>($"api/mn/listlctxetduyet");
 		}
 	}
 }

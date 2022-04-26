@@ -49,5 +49,10 @@ namespace DuyetPhieu.Client.Service
 		{
 			return await _httpClient.GetFromJsonAsync<ListThongTinNhanVien>($"api/user/listthongtinnhanvien");
 		}
+
+		public  async Task<string> GetDecrypt()
+		{
+			return await _httpClient.GetFromJsonAsync<string>($"api/user/getdecrypt");
+		}
 	}
 }

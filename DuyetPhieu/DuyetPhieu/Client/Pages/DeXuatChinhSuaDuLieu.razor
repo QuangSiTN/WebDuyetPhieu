@@ -1,0 +1,152 @@
+﻿@page "/dexuatchinhsuadulieu"
+@inject IMNService MNService
+@inject ISnackbar Snackbar
+<MudCard Style="margin:10px 17% 10px 17%;">
+	<MudCardHeader Style="background-color: #EEEEEE;">
+		<CardHeaderContent>
+			<MudText Style="background-color: #EEEEEE; font-family: 'Times New Roman', Times, serif;" Typo="Typo.h5"><b>Đề Xuất Chỉnh Sửa Dữ Liệu </b></MudText>
+		</CardHeaderContent>
+	</MudCardHeader>
+	<MudCardContent>
+		<MudGrid>
+			<MudItem xs="12" sm="6" md="6">
+				<MudTextField T="string" Label="Số Phiếu Biên Nhận" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+			</MudItem>
+			<MudItem xs="12" sm="6" md="6">
+				<MudSelect T="LoaiChungTuModel" @bind-Value="@loaiChungTuModel" Label="Loại chứng từ" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTu" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					@if (listLoaiChungTu != null)
+					{
+						@foreach (var ct in listLoaiChungTu)
+						{
+							<MudSelectItem Value="@ct">@ct.LoaiPhieu</MudSelectItem>
+						}
+					}
+				</MudSelect>
+			</MudItem>
+			<MudItem xs="12" sm="6" md="6">
+				<MudTextField T="string" Label="Chứng từ liên quan" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+			</MudItem>
+			<MudItem xs="12" sm="6" md="3">
+				<InputFile id="fileInput" OnChange="UploadFiles" hidden multiple accept=".jpg, .jpeg, .png" />
+				<MudButton HtmlTag="label" Size="Size.Small" Style="margin-top:5px;"
+							Variant="Variant.Filled"
+							Color="Color.Primary"
+							StartIcon="@Icons.Filled.Image"
+							for="fileInput">
+					Đính kèm ảnh
+				</MudButton>
+			</MudItem>
+			<MudItem xs="12" sm="6" md="3">
+				@if (files != null)
+				{
+					<p>
+						@foreach (var file in files)
+						{
+							@file.Name
+						}
+					</p>
+				}
+			</MudItem>
+			<MudItem xs="12" sm="6" md="6">
+				<MudSelect T="MnNguonGocLoiModel" @bind-Value="@mnNguonGocLoiBaoHanhModel" Label="Nguồn Gốc Lỗi" Variant="Variant.Outlined" ToStringFunc="@converterNguonGocLoiBH" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					@if (listLoaiChungTu != null)
+					{
+						@foreach (var gl in listNguonGocLoi)
+						{
+							<MudSelectItem Value="@gl">@gl.LoaiLoi</MudSelectItem>
+						}
+					}
+				</MudSelect>
+			</MudItem>
+			<MudItem xs="12" sm="6" md="6">
+				<MudSelect T="LCTXETDUYETModel" @bind-Value="@lctXETDUYETModel" Label="Hình Thức Chỉnh Sửa" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTuXD" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+					@if (listChungTuXD != null)
+					{
+						@foreach (var dv in listChungTuXD)
+						{
+							<MudSelectItem Value="@dv">@dv.MoTa</MudSelectItem>
+						}
+					}
+				</MudSelect>
+			</MudItem>
+			<MudItem xs="12" sm="6" md="6">
+				<MudTextField T="string" Label="Nội dung" Required="true" Variant="Variant.Outlined" Lines="2" Margin="Margin.Dense" />
+			</MudItem>
+		</MudGrid>
+	</MudCardContent>
+</MudCard>
+<MudPaper  Square="true" Outlined="true" Class="mx-auto pa-2" Style="height: 50px;width: 620px;">
+	<MudButtonGroup   Size="Size.Small" DisableElevation="false" Style="margin-bottom: 20%;" Color="Color.Info" Variant="Variant.Filled">
+		<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
+		<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
+		<MudButton Disabled="@disableDelete" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Info">Xóa</MudButton>
+		<MudButton Disabled="@disableUpdate" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
+		<MudButton Disabled="@disableSave" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
+		<MudButton Disabled="@disableFind" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tìm</MudButton>
+		<MudButton Disabled="@disableUndo" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Trở lại</MudButton>
+	</MudButtonGroup>
+</MudPaper>
+@code {
+	//button
+	//disable button
+	private bool disableAdd = false;
+	private bool disableUpdate = false;
+	private bool disableDelete = false;
+	private bool disableSave = true;
+	private bool disableUndo = true;
+	private bool disableFind = false;
+	//xu ly button
+	private void UpdateStateButtonAdd()
+	{
+		disableAdd = true;
+		disableUpdate = true;
+		disableDelete = true;
+		disableFind = true;
+		disableSave = false;
+		disableUndo = false;
+		
+	}
+	private void UpdateStateButtonUndo()
+	{
+		disableAdd = false;
+		disableUpdate = false;
+		disableDelete = false;
+		disableFind = false;
+		disableSave = true;
+		disableUndo = true;
+		
+	}
+	//loai chung tu
+	private IEnumerable<LoaiChungTuModel> listLoaiChungTu { get; set; }
+	private LoaiChungTuModel loaiChungTuModel { get; set; } = new LoaiChungTuModel();
+	// nguon goc loi bao hanh
+	private IEnumerable<MnNguonGocLoiModel> listNguonGocLoi { get; set; }
+	private MnNguonGocLoiModel mnNguonGocLoiBaoHanhModel { get; set; } = new MnNguonGocLoiModel();
+
+	// loai chung tu zet duyet
+	private IEnumerable<LCTXETDUYETModel> listChungTuXD { get; set; }
+	private LCTXETDUYETModel lctXETDUYETModel { get; set; } = new LCTXETDUYETModel();
+
+	//Convert
+	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
+	Func<MnNguonGocLoiModel, string> converterNguonGocLoiBH = p => p?.LoaiLoi;
+	Func<LCTXETDUYETModel, string> converterLoaiChungTuXD = p => p?.MoTa;
+	//
+	protected override async Task OnInitializedAsync()
+	{
+
+		listLoaiChungTu = (await MNService.ListChungTu()).ToList();
+		listNguonGocLoi = (await MNService.ListNguonGocLoi()).ToList();
+		listChungTuXD = (await MNService.ListLCTXETDUYET()).ToList();
+	}
+	//xu ly file
+	IList<IBrowserFile> files = new List<IBrowserFile>();
+	private void UploadFiles(InputFileChangeEventArgs e)
+	{
+		foreach (var file in e.GetMultipleFiles())
+		{
+			files.Add(file);
+		}
+		//TODO upload the files to the server
+	}
+}

@@ -1,36 +1,41 @@
-﻿<MudItem>
-	<image src="image/logo-dmcl.png" style="width:240px;height:65px;"></image>
+﻿<MudItem Style="background-color: #F9E5A4;height:63px;">
+	<image src="image/logo.png" style="margin-top:15px; background-color: #F9E5A4;"></image>
 </MudItem>
-<MudCard>
-	@*Style="background-color:#F9E5A4; "*@
-	<h4 style="text-align:center;">Duyệt chứng từ</h4>
+
+<MudCard Square="false">
+	<MudCardHeader Style=" background-color: #EEEEEE;">
+		<CardHeaderContent>
+			<MudText Style="background-color: #EEEEEE; text-align: center; font-size: 20px; font-family: 'Times New Roman', Times, serif;"><b>Duyệt chứng từ</b></MudText>
+		</CardHeaderContent>
+	</MudCardHeader>
 	<MudCardContent>
 		<MudGrid>
 			<MudItem xs="6" sm="12" Style="font-size: small; margin-left: 4px; margin-right: 4px;">
-
 				<MudForm>
 					<MudTextField T="string" Style="font-weight:400;" Label="Số phiếu" Variant="Variant.Outlined" Margin="Margin.Dense" Adornment="Adornment.End" />
 					<MudTextField T="string" Style="font-display:inherit;" Label="Loại phiếu" Variant="Variant.Outlined" Margin="Margin.Dense" Adornment="Adornment.End" />
 					<MudTextField T="string" Style="font-display:inherit;" Label="Ghi chú" Variant="Variant.Outlined" Lines="2" />
 				</MudForm>
 			</MudItem>
-			<MudItem xs="6" sm="12">
-				<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info">Xem</MudButton>
-				<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info">Duyệt</MudButton>
-				<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info">Hủy</MudButton>
-			</MudItem>
-			<MudItem Class="pt-1 pb-1 d-flex flex-1" xs="6" sm="12">
-				<MudButton Size="Size.Small" Variant="Variant.Filled" Color="Color.Info" FullWidth="true">Load Danh Sach</MudButton>
-			</MudItem>
 		</MudGrid>
 	</MudCardContent>
 </MudCard>
+<MudPaper>
+	<MudPaper Square="true" Outlined="true" Class="mx-auto pa-2" Style="margin-top:3px;">
+		<MudButton Size="Size.Small" Variant="Variant.Filled">Xem</MudButton>
+		<MudButton Size="Size.Small" Variant="Variant.Filled">Duyệt</MudButton>
+		<MudButton Size="Size.Small" Variant="Variant.Filled">Hủy</MudButton>
+	</MudPaper>
+	<MudPaper Class="mx-auto pa-2" Outlined="true" Square="true" Style="margin-top:3px;">
+		<MudButton Size="Size.Small" Variant="Variant.Filled" FullWidth="true">Load Danh Sach</MudButton>
+	</MudPaper>
+</MudPaper>
 <MudSimpleTable Hover="true" Dense="true" FixedHeader="true" Style="overflow-x: auto;height:300px;">
 	<thead>
 		<tr>
 			@foreach (var h in headings)
 			{
-				<th style="font-size:10px;font-style:initial;background-color:cornflowerblue;">@h</th>
+				<th style="font-size: 10px; font-style: initial;">@h</th>
 			}
 		</tr>
 	</thead>

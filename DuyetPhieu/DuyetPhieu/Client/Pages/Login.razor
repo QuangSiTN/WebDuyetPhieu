@@ -1,5 +1,6 @@
 ﻿@page "/login"
 @inject IUserService UserService
+@inject IMNService MNService
 @inject MudBlazor.ISnackbar snackBar
 @inject IDialogService DialogService
 @inject NavigationManager NavigationManager
@@ -12,17 +13,27 @@ else
 	<div style="max-width: 800px;position:sticky;padding-left:35%;margin-top:50px;">
 		<EditForm Model="@loginModel" OnValidSubmit="OnValidSubmit">
 			<DataAnnotationsValidator />
-			<MudCard Style="background-color: #F9E5A4;" Outlined="true">
-
+			<MudCard>
+				<MudCardHeader Style=" background-color: #EEEEEE;">
+					<CardHeaderContent>
+						<MudText Style="text-align: center; background-color: #EEEEEE; font-family: 'Times New Roman', Times, serif;" Typo="Typo.h5"> Đăng nhập </MudText>
+					</CardHeaderContent>
+				</MudCardHeader>
 				<MudCardContent>
-					<MudText Style="text-align:center;" Typo="Typo.h5"> Đăng nhập </MudText>
 					<MudForm @bind-IsValid="@success">
-						<MudTextField T="string" Label="Username" Required="true" Variant="Variant.Outlined"
-									  @bind-Value="loginModel.UserName" For="@(() => loginModel.UserName)" />
+						<MudTextField T="string" Label="Username" Immediate="true" @onkeypress="@GETSITE" Required="true" Variant="Variant.Outlined"
+										@bind-Value="loginModel.UserName" For="@(() => loginModel.UserName)" />
 						<MudTextField T="string" Label="Password" Variant="Variant.Outlined"
-									  @bind-Value="loginModel.Password" For="@(() => loginModel.Password)"
-									  InputType="InputType.Password"
-									  Required="true" />
+										@bind-Value="loginModel.Password" For="@(() => loginModel.Password)"
+										InputType="InputType.Password"
+										Required="true" />
+						<MudSelect T="ChiNhanhLoginModel" Style="margin-top:10px;" @bind-Value="@chiNhanhLoginModel" Variant="Variant.Outlined" Label=" Chi nhánh " ToStringFunc="@converterTenChiNhanh" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+							@if (chiNhanhLoginModel != null)
+							{
+								<MudSelectItem Value="@chiNhanhLoginModel">@chiNhanhLoginModel.TenChiNhanh</MudSelectItem>
+							}
+
+						</MudSelect>
 					</MudForm>
 				</MudCardContent>
 				<MudCardActions>
@@ -35,10 +46,13 @@ else
 @code {
 	bool loading = false;
 	bool success;
-	public LoginModel loginModel { get; set; } = new LoginModel();
-
+	private LoginModel loginModel { get; set; } = new LoginModel();
+	private ListChiNhanhLogin listChiNhanhLogin { get; set; } = new ListChiNhanhLogin();
+	private List<ChiNhanhLoginModel> listchiNhanhLoginModel { get; set; } = new List<ChiNhanhLoginModel>();
+	private ChiNhanhLoginModel chiNhanhLoginModel { get; set; }
 	private async Task OnValidSubmit()
 	{
+		loginModel.MaChiNhanh = chiNhanhLoginModel.MaChiNhanh;
 		if (loginModel.UserName == null)
 		{
 			snackBar.Add(" vui lòng nhập Username để đăng nhập ", Severity.Warning);
@@ -48,6 +62,7 @@ else
 			snackBar.Add(" vui lòng nhập Login để đăng nhập ", Severity.Warning);
 		}
 		else {
+			
 			loading = true;
 			var result = await UserService.Login(loginModel);
 			loading = false;
@@ -62,6 +77,27 @@ else
 				NavigationManager.NavigateTo("/login");
 			}
 		}
+	}
+	Func<ChiNhanhLoginModel, string> converterTenChiNhanh = p => p?.TenChiNhanh;
+	private async Task GETSITE(KeyboardEventArgs e)
+	{
 
+		if (e.Key == "Enter")
+		{
+			if(loginModel.UserName == null)
+			{
+				Console.WriteLine("Ten dang nhap khong co ");
+			}
+			else if (loginModel.UserName != null)
+			{
+				Console.WriteLine("Ten dang nhap " + loginModel.UserName);
+				chiNhanhLoginModel =await MNService.GetNameSiteByUserName(loginModel.UserName);
+			}
+			else
+			{
+				Console.WriteLine("Ten dang nhap khong co ");
+			}
+
+		}
 	}
 }

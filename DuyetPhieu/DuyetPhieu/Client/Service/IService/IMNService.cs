@@ -12,11 +12,14 @@ namespace DuyetPhieu.Client.Service.IService
 		//chi nhanh
 		Task<ListInformationChiNhanh> GetAllChiNhanh();
 		Task<ListInformationChiNhanh> ListTramBaoHanh();
+		Task<ChiNhanhLoginModel> GetNameSiteByUserName(string username);
 		//chung tu
 		Task<IEnumerable<LoaiChungTuModel>> ListChungTu();
+		//chung tu xet duyet
+		Task<IEnumerable<LCTXETDUYETModel>> ListLCTXETDUYET();
 		//Loai hang bao hanh
 		Task<IEnumerable<MnLoaiHangBhModel>> ListLoaiBaoHanh();
-		Task<IEnumerable<MnNguonGocLoiBaoHanhModel>> ListNguonGocBaoHanh();
+		Task<IEnumerable<MnNguonGocLoiModel>> ListNguonGocLoi();
 		Task<IEnumerable<MnLoaiDichVuBhModel>> ListLoaiDichVu();
 		Task<IEnumerable<MnTinhTrangBhModel>> ListTinhTrangBaoHanh();
 	}

@@ -83,6 +83,7 @@ namespace DuyetPhieu.Server
 				{
 					policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
 					policy.RequireClaim(ClaimTypes.NameIdentifier);
+					policy.RequireClaim(ClaimTypes.Name);
 				});
 			});
 			services.Configure<IdentityOptions>(options => {
@@ -124,7 +125,6 @@ namespace DuyetPhieu.Server
 			app.UseRouting();
 			app.UseAuthentication();
 			app.UseAuthorization();
-
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapRazorPages();

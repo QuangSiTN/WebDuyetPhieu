@@ -159,8 +159,8 @@ using MudBlazor;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/login")]
-    public partial class Login : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/dexuatchinhsuadulieu")]
+    public partial class DeXuatChinhSuaDuLieu : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -168,73 +168,76 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 46 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\Login.razor"
+#line 89 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeXuatChinhSuaDuLieu.razor"
        
-	bool loading = false;
-	bool success;
-	private LoginModel loginModel { get; set; } = new LoginModel();
-	private ListChiNhanhLogin listChiNhanhLogin { get; set; } = new ListChiNhanhLogin();
-	private List<ChiNhanhLoginModel> listchiNhanhLoginModel { get; set; } = new List<ChiNhanhLoginModel>();
-	private ChiNhanhLoginModel chiNhanhLoginModel { get; set; }
-	private async Task OnValidSubmit()
+	//button
+	//disable button
+	private bool disableAdd = false;
+	private bool disableUpdate = false;
+	private bool disableDelete = false;
+	private bool disableSave = true;
+	private bool disableUndo = true;
+	private bool disableFind = false;
+	//xu ly button
+	private void UpdateStateButtonAdd()
 	{
-		loginModel.MaChiNhanh = chiNhanhLoginModel.MaChiNhanh;
-		if (loginModel.UserName == null)
-		{
-			snackBar.Add(" vui lòng nhập Username để đăng nhập ", Severity.Warning);
-		}
-		else if (loginModel == null)
-		{
-			snackBar.Add(" vui lòng nhập Login để đăng nhập ", Severity.Warning);
-		}
-		else {
-			
-			loading = true;
-			var result = await UserService.Login(loginModel);
-			loading = false;
-			if (result.Successful)
-			{
-				snackBar.Add("Đăng nhập thành công ", Severity.Success);
-				NavigationManager.NavigateTo("/", true);
-			}
-			else
-			{
-				snackBar.Add(result.Errors.ToString(), Severity.Error);
-				NavigationManager.NavigateTo("/login");
-			}
-		}
+		disableAdd = true;
+		disableUpdate = true;
+		disableDelete = true;
+		disableFind = true;
+		disableSave = false;
+		disableUndo = false;
+		
 	}
-	Func<ChiNhanhLoginModel, string> converterTenChiNhanh = p => p?.TenChiNhanh;
-	private async Task GETSITE(KeyboardEventArgs e)
+	private void UpdateStateButtonUndo()
+	{
+		disableAdd = false;
+		disableUpdate = false;
+		disableDelete = false;
+		disableFind = false;
+		disableSave = true;
+		disableUndo = true;
+		
+	}
+	//loai chung tu
+	private IEnumerable<LoaiChungTuModel> listLoaiChungTu { get; set; }
+	private LoaiChungTuModel loaiChungTuModel { get; set; } = new LoaiChungTuModel();
+	// nguon goc loi bao hanh
+	private IEnumerable<MnNguonGocLoiModel> listNguonGocLoi { get; set; }
+	private MnNguonGocLoiModel mnNguonGocLoiBaoHanhModel { get; set; } = new MnNguonGocLoiModel();
+
+	// loai chung tu zet duyet
+	private IEnumerable<LCTXETDUYETModel> listChungTuXD { get; set; }
+	private LCTXETDUYETModel lctXETDUYETModel { get; set; } = new LCTXETDUYETModel();
+
+	//Convert
+	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
+	Func<MnNguonGocLoiModel, string> converterNguonGocLoiBH = p => p?.LoaiLoi;
+	Func<LCTXETDUYETModel, string> converterLoaiChungTuXD = p => p?.MoTa;
+	//
+	protected override async Task OnInitializedAsync()
 	{
 
-		if (e.Key == "Enter")
+		listLoaiChungTu = (await MNService.ListChungTu()).ToList();
+		listNguonGocLoi = (await MNService.ListNguonGocLoi()).ToList();
+		listChungTuXD = (await MNService.ListLCTXETDUYET()).ToList();
+	}
+	//xu ly file
+	IList<IBrowserFile> files = new List<IBrowserFile>();
+	private void UploadFiles(InputFileChangeEventArgs e)
+	{
+		foreach (var file in e.GetMultipleFiles())
 		{
-			if(loginModel.UserName == null)
-			{
-				Console.WriteLine("Ten dang nhap khong co ");
-			}
-			else if (loginModel.UserName != null)
-			{
-				Console.WriteLine("Ten dang nhap " + loginModel.UserName);
-				chiNhanhLoginModel =await MNService.GetNameSiteByUserName(loginModel.UserName);
-			}
-			else
-			{
-				Console.WriteLine("Ten dang nhap khong co ");
-			}
-
+			files.Add(file);
 		}
+		//TODO upload the files to the server
 	}
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDialogService DialogService { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private MudBlazor.ISnackbar snackBar { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ISnackbar Snackbar { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IMNService MNService { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IUserService UserService { get; set; }
     }
 }
 #pragma warning restore 1591

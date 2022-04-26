@@ -7,6 +7,10 @@
 @inject AuthenticationStateProvider auth
 <MudLayout>
 	<MudAppBar Style="background-color: #F9E5A4; ">
+		<MudMenu FullWidth ="true" Label="Chỉnh Sửa Dữ Liệu"  Style="text-transform:none" Variant="Variant.Text" Color="Color.Primary" ActivationEvent="@MouseEvent.MouseOver" OffsetY  AnchorOrigin="@Origin.TopCenter" TransformOrigin="@Origin.BottomCenter"  Size="Size.Medium">
+			<MudMenuItem>Đề Nghị Cấp Quyền</MudMenuItem>
+			<MudMenuItem Href="dexuatchinhsuadulieu">Chỉnh Sửa Dữ Liệu</MudMenuItem>
+		</MudMenu>
 		<MudSpacer />
 		<AuthorizeView>
 			<Authorized>
@@ -19,7 +23,7 @@
 
 			</Authorized>
 			<NotAuthorized>
-				<a href="login" style="color:white;font-style:oblique;">Login</a>
+				<a href="login" style="color: #304FFE; font-style: oblique; ">Login</a>
 			</NotAuthorized>
 		</AuthorizeView>
 	</MudAppBar>

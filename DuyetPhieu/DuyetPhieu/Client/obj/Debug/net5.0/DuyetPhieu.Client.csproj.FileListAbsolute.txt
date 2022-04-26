@@ -1340,3 +1340,5 @@ C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Cli
 C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\obj\Debug\net5.0\DuyetPhieu.Client.dll
 C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\obj\Debug\net5.0\ref\DuyetPhieu.Client.dll
 C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\obj\Debug\net5.0\DuyetPhieu.Client.pdb
+C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\obj\Debug\net5.0\RazorDeclaration\Pages\DeXuatChinhSuaDuLieu.razor.g.cs
+C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\obj\Debug\net5.0\Razor\Pages\DeXuatChinhSuaDuLieu.razor.g.cs
