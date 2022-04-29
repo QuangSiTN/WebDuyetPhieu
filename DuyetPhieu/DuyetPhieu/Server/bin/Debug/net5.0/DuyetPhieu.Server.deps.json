@@ -351,6 +351,21 @@
           "lib/net5.0/Blazored.LocalStorage.dll": {}
         }
       },
+      "BlazorInputFile/0.2.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "5.0.13",
+          "Microsoft.AspNetCore.Components.Web": "5.0.13"
+        },
+        "runtime": {
+          "lib/netstandard2.1/BlazorInputFile.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.1/BlazorInputFile.dll": {}
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "runtime": {
           "lib/netstandard2.0/Humanizer.dll": {
@@ -1262,7 +1277,6 @@
           "lib/net5.0/MudBlazor.dll": {}
         }
       },
-      "MudBlazor.ThemeManager/1.0.6": {},
       "NETStandard.Library/1.6.1": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -2224,6 +2238,7 @@
       },
       "DuyetPhieu.Client/1.0.0": {
         "dependencies": {
+          "BlazorInputFile": "0.2.0",
           "Blazored.LocalStorage": "4.2.0",
           "DuyetPhieu.Shared": "1.0.0",
           "Microsoft.AspNetCore.Components.WebAssembly": "5.0.12",
@@ -2231,7 +2246,6 @@
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.Extensions.Http": "5.0.0",
           "MudBlazor": "5.2.4",
-          "MudBlazor.ThemeManager": "1.0.6",
           "Newtonsoft.Json": "13.0.1",
           "System.Net.Http.Json": "5.0.0",
           "System.Net.NameResolution": "4.3.0",
@@ -3882,6 +3896,13 @@
       "path": "blazored.localstorage/4.2.0",
       "hashPath": "blazored.localstorage.4.2.0.nupkg.sha512"
     },
+    "BlazorInputFile/0.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wsPTwoA9fkHOxjEh0W0brNeTaVBaMCFwfBLehbRhfW+RzlIrYtlJ5qFpT5f377Ej6ELk+xeoUrkDBx9c8JF7DQ==",
+      "path": "blazorinputfile/0.2.0",
+      "hashPath": "blazorinputfile.0.2.0.nupkg.sha512"
+    },
     "Humanizer.Core/2.8.26": {
       "type": "package",
       "serviceable": true,
@@ -4434,13 +4455,6 @@
       "sha512": "sha512-ha6xzyr41fjTyK3yh9AXsy2klwHmFS2YqU9ZLsjP/xhCKxyuWkE9meul2ptcHS/LI3sPET4phmGQTA9Oi2TfOA==",
       "path": "mudblazor/5.2.4",
       "hashPath": "mudblazor.5.2.4.nupkg.sha512"
-    },
-    "MudBlazor.ThemeManager/1.0.6": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-jo2AhWvjkw9tyNJ7PbRRaKo1P0ikjY+Ijj1kocgISBguRtl8CACISKLwwHdrrGWFePfI+rUaAHAGLxj6XfD4/Q==",
-      "path": "mudblazor.thememanager/1.0.6",
-      "hashPath": "mudblazor.thememanager.1.0.6.nupkg.sha512"
     },
     "NETStandard.Library/1.6.1": {
       "type": "package",

@@ -44,6 +44,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "BlazorInputFile": {
+              "target": "Package",
+              "version": "[0.2.0, )"
+            },
             "Blazored.LocalStorage": {
               "target": "Package",
               "version": "[4.2.0, )"
@@ -72,10 +76,6 @@
             "MudBlazor": {
               "target": "Package",
               "version": "[5.2.4, )"
-            },
-            "MudBlazor.ThemeManager": {
-              "target": "Package",
-              "version": "[1.0.6, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

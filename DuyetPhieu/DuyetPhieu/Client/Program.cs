@@ -9,7 +9,6 @@ using MudBlazor.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-
 namespace DuyetPhieu.Client
 {
 	public class Program
@@ -27,6 +26,7 @@ namespace DuyetPhieu.Client
 			builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
 			builder.Services.AddScoped<IUserService,UserService>();
 			builder.Services.AddScoped<IMNService,MNService>();
+			builder.Services.AddScoped<IDeNghiChinhSuaDuLieuService,DeNghiChinhSuaDuLieuService>();
 			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			builder.Services.AddMudServices();
 			await builder.Build().RunAsync();

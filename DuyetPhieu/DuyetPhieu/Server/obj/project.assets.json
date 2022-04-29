@@ -27,6 +27,25 @@
           "lib/net5.0/Blazored.LocalStorage.dll": {}
         }
       },
+      "BlazorInputFile/0.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.1.0-preview3.19555.2",
+          "Microsoft.AspNetCore.Components.Web": "3.1.0-preview3.19555.2"
+        },
+        "compile": {
+          "lib/netstandard2.1/BlazorInputFile.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/BlazorInputFile.dll": {}
+        },
+        "build": {
+          "buildTransitive/BlazorInputFile.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/BlazorInputFile.props": {}
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -1136,15 +1155,6 @@
         },
         "buildMultiTargeting": {
           "buildMultiTargeting/MudBlazor.props": {}
-        }
-      },
-      "MudBlazor.ThemeManager/1.0.6": {
-        "type": "package",
-        "build": {
-          "buildTransitive/MudBlazor.ThemeManager.props": {}
-        },
-        "buildMultiTargeting": {
-          "buildMultiTargeting/MudBlazor.ThemeManager.props": {}
         }
       },
       "NETStandard.Library/1.6.1": {
@@ -2839,6 +2849,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "BlazorInputFile": "0.2.0",
           "Blazored.LocalStorage": "4.2.0",
           "DuyetPhieu.Shared": "1.0.0",
           "Microsoft.AspNetCore.Components.WebAssembly": "5.0.12",
@@ -2846,7 +2857,6 @@
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.Extensions.Http": "5.0.0",
           "MudBlazor": "5.2.4",
-          "MudBlazor.ThemeManager": "1.0.6",
           "Newtonsoft.Json": "13.0.1",
           "System.Net.Http.Json": "5.0.0",
           "System.Net.NameResolution": "4.3.0",
@@ -2901,6 +2911,24 @@
         "lib/net5.0/Blazored.LocalStorage.dll",
         "lib/net6.0/Blazored.LocalStorage.dll",
         "lib/netstandard2.1/Blazored.LocalStorage.dll"
+      ]
+    },
+    "BlazorInputFile/0.2.0": {
+      "sha512": "wsPTwoA9fkHOxjEh0W0brNeTaVBaMCFwfBLehbRhfW+RzlIrYtlJ5qFpT5f377Ej6ELk+xeoUrkDBx9c8JF7DQ==",
+      "type": "package",
+      "path": "blazorinputfile/0.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "blazorinputfile.0.2.0.nupkg.sha512",
+        "blazorinputfile.nuspec",
+        "build/BlazorInputFile.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/BlazorInputFile.props",
+        "buildTransitive/BlazorInputFile.props",
+        "lib/netstandard2.0/BlazorInputFile.dll",
+        "lib/netstandard2.1/BlazorInputFile.dll",
+        "staticwebassets/inputfile.js"
       ]
     },
     "Humanizer.Core/2.8.26": {
@@ -4497,25 +4525,6 @@
         "staticwebassets/MudBlazor.min.css",
         "staticwebassets/MudBlazor.min.css.map",
         "staticwebassets/MudBlazor.min.js"
-      ]
-    },
-    "MudBlazor.ThemeManager/1.0.6": {
-      "sha512": "jo2AhWvjkw9tyNJ7PbRRaKo1P0ikjY+Ijj1kocgISBguRtl8CACISKLwwHdrrGWFePfI+rUaAHAGLxj6XfD4/Q==",
-      "type": "package",
-      "path": "mudblazor.thememanager/1.0.6",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE",
-        "Nuget.png",
-        "build/Microsoft.AspNetCore.StaticWebAssets.props",
-        "build/MudBlazor.ThemeManager.props",
-        "buildMultiTargeting/MudBlazor.ThemeManager.props",
-        "buildTransitive/MudBlazor.ThemeManager.props",
-        "lib/net6.0/MudBlazor.ThemeManager.dll",
-        "mudblazor.thememanager.1.0.6.nupkg.sha512",
-        "mudblazor.thememanager.nuspec",
-        "staticwebassets/MudBlazorThemeManager.css"
       ]
     },
     "NETStandard.Library/1.6.1": {

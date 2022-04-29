@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "FfxuXsLIfJQ8moGx6Gcl7wu5v5UDPNGr+au4vN2FPrVfGTqYQ4MV05DnR8L7t3vz5C/iLI+rZk43WZMyNgMWCw==",
+  "dgSpecHash": "XEL2sPH7cbrsgwGU8cmhFeYlfzFFV+9wLSTYR1xHpl100/pf3dNvi+WmkL6z/2GpjNKQNB2ukv/NoMlrAl/5cw==",
   "success": true,
   "projectFilePath": "C:\\Users\\lequa\\OneDrive\\Documents\\GitHub\\WebDuyetPhieu\\DuyetPhieu\\DuyetPhieu\\Server\\DuyetPhieu.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lequa\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\lequa\\.nuget\\packages\\blazored.localstorage\\4.2.0\\blazored.localstorage.4.2.0.nupkg.sha512",
+    "C:\\Users\\lequa\\.nuget\\packages\\blazorinputfile\\0.2.0\\blazorinputfile.0.2.0.nupkg.sha512",
     "C:\\Users\\lequa\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\lequa\\.nuget\\packages\\identitymodel\\4.4.0\\identitymodel.4.4.0.nupkg.sha512",
     "C:\\Users\\lequa\\.nuget\\packages\\identityserver4\\4.1.0\\identityserver4.4.1.0.nupkg.sha512",
@@ -85,7 +86,6 @@
     "C:\\Users\\lequa\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\lequa\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\lequa\\.nuget\\packages\\mudblazor\\5.2.4\\mudblazor.5.2.4.nupkg.sha512",
-    "C:\\Users\\lequa\\.nuget\\packages\\mudblazor.thememanager\\1.0.6\\mudblazor.thememanager.1.0.6.nupkg.sha512",
     "C:\\Users\\lequa\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\lequa\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\lequa\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",

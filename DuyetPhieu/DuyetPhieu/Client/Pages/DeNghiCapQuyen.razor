@@ -1,0 +1,121 @@
+﻿@page "/denghicapquyen"
+@inject IMNService MNService
+<div style="height:90%">
+	<MudPaper Height="85vh" Style="margin: 4px 2px 2px 2px;" Outlined="true" Elevation="4">
+		<MudCard Style="height:85vh;">
+			<MudCardHeader Style="background-color: #E0E0E0;">
+				<CardHeaderContent>
+					<MudText Style="padding-top:5px; background-color : #E0E0E0; font-family: 'Times New Roman', Times, serif;" Typo="Typo.h5"><b>Đề Nghị Cấp Quyền </b></MudText>
+				</CardHeaderContent>
+			</MudCardHeader>
+			<MudCardContent>
+				<MudGrid>
+					<MudItem xs="12" sm="6" md="6">
+						<MudTextField T="string" Label="Mã Nhân Viên" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+					</MudItem>
+					<MudItem xs="12" sm="6" md="6">
+						<MudSelect Typo="Typo.subtitle2" T="LCTXETDUYETModel" @bind-Value="@lctXETDUYETModel" Label="Hệ Thống" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTuXD" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
+							@if (listChungTuXD != null)
+							{
+								@foreach (var dv in listChungTuXD)
+								{
+									<MudSelectItem Value="@dv">@dv.MoTa</MudSelectItem>
+								}
+							}
+						</MudSelect>
+					</MudItem>
+					<MudItem xs="12" sm="6" md="6">
+						<MudSelect Typo="Typo.subtitle2" T="LCTXETDUYETModel" @bind-Value="@lctXETDUYETModel" Label="Loại Quyền" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTuXD" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
+							@if (listChungTuXD != null)
+							{
+								@foreach (var dv in listChungTuXD)
+								{
+									<MudSelectItem Value="@dv">@dv.MoTa</MudSelectItem>
+								}
+							}
+						</MudSelect>
+					</MudItem>
+					<MudItem xs="12" sm="6" md="6">
+						<MudSelect Typo="Typo.subtitle2" T="LCTXETDUYETModel" @bind-Value="@lctXETDUYETModel" Label="Nhóm Quyền" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTuXD" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
+							@if (listChungTuXD != null)
+							{
+								@foreach (var dv in listChungTuXD)
+								{
+									<MudSelectItem Value="@dv">@dv.MoTa</MudSelectItem>
+								}
+							}
+						</MudSelect>
+					</MudItem>
+					<MudItem xs="12" sm="6" md="6">
+						<MudSelect Typo="Typo.subtitle2" T="LCTXETDUYETModel" @bind-Value="@lctXETDUYETModel" Label="Chi Nhánh" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTuXD" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
+							@if (listChungTuXD != null)
+							{
+								@foreach (var dv in listChungTuXD)
+								{
+									<MudSelectItem Value="@dv">@dv.MoTa</MudSelectItem>
+								}
+							}
+						</MudSelect>
+					</MudItem>
+					<MudItem xs="12" sm="6" md="6">
+						<MudTextField Typo="Typo.subtitle2" T="string" Label="Nội dung" Required="true" Variant="Variant.Outlined" Lines="2" Margin="Margin.Dense"/>
+					</MudItem>
+				</MudGrid>
+			</MudCardContent>
+		</MudCard>
+	</MudPaper>
+</div>
+<div style="height:10%">
+	<MudPaper Height="6vh" Style="background-color: #F9E5A4;" Square="true" Outlined="true">
+		<div class="d-flex justify-center align-center mud-height-full">
+			<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
+			<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
+			<MudButton Disabled="@disableDelete" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Info">Xóa</MudButton>
+			<MudButton Disabled="@disableUpdate" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
+			<MudButton Disabled="@disableSave" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
+			<MudButton Disabled="@disableFind" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tìm</MudButton>
+			<MudButton Disabled="@disableUndo" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Trở lại</MudButton>
+		</div>
+	</MudPaper>
+</div>
+@code {
+	// loai chung tu zet duyet
+	private IEnumerable<LCTXETDUYETModel> listChungTuXD { get; set; }
+	private LCTXETDUYETModel lctXETDUYETModel { get; set; } = new LCTXETDUYETModel();
+	//Convert
+	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
+	Func<LCTXETDUYETModel, string> converterLoaiChungTuXD = p => p?.MoTa;
+	protected override async Task OnInitializedAsync()
+	{
+		listChungTuXD = (await MNService.ListLCTXETDUYET()).ToList();
+	}
+	//button
+	//disable button
+	private bool disableAdd = false;
+	private bool disableUpdate = false;
+	private bool disableDelete = false;
+	private bool disableSave = true;
+	private bool disableUndo = true;
+	private bool disableFind = false;
+	//xu ly button
+	private void UpdateStateButtonAdd()
+	{
+		disableAdd = true;
+		disableUpdate = true;
+		disableDelete = true;
+		disableFind = true;
+		disableSave = false;
+		disableUndo = false;
+
+	}
+	private void UpdateStateButtonUndo()
+	{
+		disableAdd = false;
+		disableUpdate = false;
+		disableDelete = false;
+		disableFind = false;
+		disableSave = true;
+		disableUndo = true;
+
+	}
+}

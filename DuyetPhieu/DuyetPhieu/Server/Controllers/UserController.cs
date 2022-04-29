@@ -97,7 +97,7 @@ namespace DuyetPhieu.Server.Controllers
 		public IActionResult GetDecrypt()
 		{
 			CryptMD5 cryptMD5 = new CryptMD5();
-			string passencr = cryptMD5.Decrypt("ZJlDefzTkPWX7TnFzdYmBA==", "a,b,c", true);
+			string passencr = cryptMD5.Decrypt("LNOCxq1rDII=", "a,b,c", true);
 			return Ok(passencr);
 		}
 	}

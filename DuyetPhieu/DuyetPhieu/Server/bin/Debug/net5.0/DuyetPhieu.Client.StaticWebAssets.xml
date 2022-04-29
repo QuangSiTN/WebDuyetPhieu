@@ -1,7 +1,7 @@
 ﻿<StaticWebAssets Version="1.0">
   <ContentRoot BasePath="/" Path="C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\bin\Debug\net5.0\wwwroot\" />
   <ContentRoot BasePath="/" Path="C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\obj\Debug\net5.0\scopedcss\bundle\" />
+  <ContentRoot BasePath="_content/BlazorInputFile" Path="C:\Users\lequa\.nuget\packages\blazorinputfile\0.2.0\build\..\staticwebassets\" />
   <ContentRoot BasePath="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication" Path="C:\Users\lequa\.nuget\packages\microsoft.aspnetcore.components.webassembly.authentication\5.0.12\build\..\staticwebassets\" />
   <ContentRoot BasePath="_content/MudBlazor" Path="C:\Users\lequa\.nuget\packages\mudblazor\5.2.4\build\..\staticwebassets\" />
-  <ContentRoot BasePath="_content/MudBlazor.ThemeManager" Path="C:\Users\lequa\.nuget\packages\mudblazor.thememanager\1.0.6\build\..\staticwebassets\" />
 </StaticWebAssets>

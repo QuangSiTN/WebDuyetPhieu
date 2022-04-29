@@ -6,9 +6,10 @@
 @inject IJSRuntime JSRuntime
 @inject AuthenticationStateProvider auth
 <MudLayout>
-	<MudAppBar Style="background-color: #F9E5A4; ">
-		<MudMenu FullWidth ="true" Label="Chỉnh Sửa Dữ Liệu"  Style="text-transform:none" Variant="Variant.Text" Color="Color.Primary" ActivationEvent="@MouseEvent.MouseOver" OffsetY  AnchorOrigin="@Origin.TopCenter" TransformOrigin="@Origin.BottomCenter"  Size="Size.Medium">
-			<MudMenuItem>Đề Nghị Cấp Quyền</MudMenuItem>
+	<MudAppBar Style="background-color: #F9E5A4;" Dense="true">
+		<MudMenu FullWidth="true" Label="Chỉnh Sửa Dữ Liệu" Style="text-transform:none" Variant="Variant.Text" Color="Color.Primary" ActivationEvent="@MouseEvent.MouseOver" OffsetY AnchorOrigin="@Origin.TopCenter" TransformOrigin="@Origin.BottomCenter" Dense="true" Size="Size.Medium">
+			<MudMenuItem Href="denghicapquyen" Style="font-size:x-small;">Đề Nghị Cấp Quyền</MudMenuItem>
+			<MudDivider/>
 			<MudMenuItem Href="dexuatchinhsuadulieu">Chỉnh Sửa Dữ Liệu</MudMenuItem>
 		</MudMenu>
 		<MudSpacer />
@@ -19,32 +20,22 @@
 					<MudMenuItem Icon="@Icons.Material.Filled.ExitToApp" Href="/logout" Size="Size.Small" Color="Color.Inherit">Log Out</MudMenuItem>
 				</MudMenu>
 				<MudMenu StartIcon="@Icons.Material.Filled.Email" Size="Size.Medium" Color="Color.Primary" />
-				<MudButton StartIcon="@Icons.Material.Outlined.Notifications" Size="Size.Medium" Color="Color.Primary" Variant="Variant.Text" OnClick="@OpenDrawer"></MudButton>
-
 			</Authorized>
 			<NotAuthorized>
 				<a href="login" style="color: #304FFE; font-style: oblique; ">Login</a>
 			</NotAuthorized>
 		</AuthorizeView>
 	</MudAppBar>
-	<MudDrawer Elevation="1" @bind-Open="@_drawerOpen">
+	<MudDrawer Elevation="4" @bind-Open="@_drawerOpen">
 		<NavMenu />
 	</MudDrawer>
-
-	<MudMainContent>
-		@Body
-	</MudMainContent>
-	<MudDrawer @bind-Open="@open" Fixed="false" Anchor="@Anchor.Right" Elevation="1" Variant="@DrawerVariant.Temporary">
-		<MudDrawerHeader>
-			<MudText Typo="Typo.h6">Notification</MudText>
-		</MudDrawerHeader>
-		<MudNavMenu>
-			<MudNavLink Match="NavLinkMatch.All">New Notification</MudNavLink>
-			<MudNavLink Match="NavLinkMatch.All">Old Notifications</MudNavLink>
-		</MudNavMenu>
-	</MudDrawer>
+	<MudPaper>
+		<MudMainContent>
+			@Body
+		</MudMainContent>
+	</MudPaper>
 </MudLayout>
-<MudThemeProvider />
+<MudThemeProvider Theme="MyCustomTheme"/>
 <MudDialogProvider />
 <MudSnackbarProvider />
 @code {
@@ -54,12 +45,25 @@
 	{
 		_drawerOpen = !_drawerOpen;
 	}
-	bool open =false;
-
-	void OpenDrawer()
+	MudTheme MyCustomTheme = new MudTheme()
 	{
-		open = true;
-	}
+
+		LayoutProperties = new LayoutProperties
+		{
+			DrawerWidthLeft = "280px"
+		},
+		Typography = new Typography
+		{
+			Default = new Default
+			{
+				FontFamily = new[] { "Roboto", "Helvetica", "Arial", "sans-serif" },
+				FontSize = "0.8 rem",
+				FontWeight = 200,
+				LineHeight = 0.8,
+				LetterSpacing = ".0055em"
+			}
+		}
+	};
 	[Inject]
 	public AuthenticationStateProvider AccessTokenProvider { get; set; }
 	[Inject]

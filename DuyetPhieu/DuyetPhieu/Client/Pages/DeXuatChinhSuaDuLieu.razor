@@ -1,92 +1,105 @@
 ﻿@page "/dexuatchinhsuadulieu"
 @inject IMNService MNService
+@inject IDeNghiChinhSuaDuLieuService DeNghiService
 @inject ISnackbar Snackbar
-<MudCard Style="margin:10px 17% 10px 17%;">
-	<MudCardHeader Style="background-color: #EEEEEE;">
-		<CardHeaderContent>
-			<MudText Style="background-color: #EEEEEE; font-family: 'Times New Roman', Times, serif;" Typo="Typo.h5"><b>Đề Xuất Chỉnh Sửa Dữ Liệu </b></MudText>
-		</CardHeaderContent>
-	</MudCardHeader>
-	<MudCardContent>
-		<MudGrid>
-			<MudItem xs="12" sm="6" md="6">
-				<MudTextField T="string" Label="Số Phiếu Biên Nhận" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
-			</MudItem>
-			<MudItem xs="12" sm="6" md="6">
-				<MudSelect T="LoaiChungTuModel" @bind-Value="@loaiChungTuModel" Label="Loại chứng từ" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTu" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
-					@if (listLoaiChungTu != null)
-					{
-						@foreach (var ct in listLoaiChungTu)
-						{
-							<MudSelectItem Value="@ct">@ct.LoaiPhieu</MudSelectItem>
-						}
-					}
-				</MudSelect>
-			</MudItem>
-			<MudItem xs="12" sm="6" md="6">
-				<MudTextField T="string" Label="Chứng từ liên quan" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
-			</MudItem>
-			<MudItem xs="12" sm="6" md="3">
-				<InputFile id="fileInput" OnChange="UploadFiles" hidden multiple accept=".jpg, .jpeg, .png" />
-				<MudButton HtmlTag="label" Size="Size.Small" Style="margin-top:5px;"
-							Variant="Variant.Filled"
-							Color="Color.Primary"
-							StartIcon="@Icons.Filled.Image"
-							for="fileInput">
-					Đính kèm ảnh
-				</MudButton>
-			</MudItem>
-			<MudItem xs="12" sm="6" md="3">
-				@if (files != null)
-				{
-					<p>
-						@foreach (var file in files)
-						{
-							@file.Name
-						}
-					</p>
-				}
-			</MudItem>
-			<MudItem xs="12" sm="6" md="6">
-				<MudSelect T="MnNguonGocLoiModel" @bind-Value="@mnNguonGocLoiBaoHanhModel" Label="Nguồn Gốc Lỗi" Variant="Variant.Outlined" ToStringFunc="@converterNguonGocLoiBH" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
-					@if (listLoaiChungTu != null)
-					{
-						@foreach (var gl in listNguonGocLoi)
-						{
-							<MudSelectItem Value="@gl">@gl.LoaiLoi</MudSelectItem>
-						}
-					}
-				</MudSelect>
-			</MudItem>
-			<MudItem xs="12" sm="6" md="6">
-				<MudSelect T="LCTXETDUYETModel" @bind-Value="@lctXETDUYETModel" Label="Hình Thức Chỉnh Sửa" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTuXD" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
-					@if (listChungTuXD != null)
-					{
-						@foreach (var dv in listChungTuXD)
-						{
-							<MudSelectItem Value="@dv">@dv.MoTa</MudSelectItem>
-						}
-					}
-				</MudSelect>
-			</MudItem>
-			<MudItem xs="12" sm="6" md="6">
-				<MudTextField T="string" Label="Nội dung" Required="true" Variant="Variant.Outlined" Lines="2" Margin="Margin.Dense" />
-			</MudItem>
-		</MudGrid>
-	</MudCardContent>
-</MudCard>
-<MudPaper  Square="true" Outlined="true" Class="mx-auto pa-2" Style="height: 50px;width: 620px;">
-	<MudButtonGroup   Size="Size.Small" DisableElevation="false" Style="margin-bottom: 20%;" Color="Color.Info" Variant="Variant.Filled">
-		<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
-		<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
-		<MudButton Disabled="@disableDelete" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Info">Xóa</MudButton>
-		<MudButton Disabled="@disableUpdate" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
-		<MudButton Disabled="@disableSave" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
-		<MudButton Disabled="@disableFind" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tìm</MudButton>
-		<MudButton Disabled="@disableUndo" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Trở lại</MudButton>
-	</MudButtonGroup>
-</MudPaper>
+@inject HttpClient httpclient
+@inject AuthenticationStateProvider auth
+@*@attribute [Authorize(Roles = "BAOCAOBHNB")]*@
+<div style="height:90%">
+	<MudPaper Width="100%" Style="margin: 2px 2px 2px 2px;" Outlined="true" Height="85vh" Elevation="4">
+		<MudCard Style="height :85vh">
+			<MudCardHeader Style="background-color: #E0E0E0;">
+				<CardHeaderContent>
+					<MudText Style="padding-top:5px; background-color : #E0E0E0; font-family: 'Times New Roman', Times, serif;" Typo="Typo.h5"><b>Đề Xuất Chỉnh Sửa Dữ Liệu </b></MudText>
+				</CardHeaderContent>
+			</MudCardHeader>
+			<MudCardContent>
+				<MudGrid>
+					<MudItem xs="12" sm="6" md="6">
+						<MudTextField T="string" Style="font-size:small;" Label="Số Phiếu Biên Nhận" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense"
+									  @bind-Value="@inModel.SoChungTu" For="@(() => inModel.SoChungTu)" />
+					</MudItem>
+					<MudItem xs="12" sm="6" md="6">
+						<MudSelect Typo="Typo.subtitle2" T="LCTXETDUYETModel" @bind-Value="@lctXETDUYETModel" Label="Loại Chứng Từ" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTuXD" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
+							@if (listChungTuXD != null)
+							{
+								@foreach (var dv in listChungTuXD)
+								{
+									<MudSelectItem Value="@dv">@dv.MoTa</MudSelectItem>
+								}
+							}
+						</MudSelect>
+					</MudItem>
+					@*<MudItem xs="12" sm="6" md="6">
+						<MudTextField Typo="Typo.subtitle2" T="string" Label="Chứng từ liên quan" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense"
+									  @bind-Value="@inModel.ChungTuLq" For="@(()=>inModel.ChungTuLq)" />
+					</MudItem>*@
+					<MudItem xs="12" sm="6" md="6">
+						<MudSelect Style="font-size:small;" Typo="Typo.subtitle2" T="LoaiChungTuModel" @bind-Value="@loaiChungTuModel" Label="Chứng từ liên quan" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTu" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
+							@if (listLoaiChungTu != null)
+							{
+								@foreach (var ct in listLoaiChungTu)
+								{
+									<MudSelectItem Value="@ct">@ct.LoaiPhieu</MudSelectItem>
+								}
+							}
+						</MudSelect>
+					</MudItem>
+					<MudItem xs="12" sm="6" md="3">
+						@*	<InputFile OnChange="OnInputFileChange"></InputFile>*@
+						@*<InputFile multiple OnChange="OnChange" accept="image/png, image/jpeg, image/gif" id="inputFile" />*@
+						<InputFile multiple OnChange="OnChange" accept="image/png, image/jpeg, image/gif"/>
+						@*<label class="custom-file-label" for="inputFile">Choose file</label>*@
+					</MudItem>
+					<MudItem xs="12" sm="6" md="6">
+						<MudSelect T="MnNguonGocLoiModel" @bind-Value="@mnNguonGocLoiBaoHanhModel" Label="Nguồn Gốc Lỗi" Variant="Variant.Outlined" ToStringFunc="@converterNguonGocLoiBH" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
+							@if (listNguonGocLoi != null)
+							{
+								@foreach (var gl in listNguonGocLoi)
+								{
+									<MudSelectItem Value="@gl">@gl.LoaiLoi</MudSelectItem>
+								}
+							}
+						</MudSelect>
+					</MudItem>
+					<MudItem xs="12" sm="6" md="6">
+						<MudSelect Typo="Typo.subtitle2" T="LCTXETDUYETModel" @bind-Value="@lctXETDUYETModel" Label="Hình Thức Chỉnh Sửa" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTuXD" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
+							@if (listChungTuXD != null)
+							{
+								@foreach (var dv in listChungTuXD)
+								{
+									<MudSelectItem Value="@dv">@dv.MoTa</MudSelectItem>
+								}
+							}
+						</MudSelect>
+					</MudItem>
+					<MudItem xs="12" sm="6" md="6">
+						<MudTextField Typo="Typo.subtitle2" T="string" Label="Nội dung" Required="true" Variant="Variant.Outlined" Lines="2" Margin="Margin.Dense"
+									  @bind-Value="@inModel.NoiDung" For="@(()=>inModel.NoiDung)" />
+					</MudItem>
+				</MudGrid>
+			</MudCardContent>
+		</MudCard>
+	</MudPaper>
+</div>
+<div style="height:10%">
+	<MudPaper Height="6vh" Style="background-color: #F9E5A4;" Square="true" Outlined="true">
+		<div class="d-flex justify-center align-center mud-height-full">
+			<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
+			<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
+			<MudButton Disabled="@disableDelete" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Info">Xóa</MudButton>
+			<MudButton Disabled="@disableUpdate" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
+			<MudButton Disabled="@disableSave" OnClick="@Upload" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
+			<MudButton Disabled="@disableFind" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tìm</MudButton>
+			<MudButton Disabled="@disableUndo" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Trở lại</MudButton>
+		</div>
+	</MudPaper>
+</div>
+
+
+
 @code {
+
 	//button
 	//disable button
 	private bool disableAdd = false;
@@ -104,7 +117,7 @@
 		disableFind = true;
 		disableSave = false;
 		disableUndo = false;
-		
+
 	}
 	private void UpdateStateButtonUndo()
 	{
@@ -114,7 +127,7 @@
 		disableFind = false;
 		disableSave = true;
 		disableUndo = true;
-		
+
 	}
 	//loai chung tu
 	private IEnumerable<LoaiChungTuModel> listLoaiChungTu { get; set; }
@@ -126,7 +139,11 @@
 	// loai chung tu zet duyet
 	private IEnumerable<LCTXETDUYETModel> listChungTuXD { get; set; }
 	private LCTXETDUYETModel lctXETDUYETModel { get; set; } = new LCTXETDUYETModel();
-
+	// du lieu input
+	private EmsDeNghiChinhSuaDuLieuInModel inModel { get; set; } = new EmsDeNghiChinhSuaDuLieuInModel();
+	// user
+	private string username = "";
+	private DateTime dateFrom = DateTime.Today;
 	//Convert
 	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
 	Func<MnNguonGocLoiModel, string> converterNguonGocLoiBH = p => p?.LoaiLoi;
@@ -135,18 +152,97 @@
 	protected override async Task OnInitializedAsync()
 	{
 
-		listLoaiChungTu = (await MNService.ListChungTu()).ToList();
-		listNguonGocLoi = (await MNService.ListNguonGocLoi()).ToList();
-		listChungTuXD = (await MNService.ListLCTXETDUYET()).ToList();
-	}
-	//xu ly file
-	IList<IBrowserFile> files = new List<IBrowserFile>();
-	private void UploadFiles(InputFileChangeEventArgs e)
-	{
-		foreach (var file in e.GetMultipleFiles())
+		var checkAuth = await auth.GetAuthenticationStateAsync();
+		if (checkAuth != null)
 		{
-			files.Add(file);
+			username = checkAuth.User.Identity.Name;
+			if (username != null)
+			{
+				Console.WriteLine("username dang nhap : " + username);
+				listLoaiChungTu = (await MNService.ListChungTu()).ToList();
+				listNguonGocLoi = (await MNService.ListNguonGocLoi()).ToList();
+				listChungTuXD = (await MNService.ListLCTXETDUYET()).ToList();
+			}
 		}
-		//TODO upload the files to the server
+	}
+	List<UploadedFile> filesBase64 = new List<UploadedFile>();
+	private async Task OnChange(InputFileChangeEventArgs e)
+	{
+		var files = e.GetMultipleFiles(); // get the files selected by the users
+		foreach (var file in files)
+		{
+			var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
+			var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
+			using (var stream = resizedFile.OpenReadStream())
+			{
+				await stream.ReadAsync(buf); // copy the stream to the buffer
+			}
+			filesBase64.Add(new UploadedFile { base64data = Convert.ToBase64String(buf), contentType = file.ContentType, fileName = file.Name }); // convert to a base64 string!!
+		}
+	}
+	private async Task Upload()
+	{
+		var rs = await DeNghiService.FileUploadAsync(filesBase64);
+		if (rs.Successful == true)
+		{
+			Console.WriteLine("Thanh cong");
+		}
+		else
+		{
+			Console.WriteLine("Loi " + rs.Errors.ToString());
+		}
+	}
+	private async Task SaveEMSChungTu()
+	{
+
+		inModel.LoaiChungTu = loaiChungTuModel.SoChungTu;
+		inModel.NguyeNhanLoi = mnNguonGocLoiBaoHanhModel.SoChungTu;
+		inModel.HinhThucChinhSua = lctXETDUYETModel.MaXetDuyet;
+		inModel.CreatedBy = username;
+		if (inModel.CreatedBy == null)
+		{
+			Snackbar.Add("Chua co ten username", Severity.Warning);
+		}
+		else if (inModel.LoaiChungTu == null)
+		{
+			Snackbar.Add("Chua co loai chung tu", Severity.Warning);
+		}
+		else if (inModel.NguyeNhanLoi == null)
+		{
+			Snackbar.Add("Chua co nguyen nhan gay loi", Severity.Warning);
+		}
+		else if (inModel.HinhThucChinhSua == null)
+		{
+			Snackbar.Add("Chua chon hinh thuc chinh sua ", Severity.Warning);
+		}
+		else if (inModel.SoChungTu == null)
+		{
+			Snackbar.Add("Chua co so  chung tu", Severity.Warning);
+		}
+		else if (inModel.ChungTuLq == null)
+		{
+			Snackbar.Add("Chua co chung tu lien quan", Severity.Warning);
+		}
+		else if (inModel.HinhThucChinhSua == null)
+		{
+			Snackbar.Add("Chua co hinh thuc chinh sua", Severity.Warning);
+		}
+		else if (inModel.NoiDung == null)
+		{
+			Snackbar.Add("Chua co noi dung", Severity.Warning);
+		}
+		else
+		{
+			var rs = await DeNghiService.InsertPhieuDeNghiChinhSua(inModel);
+			if (rs.Successful)
+			{
+				Snackbar.Add("Them thanh cong", Severity.Success);
+			}
+			else
+			{
+				Snackbar.Add("Loi :" + rs.Errors, Severity.Error);
+			}
+		}
+
 	}
 }

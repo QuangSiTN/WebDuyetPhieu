@@ -238,3 +238,4 @@ C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Ser
 C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Server\obj\Debug\net5.0\ref\DuyetPhieu.Server.dll
 C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Server\obj\Debug\net5.0\DuyetPhieu.Server.pdb
 C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Server\obj\Debug\net5.0\DuyetPhieu.Server.genruntimeconfig.cache
+C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Server\bin\Debug\net5.0\BlazorInputFile.dll

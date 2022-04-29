@@ -35,21 +35,21 @@ using Microsoft.AspNetCore.Components.Authorization;
 #nullable disable
 #nullable restore
 #line 4 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
-using Microsoft.AspNetCore.Components.Forms;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 5 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
+#line 5 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
+using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
@@ -154,7 +154,28 @@ using DuyetPhieu.Shared.Model.Details;
 #nullable disable
 #nullable restore
 #line 21 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
+using DuyetPhieu.Shared.ChinhSuaDuLieu.In;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 22 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
+using DuyetPhieu.Shared.ChinhSuaDuLieu.Details;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 23 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
 using MudBlazor;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 25 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\_Imports.razor"
+using System.IO;
 
 #line default
 #line hidden
@@ -168,8 +189,9 @@ using MudBlazor;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 89 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeXuatChinhSuaDuLieu.razor"
+#line 101 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeXuatChinhSuaDuLieu.razor"
        
+
 	//button
 	//disable button
 	private bool disableAdd = false;
@@ -187,7 +209,7 @@ using MudBlazor;
 		disableFind = true;
 		disableSave = false;
 		disableUndo = false;
-		
+
 	}
 	private void UpdateStateButtonUndo()
 	{
@@ -197,7 +219,7 @@ using MudBlazor;
 		disableFind = false;
 		disableSave = true;
 		disableUndo = true;
-		
+
 	}
 	//loai chung tu
 	private IEnumerable<LoaiChungTuModel> listLoaiChungTu { get; set; }
@@ -209,7 +231,11 @@ using MudBlazor;
 	// loai chung tu zet duyet
 	private IEnumerable<LCTXETDUYETModel> listChungTuXD { get; set; }
 	private LCTXETDUYETModel lctXETDUYETModel { get; set; } = new LCTXETDUYETModel();
-
+	// du lieu input
+	private EmsDeNghiChinhSuaDuLieuInModel inModel { get; set; } = new EmsDeNghiChinhSuaDuLieuInModel();
+	// user
+	private string username = "";
+	private DateTime dateFrom = DateTime.Today;
 	//Convert
 	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
 	Func<MnNguonGocLoiModel, string> converterNguonGocLoiBH = p => p?.LoaiLoi;
@@ -218,25 +244,107 @@ using MudBlazor;
 	protected override async Task OnInitializedAsync()
 	{
 
-		listLoaiChungTu = (await MNService.ListChungTu()).ToList();
-		listNguonGocLoi = (await MNService.ListNguonGocLoi()).ToList();
-		listChungTuXD = (await MNService.ListLCTXETDUYET()).ToList();
-	}
-	//xu ly file
-	IList<IBrowserFile> files = new List<IBrowserFile>();
-	private void UploadFiles(InputFileChangeEventArgs e)
-	{
-		foreach (var file in e.GetMultipleFiles())
+		var checkAuth = await auth.GetAuthenticationStateAsync();
+		if (checkAuth != null)
 		{
-			files.Add(file);
+			username = checkAuth.User.Identity.Name;
+			if (username != null)
+			{
+				Console.WriteLine("username dang nhap : " + username);
+				listLoaiChungTu = (await MNService.ListChungTu()).ToList();
+				listNguonGocLoi = (await MNService.ListNguonGocLoi()).ToList();
+				listChungTuXD = (await MNService.ListLCTXETDUYET()).ToList();
+			}
 		}
-		//TODO upload the files to the server
+	}
+	List<UploadedFile> filesBase64 = new List<UploadedFile>();
+	private async Task OnChange(InputFileChangeEventArgs e)
+	{
+		var files = e.GetMultipleFiles(); // get the files selected by the users
+		foreach (var file in files)
+		{
+			var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
+			var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
+			using (var stream = resizedFile.OpenReadStream())
+			{
+				await stream.ReadAsync(buf); // copy the stream to the buffer
+			}
+			filesBase64.Add(new UploadedFile { base64data = Convert.ToBase64String(buf), contentType = file.ContentType, fileName = file.Name }); // convert to a base64 string!!
+		}
+	}
+	private async Task Upload()
+	{
+		var rs = await DeNghiService.FileUploadAsync(filesBase64);
+		if (rs.Successful == true)
+		{
+			Console.WriteLine("Thanh cong");
+		}
+		else
+		{
+			Console.WriteLine("Loi " + rs.Errors.ToString());
+		}
+	}
+	private async Task SaveEMSChungTu()
+	{
+
+		inModel.LoaiChungTu = loaiChungTuModel.SoChungTu;
+		inModel.NguyeNhanLoi = mnNguonGocLoiBaoHanhModel.SoChungTu;
+		inModel.HinhThucChinhSua = lctXETDUYETModel.MaXetDuyet;
+		inModel.CreatedBy = username;
+		if (inModel.CreatedBy == null)
+		{
+			Snackbar.Add("Chua co ten username", Severity.Warning);
+		}
+		else if (inModel.LoaiChungTu == null)
+		{
+			Snackbar.Add("Chua co loai chung tu", Severity.Warning);
+		}
+		else if (inModel.NguyeNhanLoi == null)
+		{
+			Snackbar.Add("Chua co nguyen nhan gay loi", Severity.Warning);
+		}
+		else if (inModel.HinhThucChinhSua == null)
+		{
+			Snackbar.Add("Chua chon hinh thuc chinh sua ", Severity.Warning);
+		}
+		else if (inModel.SoChungTu == null)
+		{
+			Snackbar.Add("Chua co so  chung tu", Severity.Warning);
+		}
+		else if (inModel.ChungTuLq == null)
+		{
+			Snackbar.Add("Chua co chung tu lien quan", Severity.Warning);
+		}
+		else if (inModel.HinhThucChinhSua == null)
+		{
+			Snackbar.Add("Chua co hinh thuc chinh sua", Severity.Warning);
+		}
+		else if (inModel.NoiDung == null)
+		{
+			Snackbar.Add("Chua co noi dung", Severity.Warning);
+		}
+		else
+		{
+			var rs = await DeNghiService.InsertPhieuDeNghiChinhSua(inModel);
+			if (rs.Successful)
+			{
+				Snackbar.Add("Them thanh cong", Severity.Success);
+			}
+			else
+			{
+				Snackbar.Add("Loi :" + rs.Errors, Severity.Error);
+			}
+		}
+
 	}
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider auth { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient httpclient { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private ISnackbar Snackbar { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDeNghiChinhSuaDuLieuService DeNghiService { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IMNService MNService { get; set; }
     }
 }
