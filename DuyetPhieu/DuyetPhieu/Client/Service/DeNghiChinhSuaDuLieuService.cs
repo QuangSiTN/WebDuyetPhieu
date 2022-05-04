@@ -35,9 +35,9 @@ namespace DuyetPhieu.Client.Service
 		{
 			return await _httpClient.GetFromJsonAsync<IEnumerable<EmsDeNghiChinhSuaDuLieuModel>>($"api/denghichinhsuadulieu/listphieudenghichinhsua");
 		}
-		public async Task<ResultModel> FileUploadAsync(List<UploadedFile> filesBase64)
+		public async Task<ResultModel> FileUpload(List<UploadedFile> filesBase64)
 		{
-			var res = await _httpClient.PostAsJsonAsync($"/api/denghichinhsuadulieu/fileuploadasync", filesBase64);
+			var res = await _httpClient.PostAsJsonAsync($"/api/denghichinhsuadulieu/fileupload", filesBase64);
 			return await res.Content.ReadFromJsonAsync<ResultModel>();
 
 		}

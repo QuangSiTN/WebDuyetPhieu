@@ -1,9 +1,7 @@
 ﻿using DuyetPhieu.Client.Service.IService;
 using DuyetPhieu.Shared.Model;
 using DuyetPhieu.Shared.Model.Details;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;

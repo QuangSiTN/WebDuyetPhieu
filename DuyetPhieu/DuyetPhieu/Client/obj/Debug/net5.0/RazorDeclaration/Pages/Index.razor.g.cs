@@ -189,7 +189,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 230 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\Index.razor"
+#line 229 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\Index.razor"
           
 		private TestModel testModel;
 		Justify _justify = Justify.Center;

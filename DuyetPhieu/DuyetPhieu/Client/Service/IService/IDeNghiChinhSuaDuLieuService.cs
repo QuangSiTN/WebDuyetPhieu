@@ -12,6 +12,6 @@ namespace DuyetPhieu.Client.Service.IService
 	{
 		Task<ResultModel> InsertPhieuDeNghiChinhSua(EmsDeNghiChinhSuaDuLieuInModel model);
 		Task<IEnumerable<EmsDeNghiChinhSuaDuLieuModel>> ListPhieuDeNghiChinhSua();
-		Task<ResultModel> FileUploadAsync(List<UploadedFile> filesBase64);
+		Task<ResultModel> FileUpload(List<UploadedFile> filesBase64);
 	}
 }

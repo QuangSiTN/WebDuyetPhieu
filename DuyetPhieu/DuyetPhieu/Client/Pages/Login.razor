@@ -11,37 +11,33 @@
 else
 {
 	<div style="max-width: 800px;position:sticky;padding-left:35%;margin-top:50px;">
-		@*<EditForm Model="@loginModel" OnValidSubmit="OnValidSubmit">
-			<DataAnnotationsValidator />*@
-			<MudCard>
-				<MudCardHeader Style=" background-color: #EEEEEE;">
-					<CardHeaderContent>
-						<MudText Style="text-align: center; background-color: #EEEEEE; font-family: 'Times New Roman', Times, serif;" Typo="Typo.h5"> Đăng nhập </MudText>
-					</CardHeaderContent>
-				</MudCardHeader>
-				<MudCardContent>
-					<MudForm @bind-IsValid="@success">
-						<MudTextField T="string" Label="Username" Immediate="true" @onkeypress="@GETSITE" Required="true" Variant="Variant.Outlined"
-										@bind-Value="loginModel.UserName" For="@(() => loginModel.UserName)" />
-						<MudTextField T="string" Label="Password" Variant="Variant.Outlined"
-										@bind-Value="loginModel.Password" For="@(() => loginModel.Password)"
-										InputType="InputType.Password"
-										Required="true" />
-						<MudSelect T="ChiNhanhLoginModel" Style="margin-top:10px;" @bind-Value="@chiNhanhLoginModel" Variant="Variant.Outlined" Label=" Chi nhánh " ToStringFunc="@converterTenChiNhanh" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
-							@if (chiNhanhLoginModel != null)
-							{
-								<MudSelectItem Value="@chiNhanhLoginModel">@chiNhanhLoginModel.TenChiNhanh</MudSelectItem>
-							}
+		<MudCard>
+			<MudCardHeader Style=" background-color: #EEEEEE;">
+				<CardHeaderContent>
+					<MudText Style="text-align: center; background-color: #EEEEEE; font-family: 'Times New Roman', Times, serif;" Typo="Typo.h5"> Đăng nhập </MudText>
+				</CardHeaderContent>
+			</MudCardHeader>
+			<MudCardContent>
+				<MudForm @bind-IsValid="@success">
+					<MudTextField T="string" Label="Username" Immediate="true" @onkeypress="@GETSITE" Required="true" Variant="Variant.Outlined"
+									@bind-Value="loginModel.UserName" For="@(() => loginModel.UserName)" />
+					<MudTextField T="string" Label="Password" Variant="Variant.Outlined"
+									@bind-Value="loginModel.Password" For="@(() => loginModel.Password)"
+									InputType="InputType.Password"
+									Required="true" />
+					<MudSelect T="ChiNhanhLoginModel" Style="margin-top:10px;" @bind-Value="@chiNhanhLoginModel" Variant="Variant.Outlined" Label=" Chi nhánh " ToStringFunc="@converterTenChiNhanh" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
+						@if (chiNhanhLoginModel != null)
+						{
+							<MudSelectItem Value="@chiNhanhLoginModel">@chiNhanhLoginModel.TenChiNhanh</MudSelectItem>
+						}
 
-						</MudSelect>
-					</MudForm>
-				</MudCardContent>
-				<MudCardActions>
-					@*<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto">Login</MudButton>*@
-					<MudButton ButtonType="ButtonType.Submit" OnClick="@(()=>OnValidSubmit())" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto">Login</MudButton>
-				</MudCardActions>
-			</MudCard>
-		@*</EditForm>*@
+					</MudSelect>
+				</MudForm>
+			</MudCardContent>
+			<MudCardActions>
+				<MudButton ButtonType="ButtonType.Submit" OnClick="@(()=>OnValidSubmit())" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto">Login</MudButton>
+			</MudCardActions>
+		</MudCard>
 	</div>
 }
 @code {

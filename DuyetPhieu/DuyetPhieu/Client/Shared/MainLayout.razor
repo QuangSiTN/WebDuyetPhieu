@@ -1,11 +1,10 @@
 ﻿@inherits LayoutComponentBase
-@inject MudBlazor.ISnackbar snackBar
 @inject NavigationManager navigation
 @inject MudBlazor.ISnackbar snackBar
 @inject NavigationManager UriHelper
 @inject IJSRuntime JSRuntime
 @inject AuthenticationStateProvider auth
-<MudLayout>
+<MudLayout Style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size:small;">
 	<MudAppBar Style="background-color: #F9E5A4;" Dense="true">
 		<MudMenu FullWidth="true" Label="Chỉnh Sửa Dữ Liệu" Style="text-transform:none" Variant="Variant.Text" Color="Color.Primary" ActivationEvent="@MouseEvent.MouseOver" OffsetY AnchorOrigin="@Origin.TopCenter" TransformOrigin="@Origin.BottomCenter" Dense="true" Size="Size.Medium">
 			<MudMenuItem Href="denghicapquyen" Style="font-size:x-small;">Đề Nghị Cấp Quyền</MudMenuItem>
@@ -29,11 +28,9 @@
 	<MudDrawer Elevation="4" @bind-Open="@_drawerOpen">
 		<NavMenu />
 	</MudDrawer>
-	<MudPaper>
-		<MudMainContent>
-			@Body
-		</MudMainContent>
-	</MudPaper>
+	<MudMainContent>
+		@Body
+	</MudMainContent>
 </MudLayout>
 <MudThemeProvider Theme="MyCustomTheme"/>
 <MudDialogProvider />
@@ -50,17 +47,17 @@
 
 		LayoutProperties = new LayoutProperties
 		{
-			DrawerWidthLeft = "280px"
+			DrawerWidthLeft = "250px"
 		},
 		Typography = new Typography
 		{
 			Default = new Default
 			{
 				FontFamily = new[] { "Roboto", "Helvetica", "Arial", "sans-serif" },
-				FontSize = "0.8 rem",
-				FontWeight = 200,
-				LineHeight = 0.8,
-				LetterSpacing = ".0055em"
+				FontSize = "0.6 rem",
+				FontWeight = 150,
+				LineHeight = 0.5,
+				LetterSpacing = ".0045em"
 			}
 		}
 	};

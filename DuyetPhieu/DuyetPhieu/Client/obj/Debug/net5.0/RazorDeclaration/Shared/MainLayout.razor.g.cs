@@ -188,7 +188,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 42 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Shared\MainLayout.razor"
+#line 38 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Shared\MainLayout.razor"
        
 	bool _drawerOpen = true;
 
@@ -208,10 +208,10 @@ using System.IO;
 			Default = new Default
 			{
 				FontFamily = new[] { "Roboto", "Helvetica", "Arial", "sans-serif" },
-				FontSize = "0.8 rem",
-				FontWeight = 200,
-				LineHeight = 0.8,
-				LetterSpacing = ".0055em"
+				FontSize = "0.6 rem",
+				FontWeight = 150,
+				LineHeight = 0.5,
+				LetterSpacing = ".0045em"
 			}
 		}
 	};

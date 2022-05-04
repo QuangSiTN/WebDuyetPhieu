@@ -189,17 +189,24 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 81 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeNghiCapQuyen.razor"
+#line 73 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeNghiCapQuyen.razor"
        
 	// loai chung tu zet duyet
 	private IEnumerable<LCTXETDUYETModel> listChungTuXD { get; set; }
 	private LCTXETDUYETModel lctXETDUYETModel { get; set; } = new LCTXETDUYETModel();
+	//chi nhanh
+	private IEnumerable<InformationChiNhanhModel> listChiNhanh { get; set; }
+	private InformationChiNhanhModel chiNhanhModel { get; set; } = new InformationChiNhanhModel();
+	private ListInformationChiNhanh listInforChiNhanh { get; set; } = new ListInformationChiNhanh();
 	//Convert
 	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
 	Func<LCTXETDUYETModel, string> converterLoaiChungTuXD = p => p?.MoTa;
+	Func<InformationChiNhanhModel, string> convertChiNhanh = p => p?.TenChiNhanh;
 	protected override async Task OnInitializedAsync()
 	{
 		listChungTuXD = (await MNService.ListLCTXETDUYET()).ToList();
+		listInforChiNhanh = await MNService.GetAllChiNhanh();
+		listChiNhanh = listInforChiNhanh.Data.OrderBy(x => x.TenChiNhanh);
 	}
 	//button
 	//disable button
@@ -228,7 +235,14 @@ using System.IO;
 		disableFind = false;
 		disableSave = true;
 		disableUndo = true;
-
+	}
+	//search chi  nhanh
+	private async Task<IEnumerable<InformationChiNhanhModel>> SearchChiNhanh(string value)
+	{
+		await Task.Delay(5);
+		if (string.IsNullOrEmpty(value))
+			return listChiNhanh;
+		return listChiNhanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase) || x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
 	}
 
 #line default

@@ -5,12 +5,12 @@
 @inject HttpClient httpclient
 @inject AuthenticationStateProvider auth
 @*@attribute [Authorize(Roles = "BAOCAOBHNB")]*@
-<div style="height:90%">
-	<MudPaper Width="100%" Style="margin: 2px 2px 2px 2px;" Outlined="true" Height="85vh" Elevation="4">
-		<MudCard Style="height :85vh">
+<div style="height:94%">
+	<MudPaper Style="margin: 2px 2px 2px 2px;" Outlined="true" MinHeight="84vh" Elevation="2">
+		<MudCard Style="height :84vh">
 			<MudCardHeader Style="background-color: #E0E0E0;">
 				<CardHeaderContent>
-					<MudText Style="padding-top:5px; background-color : #E0E0E0; font-family: 'Times New Roman', Times, serif;" Typo="Typo.h5"><b>Đề Xuất Chỉnh Sửa Dữ Liệu </b></MudText>
+					<MudText Style=" background-color : #E0E0E0; font-family: 'Times New Roman', Times, serif;" Typo="Typo.h5"><b>Đề Xuất Chỉnh Sửa Dữ Liệu </b></MudText>
 				</CardHeaderContent>
 			</MudCardHeader>
 			<MudCardContent>
@@ -46,10 +46,7 @@
 						</MudSelect>
 					</MudItem>
 					<MudItem xs="12" sm="6" md="3">
-						@*	<InputFile OnChange="OnInputFileChange"></InputFile>*@
-						@*<InputFile multiple OnChange="OnChange" accept="image/png, image/jpeg, image/gif" id="inputFile" />*@
 						<InputFile multiple OnChange="OnChange" accept="image/png, image/jpeg, image/gif"/>
-						@*<label class="custom-file-label" for="inputFile">Choose file</label>*@
 					</MudItem>
 					<MudItem xs="12" sm="6" md="6">
 						<MudSelect T="MnNguonGocLoiModel" @bind-Value="@mnNguonGocLoiBaoHanhModel" Label="Nguồn Gốc Lỗi" Variant="Variant.Outlined" ToStringFunc="@converterNguonGocLoiBH" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
@@ -82,14 +79,14 @@
 		</MudCard>
 	</MudPaper>
 </div>
-<div style="height:10%">
-	<MudPaper Height="6vh" Style="background-color: #F9E5A4;" Square="true" Outlined="true">
+<div style="height:7%">
+	<MudPaper Height="7vh" Style="background-color: #F9E5A4;margin-top:5px;" Square="true" Outlined="true">
 		<div class="d-flex justify-center align-center mud-height-full">
 			<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
 			<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
 			<MudButton Disabled="@disableDelete" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Info">Xóa</MudButton>
 			<MudButton Disabled="@disableUpdate" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
-			<MudButton Disabled="@disableSave" OnClick="@Upload" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
+			<MudButton Disabled="@disableSave" OnClick="@SaveEMSChungTu" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
 			<MudButton Disabled="@disableFind" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tìm</MudButton>
 			<MudButton Disabled="@disableUndo" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Trở lại</MudButton>
 		</div>
@@ -168,21 +165,27 @@
 	List<UploadedFile> filesBase64 = new List<UploadedFile>();
 	private async Task OnChange(InputFileChangeEventArgs e)
 	{
-		var files = e.GetMultipleFiles(); // get the files selected by the users
-		foreach (var file in files)
+		var files = e.GetMultipleFiles();
+		if(files != null)
 		{
-			var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
-			var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
-			using (var stream = resizedFile.OpenReadStream())
+			foreach (var file in files)
 			{
-				await stream.ReadAsync(buf); // copy the stream to the buffer
+				using (var ms = new MemoryStream())
+				{
+					await file.OpenReadStream().CopyToAsync(ms);
+
+					var uploadedFile = new UploadedFile();
+					uploadedFile.FileName = file.Name;
+					uploadedFile.FileContent = ms.ToArray();
+					filesBase64.Add(uploadedFile);
+				}
 			}
-			filesBase64.Add(new UploadedFile { base64data = Convert.ToBase64String(buf), contentType = file.ContentType, fileName = file.Name }); // convert to a base64 string!!
 		}
+
 	}
-	private async Task Upload()
+@*	private async Task Upload()
 	{
-		var rs = await DeNghiService.FileUploadAsync(filesBase64);
+		var rs = await DeNghiService.FileUpload(filesBase64);
 		if (rs.Successful == true)
 		{
 			Console.WriteLine("Thanh cong");
@@ -191,58 +194,64 @@
 		{
 			Console.WriteLine("Loi " + rs.Errors.ToString());
 		}
-	}
-	private async Task SaveEMSChungTu()
-	{
+	}*@
+private async Task SaveEMSChungTu()
+{
 
-		inModel.LoaiChungTu = loaiChungTuModel.SoChungTu;
-		inModel.NguyeNhanLoi = mnNguonGocLoiBaoHanhModel.SoChungTu;
-		inModel.HinhThucChinhSua = lctXETDUYETModel.MaXetDuyet;
-		inModel.CreatedBy = username;
-		if (inModel.CreatedBy == null)
+	inModel.LoaiChungTu = lctXETDUYETModel.MaXetDuyet;
+	inModel.NguyeNhanLoi = mnNguonGocLoiBaoHanhModel.SoChungTu;
+	inModel.HinhThucChinhSua = lctXETDUYETModel.MaXetDuyet;
+	inModel.ChungTuLq = loaiChungTuModel.LoaiPhieu;
+	inModel.CreatedBy = username;
+	inModel.UrlAnh = filesBase64;
+	if (inModel.CreatedBy == null)
+	{
+		Snackbar.Add("Chua co ten username", Severity.Warning);
+	}
+	else if (inModel.LoaiChungTu == null)
+	{
+		Snackbar.Add("Chua co loai chung tu", Severity.Warning);
+	}
+	else if (inModel.NguyeNhanLoi == null)
+	{
+		Snackbar.Add("Chua co nguyen nhan gay loi", Severity.Warning);
+	}
+	else if (inModel.HinhThucChinhSua == null)
+	{
+		Snackbar.Add("Chua chon hinh thuc chinh sua ", Severity.Warning);
+	}
+	else if (inModel.SoChungTu == null)
+	{
+		Snackbar.Add("Chua co so  chung tu", Severity.Warning);
+	}
+	else if (inModel.ChungTuLq == null)
+	{
+		Snackbar.Add("Chua co chung tu lien quan", Severity.Warning);
+	}
+	else if (inModel.HinhThucChinhSua == null)
+	{
+		Snackbar.Add("Chua co hinh thuc chinh sua", Severity.Warning);
+	}
+	else if (inModel.NoiDung == null)
+	{
+		Snackbar.Add("Chua co noi dung", Severity.Warning);
+	}
+	else if( inModel.UrlAnh == null)
+	{
+		Snackbar.Add("Chua gan anh chun tu lien quan ",Severity.Warning);
+	}
+	else
+	{
+		var rs = await DeNghiService.InsertPhieuDeNghiChinhSua(inModel);
+		if (rs.Successful)
 		{
-			Snackbar.Add("Chua co ten username", Severity.Warning);
-		}
-		else if (inModel.LoaiChungTu == null)
-		{
-			Snackbar.Add("Chua co loai chung tu", Severity.Warning);
-		}
-		else if (inModel.NguyeNhanLoi == null)
-		{
-			Snackbar.Add("Chua co nguyen nhan gay loi", Severity.Warning);
-		}
-		else if (inModel.HinhThucChinhSua == null)
-		{
-			Snackbar.Add("Chua chon hinh thuc chinh sua ", Severity.Warning);
-		}
-		else if (inModel.SoChungTu == null)
-		{
-			Snackbar.Add("Chua co so  chung tu", Severity.Warning);
-		}
-		else if (inModel.ChungTuLq == null)
-		{
-			Snackbar.Add("Chua co chung tu lien quan", Severity.Warning);
-		}
-		else if (inModel.HinhThucChinhSua == null)
-		{
-			Snackbar.Add("Chua co hinh thuc chinh sua", Severity.Warning);
-		}
-		else if (inModel.NoiDung == null)
-		{
-			Snackbar.Add("Chua co noi dung", Severity.Warning);
+			Snackbar.Add("Them thanh cong", Severity.Success);
 		}
 		else
 		{
-			var rs = await DeNghiService.InsertPhieuDeNghiChinhSua(inModel);
-			if (rs.Successful)
-			{
-				Snackbar.Add("Them thanh cong", Severity.Success);
-			}
-			else
-			{
-				Snackbar.Add("Loi :" + rs.Errors, Severity.Error);
-			}
+			Snackbar.Add("Loi :" + rs.Errors, Severity.Error);
 		}
-
 	}
+
+}
 }

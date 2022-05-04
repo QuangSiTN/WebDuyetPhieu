@@ -2,8 +2,7 @@
 {
 	public class UploadedFile
     {
-		public string base64data { get; set; }
-		public string contentType { get; set; }
-		public string fileName { get; set; }
+		public byte[] FileContent { get; set; }
+		public string FileName { get; set; }
 	}
 }

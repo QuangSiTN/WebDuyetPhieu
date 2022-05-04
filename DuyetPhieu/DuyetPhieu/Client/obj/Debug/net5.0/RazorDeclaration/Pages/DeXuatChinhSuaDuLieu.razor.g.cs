@@ -189,7 +189,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 101 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeXuatChinhSuaDuLieu.razor"
+#line 98 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeXuatChinhSuaDuLieu.razor"
        
 
 	//button
@@ -260,83 +260,90 @@ using System.IO;
 	List<UploadedFile> filesBase64 = new List<UploadedFile>();
 	private async Task OnChange(InputFileChangeEventArgs e)
 	{
-		var files = e.GetMultipleFiles(); // get the files selected by the users
-		foreach (var file in files)
+		var files = e.GetMultipleFiles();
+		if(files != null)
 		{
-			var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
-			var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
-			using (var stream = resizedFile.OpenReadStream())
+			foreach (var file in files)
 			{
-				await stream.ReadAsync(buf); // copy the stream to the buffer
-			}
-			filesBase64.Add(new UploadedFile { base64data = Convert.ToBase64String(buf), contentType = file.ContentType, fileName = file.Name }); // convert to a base64 string!!
-		}
-	}
-	private async Task Upload()
-	{
-		var rs = await DeNghiService.FileUploadAsync(filesBase64);
-		if (rs.Successful == true)
-		{
-			Console.WriteLine("Thanh cong");
-		}
-		else
-		{
-			Console.WriteLine("Loi " + rs.Errors.ToString());
-		}
-	}
-	private async Task SaveEMSChungTu()
-	{
+				using (var ms = new MemoryStream())
+				{
+					await file.OpenReadStream().CopyToAsync(ms);
 
-		inModel.LoaiChungTu = loaiChungTuModel.SoChungTu;
-		inModel.NguyeNhanLoi = mnNguonGocLoiBaoHanhModel.SoChungTu;
-		inModel.HinhThucChinhSua = lctXETDUYETModel.MaXetDuyet;
-		inModel.CreatedBy = username;
-		if (inModel.CreatedBy == null)
-		{
-			Snackbar.Add("Chua co ten username", Severity.Warning);
-		}
-		else if (inModel.LoaiChungTu == null)
-		{
-			Snackbar.Add("Chua co loai chung tu", Severity.Warning);
-		}
-		else if (inModel.NguyeNhanLoi == null)
-		{
-			Snackbar.Add("Chua co nguyen nhan gay loi", Severity.Warning);
-		}
-		else if (inModel.HinhThucChinhSua == null)
-		{
-			Snackbar.Add("Chua chon hinh thuc chinh sua ", Severity.Warning);
-		}
-		else if (inModel.SoChungTu == null)
-		{
-			Snackbar.Add("Chua co so  chung tu", Severity.Warning);
-		}
-		else if (inModel.ChungTuLq == null)
-		{
-			Snackbar.Add("Chua co chung tu lien quan", Severity.Warning);
-		}
-		else if (inModel.HinhThucChinhSua == null)
-		{
-			Snackbar.Add("Chua co hinh thuc chinh sua", Severity.Warning);
-		}
-		else if (inModel.NoiDung == null)
-		{
-			Snackbar.Add("Chua co noi dung", Severity.Warning);
-		}
-		else
-		{
-			var rs = await DeNghiService.InsertPhieuDeNghiChinhSua(inModel);
-			if (rs.Successful)
-			{
-				Snackbar.Add("Them thanh cong", Severity.Success);
-			}
-			else
-			{
-				Snackbar.Add("Loi :" + rs.Errors, Severity.Error);
+					var uploadedFile = new UploadedFile();
+					uploadedFile.FileName = file.Name;
+					uploadedFile.FileContent = ms.ToArray();
+					filesBase64.Add(uploadedFile);
+				}
 			}
 		}
 
 	}
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 197 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeXuatChinhSuaDuLieu.razor"
+       
+private async Task SaveEMSChungTu()
+{
+
+	inModel.LoaiChungTu = lctXETDUYETModel.MaXetDuyet;
+	inModel.NguyeNhanLoi = mnNguonGocLoiBaoHanhModel.SoChungTu;
+	inModel.HinhThucChinhSua = lctXETDUYETModel.MaXetDuyet;
+	inModel.ChungTuLq = loaiChungTuModel.LoaiPhieu;
+	inModel.CreatedBy = username;
+	inModel.UrlAnh = filesBase64;
+	if (inModel.CreatedBy == null)
+	{
+		Snackbar.Add("Chua co ten username", Severity.Warning);
+	}
+	else if (inModel.LoaiChungTu == null)
+	{
+		Snackbar.Add("Chua co loai chung tu", Severity.Warning);
+	}
+	else if (inModel.NguyeNhanLoi == null)
+	{
+		Snackbar.Add("Chua co nguyen nhan gay loi", Severity.Warning);
+	}
+	else if (inModel.HinhThucChinhSua == null)
+	{
+		Snackbar.Add("Chua chon hinh thuc chinh sua ", Severity.Warning);
+	}
+	else if (inModel.SoChungTu == null)
+	{
+		Snackbar.Add("Chua co so  chung tu", Severity.Warning);
+	}
+	else if (inModel.ChungTuLq == null)
+	{
+		Snackbar.Add("Chua co chung tu lien quan", Severity.Warning);
+	}
+	else if (inModel.HinhThucChinhSua == null)
+	{
+		Snackbar.Add("Chua co hinh thuc chinh sua", Severity.Warning);
+	}
+	else if (inModel.NoiDung == null)
+	{
+		Snackbar.Add("Chua co noi dung", Severity.Warning);
+	}
+	else if( inModel.UrlAnh == null)
+	{
+		Snackbar.Add("Chua gan anh chun tu lien quan ",Severity.Warning);
+	}
+	else
+	{
+		var rs = await DeNghiService.InsertPhieuDeNghiChinhSua(inModel);
+		if (rs.Successful)
+		{
+			Snackbar.Add("Them thanh cong", Severity.Success);
+		}
+		else
+		{
+			Snackbar.Add("Loi :" + rs.Errors, Severity.Error);
+		}
+	}
+
+}
 
 #line default
 #line hidden

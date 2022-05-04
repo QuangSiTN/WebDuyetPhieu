@@ -5,9 +5,9 @@
 @*@attribute [Authorize(Roles = "Administrator")]*@
 <div  class="d-flex justify-center align-center mud-height-full">
 	<MudPaper Style="margin: 2px 2px 2px 2px;" Elevation="4">
-		<MudCard Elevation="4" Style="margin: 0px 2px 2px 2px;">
+		<MudCard Elevation="4"  Style="margin: 0px 2px 2px 2px;">
 			<MudCardContent>
-				<MudGrid>
+				<MudGrid Spacing="1">
 					<MudItem xs="12" sm="6" md="4">
 						<MudTextField T="string"  Label="Số Phiếu Biên Nhận" Required="true" Disabled="@disabletxtSbn" Variant="Variant.Outlined" Margin="Margin.Dense"
 									  @bind-Value="@searchModel.SoPhieuBienNhan" For="@(()=>searchModel.SoPhieuBienNhan)" />
@@ -26,9 +26,9 @@
 		</MudCard>
 		<MudCard Elevation="4">
 			<MudCardContent>
-				<MudGrid>
+				<MudGrid Spacing="1">
 					<MudItem xs="12" sm="6" md="3">
-						<MudTextField T="string" Label="Số Phiếu Biên Nhận" Style="font-size:x-small;" Required="true" Disabled="@disabletxtSbn" Variant="Variant.Outlined" Margin="Margin.Dense" />
+						<MudTextField T="string" Label="Số Phiếu Biên Nhận" Required="true" Disabled="@disabletxtSbn" Variant="Variant.Outlined" Margin="Margin.Dense" />
 					</MudItem>
 					<MudItem xs="12" sm="6" md="3">
 						<MudSelect T="LoaiChungTuModel" @bind-Value="@loaiChungTuModel" Label="Chọn loại chứng từ" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTu" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense">
@@ -89,9 +89,9 @@
 		<MudCard Elevation="4" Style="margin-top:2px;">
 			<MudCardContent>
 				<b style="font-size:large;">Khách hàng</b>
-				<MudGrid>
+				<MudGrid Spacing="1">
 					<MudItem xs="6" sm="3" md="2">
-						<MudTextField  T="string" Label="Tên Khách Hàng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+						<MudTextField T="string" Label="Tên Khách Hàng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
 					</MudItem>
 					<MudItem xs="12" sm="6" md="2">
 						<MudTextField T="string" Label="Điện Thoại" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
@@ -119,8 +119,7 @@
 		<MudCard Elevation="4" Style="margin-top:2px;">
 			<MudCardContent>
 				<b style="font-size:large;">Thông tin thiết bị</b>
-				<MudGrid>
-
+				<MudGrid Spacing="1">
 					<MudItem xs="12" sm="6" md="2">
 						<MudTextField T="string" Label="Mã Hàng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
 					</MudItem>
@@ -204,7 +203,7 @@
 				</MudGrid>
 			</MudCardContent>
 		</MudCard>
-		<MudTable Items="@Elements" FixedHeader="true" FixedFooter="true" Height="150px;" Style="margin-top:5px;">
+		<MudTable Items="@Elements" FixedHeader="true" Dense="true" FixedFooter="true" Height="100px;" Style="margin-top:5px;">
 			<HeaderContent>
 				<MudTh>a</MudTh>
 				<MudTh>b</MudTh>
@@ -216,7 +215,7 @@
 		</MudTable>
 	</MudPaper>
 </div>
-<MudPaper Height="6vh" Style="background-color: #F9E5A4;" Square="true" Outlined="true">
+<MudPaper Height="7vh" Style="background-color: #F9E5A4;" Square="true" Outlined="true">
 	<div class="d-flex justify-center align-center mud-height-full">
 		<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
 		<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
