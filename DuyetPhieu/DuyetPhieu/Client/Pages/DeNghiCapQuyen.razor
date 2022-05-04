@@ -1,7 +1,8 @@
 ﻿@page "/denghicapquyen"
 @inject IMNService MNService
-<div style="height:93%">
-	<MudPaper MinHeight="85vh" Style="margin: 1px 2px 2px 2px;" Outlined="true" Elevation="4">
+
+<MudPaper Class="d-flex align-content-space-between flex-wrap flex-grow-1 gap-4" Height="560px;">
+	<MudPaper Height="518px;" Style="margin: 2px 2px 2px 2px;" Outlined="true" Elevation="2">
 		<MudCard Style="height:85vh;">
 			<MudCardHeader Style="background-color: #E0E0E0;">
 				<CardHeaderContent>
@@ -50,26 +51,36 @@
 						<MudAutocomplete T="InformationChiNhanhModel" MaxItems="null" Variant="Variant.Outlined" @bind-Value="@chiNhanhModel" SearchFunc="@SearchChiNhanh" ToStringFunc="@convertChiNhanh" Label="Chi Nhánh " AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense" />
 					</MudItem>
 					<MudItem xs="12" sm="6" md="4">
-						<MudTextField Typo="Typo.subtitle2" T="string" Label="Nội dung" Required="true" Variant="Variant.Outlined" Lines="2" Margin="Margin.Dense"/>
+						<MudTextField Typo="Typo.subtitle2" T="string" Label="Nội dung" Required="true" Variant="Variant.Outlined" Lines="2" Margin="Margin.Dense" />
 					</MudItem>
 				</MudGrid>
 			</MudCardContent>
 		</MudCard>
 	</MudPaper>
-</div>
-<div style="height:7%">
-	<MudPaper MinHeight="7vh" Style="background-color: #F9E5A4;" Square="true" Outlined="true">
-		<div class="d-flex justify-center align-center mud-height-full">
-			<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
-			<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
-			<MudButton Disabled="@disableDelete" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Info">Xóa</MudButton>
-			<MudButton Disabled="@disableUpdate" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
-			<MudButton Disabled="@disableSave" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
-			<MudButton Disabled="@disableFind" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tìm</MudButton>
-			<MudButton Disabled="@disableUndo" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Trở lại</MudButton>
-		</div>
+	<MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Elevation="0" Height="40px;" Style="background-color: #F9E5A4;" Square="true" Outlined="true">
+		<MudPaper Class="mud-theme-info" Width="160px" Height="35px">
+			<MudButton Disabled="@disableAdd" Style="width:160px;height:35px;" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
+			<MudButton Disabled="@disableAdd" Style="width:80px;height:35px;" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
+			<MudButton Disabled="@disableDelete" Style="width:80px;height:35px;" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Info">Xóa</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
+			<MudButton Disabled="@disableUpdate" Style="width:80px;height:35px;" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
+			<MudButton Disabled="@disableSave" Style="width:80px;height:35px;" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
+			<MudButton Disabled="@disableFind" Style="width:80px;height:35px;" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tìm</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="120px" Height="35px">
+			<MudButton Disabled="@disableUndo" Style="width:120px;height:35px;" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Trở lại</MudButton>
+		</MudPaper>
 	</MudPaper>
-</div>
+</MudPaper>
 @code {
 	// loai chung tu zet duyet
 	private IEnumerable<LCTXETDUYETModel> listChungTuXD { get; set; }

@@ -3,17 +3,18 @@
 @inject MudBlazor.ISnackbar snackBar
 @inject IMNService MNService
 @*@attribute [Authorize(Roles = "Administrator")]*@
-<div  class="d-flex justify-center align-center mud-height-full">
-	<MudPaper Style="margin: 2px 2px 2px 2px;" Elevation="4">
-		<MudCard Elevation="4"  Style="margin: 0px 2px 2px 2px;">
+
+<MudPaper Class="d-flex align-content-space-between flex-wrap flex-grow-1 gap-4" Height="700px;">
+	<MudPaper Height="660px;" Style="margin: 2px 2px 2px 2px;" Outlined="true" Elevation="2">
+		<MudCard Elevation="4" Style="margin: 0px 2px 2px 2px;">
 			<MudCardContent>
 				<MudGrid Spacing="1">
 					<MudItem xs="12" sm="6" md="4">
-						<MudTextField T="string"  Label="Số Phiếu Biên Nhận" Required="true" Disabled="@disabletxtSbn" Variant="Variant.Outlined" Margin="Margin.Dense"
+						<MudTextField T="string" Label="Số Phiếu Biên Nhận" Required="true" Disabled="@disabletxtSbn" Variant="Variant.Outlined" Margin="Margin.Dense"
 									  @bind-Value="@searchModel.SoPhieuBienNhan" For="@(()=>searchModel.SoPhieuBienNhan)" />
 					</MudItem>
 					<MudItem xs="12" sm="6" md="3">
-						<MudDatePicker Label="Từ Ngày"  Variant="Variant.Outlined" Editable="true" @bind-Date="dateFrom" @bind-Value="strDateFrom" Placeholder="Chọn ngày" Margin="Margin.Dense" />
+						<MudDatePicker Label="Từ Ngày" Variant="Variant.Outlined" Editable="true" @bind-Date="dateFrom" @bind-Value="strDateFrom" Placeholder="Chọn ngày" Margin="Margin.Dense" />
 					</MudItem>
 					<MudItem xs="12" sm="6" md="3">
 						<MudDatePicker Label="Đến Ngày" Variant="Variant.Outlined" Editable="true" @bind-Date="dateTo" @bind-Value="strDateTo" Placeholder="Chọn ngày" Margin="Margin.Dense" />
@@ -57,7 +58,7 @@
 					</MudItem>
 
 					<MudItem xs="12" sm="6" md="2">
-						<MudTextField T="string" Label="Mã ID Biên Bảng"  Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
+						<MudTextField T="string" Label="Mã ID Biên Bảng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
 					</MudItem>
 					<MudItem xs="12" sm="6" md="2">
 						<MudDatePicker Label="Ngày Hẹn Trả " Editable="true" @bind-Date="date" @bind-Value="strDate" Variant="Variant.Outlined" Placeholder="Chọn ngày" Margin="Margin.Dense" />
@@ -214,158 +215,170 @@
 			</RowTemplate>
 		</MudTable>
 	</MudPaper>
-</div>
-<MudPaper Height="7vh" Style="background-color: #F9E5A4;" Square="true" Outlined="true">
-	<div class="d-flex justify-center align-center mud-height-full">
-		<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
-		<MudButton Disabled="@disableAdd" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
-		<MudButton Disabled="@disableDelete" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Info">Xóa</MudButton>
-		<MudButton Disabled="@disableUpdate" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
-		<MudButton Disabled="@disableSave" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
-		<MudButton Disabled="@disableFind" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tìm</MudButton>
-		<MudButton Disabled="@disableUndo" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Trở lại</MudButton>
-	</div>
+	<MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Elevation="0" Height="40px;" Style="background-color: #F9E5A4;" Square="true" Outlined="true">
+		<MudPaper Class="mud-theme-info" Width="160px" Height="35px">
+			<MudButton Disabled="@disableAdd" Style="width:160px;height:35px;" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
+			<MudButton Disabled="@disableAdd" Style="width:80px;height:35px;" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
+			<MudButton Disabled="@disableDelete" Style="width:80px;height:35px;" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Info">Xóa</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
+			<MudButton Disabled="@disableUpdate" Style="width:80px;height:35px;" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
+			<MudButton Disabled="@disableSave" Style="width:80px;height:35px;" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
+			<MudButton Disabled="@disableFind" Style="width:80px;height:35px;" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tìm</MudButton>
+		</MudPaper>
+		<MudPaper Class="mud-theme-info" Width="120px" Height="35px">
+			<MudButton Disabled="@disableUndo" Style="width:120px;height:35px;" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Trở lại</MudButton>
+		</MudPaper>
+	</MudPaper>
 </MudPaper>
-	@code{
-		private TestModel testModel;
-		Justify _justify = Justify.Center;
-		//thong tin  search
-		private ThongTinTiepNhanSearch searchModel { get; set; } = new ThongTinTiepNhanSearch();
-		private DateTime? dateFrom = DateTime.Today;
-		private DateTime ndFrom;
-		private string strDateFrom;
-		private DateTime? dateTo = DateTime.Today;
-		private DateTime ndTo;
-		private string strDateTo;
-		//disable button
-		private bool disableAdd = false;
-		private bool disableUpdate = false;
-		private bool disableDelete = false;
-		private bool disableSave = true;
-		private bool disableUndo = true;
-		private bool disableFind = false;
-		//disable textfield
-		private bool disabletxtSbn = false;
-		private string value { get; set; } = "Chọn loại chứng từ";
-		private IEnumerable<string> options { get; set; } = new HashSet<string>() { };
-		private DateTime? date = DateTime.Today;
-		private string strDate;
-		public class TestModel
-		{
-			public string a { get; set; }
-			public string b { get; set; }
-		};
-		private IEnumerable<TestModel> Elements = new List<TestModel>();
-		private void UpdateStateButtonAdd()
-		{
-			disableAdd = true;
-			disableUpdate = true;
-			disableDelete = true;
-			disableFind = true;
-			disableSave = false;
-			disableUndo = false;
-			disabletxtSbn = false;
-		}
-		private void UpdateStateButtonUndo()
-		{
-			disableAdd = false;
-			disableUpdate = false;
-			disableDelete = false;
-			disableFind = false;
-			disableSave = true;
-			disableUndo = true;
-			disabletxtSbn = true;
-		}
-		//model
-		//chi nhanh
-		private ListInformationChiNhanh listChiNhanh { get; set; } = new ListInformationChiNhanh();
-		private IEnumerable<InformationChiNhanhModel> listInfChiNhanh { get; set; }
-		private InformationChiNhanhModel infChiNhanhModel { get; set; } = new InformationChiNhanhModel();
-		//tram bao hanh
-		private ListInformationChiNhanh listTramBaoHanh { get; set; } = new ListInformationChiNhanh();
-		private IEnumerable<InformationChiNhanhModel> listInfTramBaoHanh { get; set; }
-		private InformationChiNhanhModel infTramBaoHanhModel { get; set; } = new InformationChiNhanhModel();
+@code{
+	private TestModel testModel;
+	Justify _justify = Justify.Center;
+	//thong tin  search
+	private ThongTinTiepNhanSearch searchModel { get; set; } = new ThongTinTiepNhanSearch();
+	private DateTime? dateFrom = DateTime.Today;
+	private DateTime ndFrom;
+	private string strDateFrom;
+	private DateTime? dateTo = DateTime.Today;
+	private DateTime ndTo;
+	private string strDateTo;
+	//disable button
+	private bool disableAdd = false;
+	private bool disableUpdate = false;
+	private bool disableDelete = false;
+	private bool disableSave = true;
+	private bool disableUndo = true;
+	private bool disableFind = false;
+	//disable textfield
+	private bool disabletxtSbn = false;
+	private string value { get; set; } = "Chọn loại chứng từ";
+	private IEnumerable<string> options { get; set; } = new HashSet<string>() { };
+	private DateTime? date = DateTime.Today;
+	private string strDate;
+	public class TestModel
+	{
+		public string a { get; set; }
+		public string b { get; set; }
+	};
+	private IEnumerable<TestModel> Elements = new List<TestModel>();
+	private void UpdateStateButtonAdd()
+	{
+		disableAdd = true;
+		disableUpdate = true;
+		disableDelete = true;
+		disableFind = true;
+		disableSave = false;
+		disableUndo = false;
+		disabletxtSbn = false;
+	}
+	private void UpdateStateButtonUndo()
+	{
+		disableAdd = false;
+		disableUpdate = false;
+		disableDelete = false;
+		disableFind = false;
+		disableSave = true;
+		disableUndo = true;
+		disabletxtSbn = true;
+	}
+	//model
+	//chi nhanh
+	private ListInformationChiNhanh listChiNhanh { get; set; } = new ListInformationChiNhanh();
+	private IEnumerable<InformationChiNhanhModel> listInfChiNhanh { get; set; }
+	private InformationChiNhanhModel infChiNhanhModel { get; set; } = new InformationChiNhanhModel();
+	//tram bao hanh
+	private ListInformationChiNhanh listTramBaoHanh { get; set; } = new ListInformationChiNhanh();
+	private IEnumerable<InformationChiNhanhModel> listInfTramBaoHanh { get; set; }
+	private InformationChiNhanhModel infTramBaoHanhModel { get; set; } = new InformationChiNhanhModel();
 
-		//loai hang bao hanh
-		private IEnumerable<MnLoaiHangBhModel> listLoaiHangBH { get; set; }
-		private MnLoaiHangBhModel mnLoaiHangBhModel { get; set; } = new MnLoaiHangBhModel();
-		//loai chung tu
-		private IEnumerable<LoaiChungTuModel> listLoaiChungTu { get; set; }
-		private LoaiChungTuModel loaiChungTuModel { get; set; } = new LoaiChungTuModel();
-		// nguon goc loi bao hanh
-		private IEnumerable<MnNguonGocLoiModel> listNguonGocLoi { get; set; }
-		private MnNguonGocLoiModel mnNguonGocLoiBaoHanhModel { get; set; } = new MnNguonGocLoiModel();
-		// loai dich vu
-		private IEnumerable<MnLoaiDichVuBhModel> listLoaiDichVu { get; set; }
-		private MnLoaiDichVuBhModel mnLoaiDichVuBhModel { get; set; } = new MnLoaiDichVuBhModel();
-		// tinh trang bao hanh
-		private IEnumerable<MnTinhTrangBhModel> listTinhTrangBH { get; set; }
-		private MnTinhTrangBhModel mnTinhTrangBhModel { get; set; } = new MnTinhTrangBhModel();
+	//loai hang bao hanh
+	private IEnumerable<MnLoaiHangBhModel> listLoaiHangBH { get; set; }
+	private MnLoaiHangBhModel mnLoaiHangBhModel { get; set; } = new MnLoaiHangBhModel();
+	//loai chung tu
+	private IEnumerable<LoaiChungTuModel> listLoaiChungTu { get; set; }
+	private LoaiChungTuModel loaiChungTuModel { get; set; } = new LoaiChungTuModel();
+	// nguon goc loi bao hanh
+	private IEnumerable<MnNguonGocLoiModel> listNguonGocLoi { get; set; }
+	private MnNguonGocLoiModel mnNguonGocLoiBaoHanhModel { get; set; } = new MnNguonGocLoiModel();
+	// loai dich vu
+	private IEnumerable<MnLoaiDichVuBhModel> listLoaiDichVu { get; set; }
+	private MnLoaiDichVuBhModel mnLoaiDichVuBhModel { get; set; } = new MnLoaiDichVuBhModel();
+	// tinh trang bao hanh
+	private IEnumerable<MnTinhTrangBhModel> listTinhTrangBH { get; set; }
+	private MnTinhTrangBhModel mnTinhTrangBhModel { get; set; } = new MnTinhTrangBhModel();
 
 
-		protected override async Task OnInitializedAsync()
+	protected override async Task OnInitializedAsync()
+	{
+		listLoaiHangBH = (await MNService.ListLoaiBaoHanh()).ToList();
+		listChiNhanh = await MNService.GetAllChiNhanh();
+		if (listChiNhanh.Error == 0)
 		{
-			listLoaiHangBH = (await MNService.ListLoaiBaoHanh()).ToList();
-			listChiNhanh = await MNService.GetAllChiNhanh();
-			if (listChiNhanh.Error == 0)
-			{
-				listInfChiNhanh = listChiNhanh.Data.OrderBy(x => x.TenChiNhanh);
-			}
-			listLoaiChungTu = (await MNService.ListChungTu()).ToList();
-			listTramBaoHanh = await MNService.ListTramBaoHanh();
-			if (listTramBaoHanh.Error == 0)
-			{
-				listInfTramBaoHanh = listTramBaoHanh.Data.OrderBy(x => x.TenChiNhanh);
-			}
-			listNguonGocLoi = (await MNService.ListNguonGocLoi()).ToList();
-			listLoaiDichVu = (await MNService.ListLoaiDichVu()).ToList();
-			listTinhTrangBH = (await MNService.ListTinhTrangBaoHanh()).ToList();
+			listInfChiNhanh = listChiNhanh.Data.OrderBy(x => x.TenChiNhanh);
 		}
-		private void Luu()
+		listLoaiChungTu = (await MNService.ListChungTu()).ToList();
+		listTramBaoHanh = await MNService.ListTramBaoHanh();
+		if (listTramBaoHanh.Error == 0)
 		{
-			if (infChiNhanhModel == null)
-			{
-				Console.WriteLine("Model chi nhanh null ");
-			}
-			else
-			{
-				Console.WriteLine("Ban dang chon chi nhanh " + infChiNhanhModel.TenChiNhanh + " Ma kho " + infChiNhanhModel.MaChiNhanh);
-			}
+			listInfTramBaoHanh = listTramBaoHanh.Data.OrderBy(x => x.TenChiNhanh);
 		}
-		//convert
-		Func<InformationChiNhanhModel, string> converterChiNhanh = p => p?.TenChiNhanh;
-		Func<InformationChiNhanhModel, string> converterTramBaoHanh = p => p?.TenChiNhanh;
-		Func<MnLoaiHangBhModel, string> converterLoaiHangBH = p => p?.TenLoaiHang;
-		Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
-		Func<MnNguonGocLoiModel, string> converterNguonGocLoiBH = p => p?.LoaiLoi;
-		Func<MnLoaiDichVuBhModel, string> converterLoaiDichVu = p => p?.TenLoaiDichVu;
-		Func<MnTinhTrangBhModel, string> converterTinhTrangBH = p => p?.TinhTrang;
-		//search chi  nhanh
-		private async Task<IEnumerable<InformationChiNhanhModel>> SearchChiNhanh(string value)
+		listNguonGocLoi = (await MNService.ListNguonGocLoi()).ToList();
+		listLoaiDichVu = (await MNService.ListLoaiDichVu()).ToList();
+		listTinhTrangBH = (await MNService.ListTinhTrangBaoHanh()).ToList();
+	}
+	private void Luu()
+	{
+		if (infChiNhanhModel == null)
 		{
-			await Task.Delay(5);
-			if (string.IsNullOrEmpty(value))
-				return listInfChiNhanh;
-			return listInfChiNhanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase) || x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+			Console.WriteLine("Model chi nhanh null ");
 		}
-		private async Task<IEnumerable<InformationChiNhanhModel>> SearchTramBaoHanh(string value)
+		else
 		{
-			await Task.Delay(5);
-			if (string.IsNullOrEmpty(value))
-				return listInfTramBaoHanh;
-			return listInfTramBaoHanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase) || x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-		}
-		//xu ly button search
-		private async Task SearchThongTinPhieuBienNhan()
-		{
-			ndFrom = Convert.ToDateTime(dateFrom);
-			strDateFrom = ndFrom.ToString("MM/dd/yyyy");
-			ndTo = Convert.ToDateTime(dateTo);
-			strDateTo = ndTo.ToString("MM/dd/yyyy");
-			Console.WriteLine("Du lieu ra : So phieu " + searchModel.SoPhieuBienNhan);
-			Console.WriteLine("Tu ngay " + strDateFrom);
-			Console.WriteLine("Den ngay : " + strDateTo);
-
+			Console.WriteLine("Ban dang chon chi nhanh " + infChiNhanhModel.TenChiNhanh + " Ma kho " + infChiNhanhModel.MaChiNhanh);
 		}
 	}
+	//convert
+	Func<InformationChiNhanhModel, string> converterChiNhanh = p => p?.TenChiNhanh;
+	Func<InformationChiNhanhModel, string> converterTramBaoHanh = p => p?.TenChiNhanh;
+	Func<MnLoaiHangBhModel, string> converterLoaiHangBH = p => p?.TenLoaiHang;
+	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
+	Func<MnNguonGocLoiModel, string> converterNguonGocLoiBH = p => p?.LoaiLoi;
+	Func<MnLoaiDichVuBhModel, string> converterLoaiDichVu = p => p?.TenLoaiDichVu;
+	Func<MnTinhTrangBhModel, string> converterTinhTrangBH = p => p?.TinhTrang;
+	//search chi  nhanh
+	private async Task<IEnumerable<InformationChiNhanhModel>> SearchChiNhanh(string value)
+	{
+		await Task.Delay(5);
+		if (string.IsNullOrEmpty(value))
+			return listInfChiNhanh;
+		return listInfChiNhanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase) || x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+	}
+	private async Task<IEnumerable<InformationChiNhanhModel>> SearchTramBaoHanh(string value)
+	{
+		await Task.Delay(5);
+		if (string.IsNullOrEmpty(value))
+			return listInfTramBaoHanh;
+		return listInfTramBaoHanh.Where(x => x.TenChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase) || x.MaChiNhanh.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+	}
+	//xu ly button search
+	private async Task SearchThongTinPhieuBienNhan()
+	{
+		ndFrom = Convert.ToDateTime(dateFrom);
+		strDateFrom = ndFrom.ToString("MM/dd/yyyy");
+		ndTo = Convert.ToDateTime(dateTo);
+		strDateTo = ndTo.ToString("MM/dd/yyyy");
+		Console.WriteLine("Du lieu ra : So phieu " + searchModel.SoPhieuBienNhan);
+		Console.WriteLine("Tu ngay " + strDateFrom);
+		Console.WriteLine("Den ngay : " + strDateTo);
+
+	}
+}
 
