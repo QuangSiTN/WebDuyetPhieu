@@ -1,0 +1,27 @@
+﻿@page "/viewimage"
+@inject IDeNghiChinhSuaDuLieuService denghichinhsuaService
+<MudPaper>
+	@if (dsanh != null)
+	{
+		@foreach (var anh in dsanh)
+		{
+			<img style="width:100px;height:40px;" src="@anh" />
+		}
+	}
+</MudPaper>
+
+@code {
+	private string imgSrc;
+	private List<string> dsanh = new List<string>();
+	private IEnumerable<UploadedFile> listImg { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		listImg = (await denghichinhsuaService.getFile()).ToList();
+		foreach(var i in listImg)
+		{
+			imgSrc = String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(i.FileContent));
+			dsanh.Add(imgSrc);
+		}
+
+	}
+}

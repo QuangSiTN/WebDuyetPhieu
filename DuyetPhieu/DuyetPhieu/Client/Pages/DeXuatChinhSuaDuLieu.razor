@@ -46,7 +46,8 @@
 						</MudSelect>
 					</MudItem>
 					<MudItem xs="12" sm="6" md="3">
-						<InputFile multiple OnChange="OnChange" accept="image/png, image/jpeg, image/gif"/>
+						<InputFile multiple OnChange="OnChange" accept="image/png, image/jpeg, image/gif" />
+						
 					</MudItem>
 					<MudItem xs="12" sm="6" md="6">
 						<MudSelect T="MnNguonGocLoiModel" @bind-Value="@mnNguonGocLoiBaoHanhModel" Label="Nguồn Gốc Lỗi" Variant="Variant.Outlined" ToStringFunc="@converterNguonGocLoiBH" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
@@ -141,10 +142,14 @@
 	// user
 	private string username = "";
 	private DateTime dateFrom = DateTime.Today;
+	
 	//Convert
 	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
 	Func<MnNguonGocLoiModel, string> converterNguonGocLoiBH = p => p?.LoaiLoi;
 	Func<LCTXETDUYETModel, string> converterLoaiChungTuXD = p => p?.MoTa;
+	//
+	
+
 	//
 	protected override async Task OnInitializedAsync()
 	{
@@ -178,80 +183,69 @@
 					uploadedFile.FileName = file.Name;
 					uploadedFile.FileContent = ms.ToArray();
 					filesBase64.Add(uploadedFile);
+					
 				}
 			}
 		}
 
 	}
-@*	private async Task Upload()
+	private async Task SaveEMSChungTu()
 	{
-		var rs = await DeNghiService.FileUpload(filesBase64);
-		if (rs.Successful == true)
+
+		inModel.LoaiChungTu = lctXETDUYETModel.MaXetDuyet;
+		inModel.NguyeNhanLoi = mnNguonGocLoiBaoHanhModel.SoChungTu;
+		inModel.HinhThucChinhSua = lctXETDUYETModel.MaXetDuyet;
+		inModel.ChungTuLq = loaiChungTuModel.LoaiPhieu;
+		inModel.CreatedBy = username;
+		inModel.UrlAnh = filesBase64;
+		if (inModel.CreatedBy == null)
 		{
-			Console.WriteLine("Thanh cong");
+			Snackbar.Add("Chua co ten username", Severity.Warning);
+		}
+		else if (inModel.LoaiChungTu == null)
+		{
+			Snackbar.Add("Chua co loai chung tu", Severity.Warning);
+		}
+		else if (inModel.NguyeNhanLoi == null)
+		{
+			Snackbar.Add("Chua co nguyen nhan gay loi", Severity.Warning);
+		}
+		else if (inModel.HinhThucChinhSua == null)
+		{
+			Snackbar.Add("Chua chon hinh thuc chinh sua ", Severity.Warning);
+		}
+		else if (inModel.SoChungTu == null)
+		{
+			Snackbar.Add("Chua co so  chung tu", Severity.Warning);
+		}
+		else if (inModel.ChungTuLq == null)
+		{
+			Snackbar.Add("Chua co chung tu lien quan", Severity.Warning);
+		}
+		else if (inModel.HinhThucChinhSua == null)
+		{
+			Snackbar.Add("Chua co hinh thuc chinh sua", Severity.Warning);
+		}
+		else if (inModel.NoiDung == null)
+		{
+			Snackbar.Add("Chua co noi dung", Severity.Warning);
+		}
+		else if( inModel.UrlAnh == null)
+		{
+			Snackbar.Add("Chua gan anh chun tu lien quan ",Severity.Warning);
 		}
 		else
 		{
-			Console.WriteLine("Loi " + rs.Errors.ToString());
+			var rs = await DeNghiService.InsertPhieuDeNghiChinhSua(inModel);
+			if (rs.Successful)
+			{
+				Snackbar.Add("Them thanh cong", Severity.Success);
+			}
+			else
+			{
+				Snackbar.Add("Loi :" + rs.Errors, Severity.Error);
+			}
 		}
-	}*@
-private async Task SaveEMSChungTu()
-{
 
-	inModel.LoaiChungTu = lctXETDUYETModel.MaXetDuyet;
-	inModel.NguyeNhanLoi = mnNguonGocLoiBaoHanhModel.SoChungTu;
-	inModel.HinhThucChinhSua = lctXETDUYETModel.MaXetDuyet;
-	inModel.ChungTuLq = loaiChungTuModel.LoaiPhieu;
-	inModel.CreatedBy = username;
-	inModel.UrlAnh = filesBase64;
-	if (inModel.CreatedBy == null)
-	{
-		Snackbar.Add("Chua co ten username", Severity.Warning);
 	}
-	else if (inModel.LoaiChungTu == null)
-	{
-		Snackbar.Add("Chua co loai chung tu", Severity.Warning);
-	}
-	else if (inModel.NguyeNhanLoi == null)
-	{
-		Snackbar.Add("Chua co nguyen nhan gay loi", Severity.Warning);
-	}
-	else if (inModel.HinhThucChinhSua == null)
-	{
-		Snackbar.Add("Chua chon hinh thuc chinh sua ", Severity.Warning);
-	}
-	else if (inModel.SoChungTu == null)
-	{
-		Snackbar.Add("Chua co so  chung tu", Severity.Warning);
-	}
-	else if (inModel.ChungTuLq == null)
-	{
-		Snackbar.Add("Chua co chung tu lien quan", Severity.Warning);
-	}
-	else if (inModel.HinhThucChinhSua == null)
-	{
-		Snackbar.Add("Chua co hinh thuc chinh sua", Severity.Warning);
-	}
-	else if (inModel.NoiDung == null)
-	{
-		Snackbar.Add("Chua co noi dung", Severity.Warning);
-	}
-	else if( inModel.UrlAnh == null)
-	{
-		Snackbar.Add("Chua gan anh chun tu lien quan ",Severity.Warning);
-	}
-	else
-	{
-		var rs = await DeNghiService.InsertPhieuDeNghiChinhSua(inModel);
-		if (rs.Successful)
-		{
-			Snackbar.Add("Them thanh cong", Severity.Success);
-		}
-		else
-		{
-			Snackbar.Add("Loi :" + rs.Errors, Severity.Error);
-		}
-	}
-
-}
 }

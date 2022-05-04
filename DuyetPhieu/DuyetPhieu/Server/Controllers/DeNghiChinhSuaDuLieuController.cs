@@ -3,7 +3,6 @@ using DuyetPhieu.Server.Models;
 using DuyetPhieu.Shared;
 using DuyetPhieu.Shared.ChinhSuaDuLieu.In;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,25 +16,30 @@ namespace DuyetPhieu.Server.Controllers
 	[ApiController]
 	public class DeNghiChinhSuaDuLieuController:ControllerBase
 	{
-		private readonly DeleiveryDBContext _deleiveryDBContext;
+		private readonly DeleiveryDBContext _deliveryDBContext;
 		private readonly IWebHostEnvironment _environment;
 		public DeNghiChinhSuaDuLieuController(DeleiveryDBContext deleiveryDBContext, IWebHostEnvironment environment)
 		{
-			_deleiveryDBContext = deleiveryDBContext;
+			_deliveryDBContext = deleiveryDBContext;
 			_environment = environment;
 		}
 		[HttpPost]
 		public async Task<IActionResult> InsertPhieuDeNghiChinhSua(EmsDeNghiChinhSuaDuLieuInModel model)
 		{
 			if (model == null) return Ok(new ResultModel { Successful = false, Errors = "Du lieu truyen vao null",Token = null });
-			var checkSoChungTu =  _deleiveryDBContext.EmsDeNghiChinhSuaDuLieus.Where(x => x.SoChungTu == model.SoChungTu && x.Status == 1).FirstOrDefault();
+			var checkSoChungTu = _deliveryDBContext.EmsDeNghiChinhSuaDuLieus.Where(x => x.SoChungTu == model.SoChungTu && x.Status == 1).FirstOrDefault();
 			if (checkSoChungTu != null) return Ok(new ResultModel { Successful = false ,Errors ="So phieu bien nhan da ton tai ",Token= null});
 			//save image
 			string linkimg = "";
+			var wwwpath = $"{_environment.WebRootPath}";
+			string pathfolder = Path.Combine($"{_environment.WebRootPath}", "ImageChungTu");
+			if(!Directory.Exists(pathfolder))
+			{
+				Directory.CreateDirectory(pathfolder);
+			}
 			foreach (var file in model.UrlAnh)
 			{
-				Console.WriteLine("In file " + file.FileName);
-				var path = $"{_environment.WebRootPath}\\{file.FileName}";
+				var path = $"{pathfolder}\\{file.FileName}";
 				linkimg = path.ToString();
 				await using var fs = new FileStream(path, FileMode.Create);
 				fs.Write(file.FileContent, 0, file.FileContent.Length);
@@ -53,27 +57,40 @@ namespace DuyetPhieu.Server.Controllers
 				Status = 1,
 				UrlAnh = linkimg
 			};
-			await _deleiveryDBContext.EmsDeNghiChinhSuaDuLieus.AddAsync(phieuDeNghiChinhSuaModel);
-			await _deleiveryDBContext.SaveChangesAsync();
+			await _deliveryDBContext.EmsDeNghiChinhSuaDuLieus.AddAsync(phieuDeNghiChinhSuaModel);
+			await _deliveryDBContext.SaveChangesAsync();
 			return Ok(new ResultModel { Successful = true, Errors = null, Token = null }) ;
 		}
 		[HttpGet]
 		public IActionResult ListPhieuDeNghiChinhSua()
 		{
-			var list = _deleiveryDBContext.EmsDeNghiChinhSuaDuLieus.Where(x => x.Status == 1).ToList();
+			var list = _deliveryDBContext.EmsDeNghiChinhSuaDuLieus.Where(x => x.Status == 1).ToList();
 			return Ok(list);
 		}
+		
 		[HttpPost]
+		
 		public async Task<IActionResult> FileUpload(List<UploadedFile> files)
 		{
 			foreach (var file in files)
 			{
-				Console.WriteLine("In file "+ file.FileName);
 				var path = $"{_environment.WebRootPath}\\{file.FileName}";
 				await using var fs = new FileStream(path, FileMode.Create);
-				fs.Write(file.FileContent, 0, file.FileContent.Length);	
+				fs.Write(file.FileContent, 0, file.FileContent.Length);
 			}
 			return Ok(new ResultModel { Successful = true });
+		}
+		[HttpGet]
+		public IActionResult getFile()
+		{
+			var list = (from i in _deliveryDBContext.EmsDeNghiChinhSuaDuLieus
+						where i.Status == 1
+						select new UploadedFile
+						{
+							FileContent = System.IO.File.ReadAllBytes(i.UrlAnh),
+							FileName = i.SoChungTu
+						}).ToList();
+			return Ok(list);
 		}
 	}
 }

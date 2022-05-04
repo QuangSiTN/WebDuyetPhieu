@@ -1347,3 +1347,5 @@ C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Cli
 C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\obj\Debug\net5.0\build-gz\Dlb1JgXC.gz
 C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\obj\Debug\net5.0\RazorDeclaration\Pages\DeNghiCapQuyen.razor.g.cs
 C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\obj\Debug\net5.0\Razor\Pages\DeNghiCapQuyen.razor.g.cs
+C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\obj\Debug\net5.0\RazorDeclaration\Pages\ViewImage.razor.g.cs
+C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\obj\Debug\net5.0\Razor\Pages\ViewImage.razor.g.cs
