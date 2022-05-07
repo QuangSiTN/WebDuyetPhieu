@@ -6,21 +6,21 @@
 @inject AuthenticationStateProvider auth
 @*@attribute [Authorize(Roles = "BAOCAOBHNB")]*@
 
-<MudPaper Class="d-flex align-content-space-between flex-wrap flex-grow-1 gap-4" Height="560px;">
-	<MudPaper Height="518px;" Style="margin: 2px 2px 2px 2px;" Outlined="true" Elevation="2">
+<MudPaper Width="100%" Class="d-flex align-content-space-between flex-wrap flex-grow-1 gap-4" Height="560px;">
+	<MudPaper Height="518px;" Style="margin: 2px 0px 2px 0px;" Outlined="true" Elevation="2">
 		<MudCard>
-			<MudCardHeader Style="background-color: #E0E0E0;">
+			<MudCardHeader Style="background-color: #E0E0E0; height: 50px;">
 				<CardHeaderContent>
 					<MudText Style=" background-color : #E0E0E0; font-family: 'Times New Roman', Times, serif;" Typo="Typo.h5"><b>Đề Xuất Chỉnh Sửa Dữ Liệu </b></MudText>
 				</CardHeaderContent>
 			</MudCardHeader>
 			<MudCardContent>
-				<MudGrid>
-					<MudItem xs="12" sm="6" md="6">
+				<MudGrid Spacing="1">
+					<MudItem xs="12" sm="6" md="3">
 						<MudTextField T="string" Style="font-size:small;" Label="Số Phiếu Biên Nhận" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense"
-									  @bind-Value="@inModel.SoChungTu" For="@(() => inModel.SoChungTu)" />
+										@bind-Value="@inModel.SoChungTu" For="@(() => inModel.SoChungTu)" />
 					</MudItem>
-					<MudItem xs="12" sm="6" md="6">
+					<MudItem xs="12" sm="6" md="3">
 						<MudSelect Typo="Typo.subtitle2" T="LCTXETDUYETModel" @bind-Value="@lctXETDUYETModel" Label="Loại Chứng Từ" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTuXD" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
 							@if (listChungTuXD != null)
 							{
@@ -31,26 +31,23 @@
 							}
 						</MudSelect>
 					</MudItem>
-					@*<MudItem xs="12" sm="6" md="6">
-							<MudTextField Typo="Typo.subtitle2" T="string" Label="Chứng từ liên quan" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense"
-										  @bind-Value="@inModel.ChungTuLq" For="@(()=>inModel.ChungTuLq)" />
-						</MudItem>*@
-					<MudItem xs="12" sm="6" md="6">
-						<MudSelect Style="font-size:small;" Typo="Typo.subtitle2" T="LoaiChungTuModel" @bind-Value="@loaiChungTuModel" Label="Chứng từ liên quan" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTu" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
+					<MudItem xs="12" sm="6" md="3">
+						<MudSelect Style="font-size:small;" T="LoaiChungTuModel" @bind-Value="@loaiChungTuModel" Label="Chứng từ liên quan" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTu" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
 							@if (listLoaiChungTu != null)
 							{
 								@foreach (var ct in listLoaiChungTu)
 								{
-									<MudSelectItem Value="@ct">@ct.LoaiPhieu</MudSelectItem>
+									<MudSelectItem  Value="@ct">@ct.LoaiPhieu</MudSelectItem>
 								}
 							}
 						</MudSelect>
 					</MudItem>
 					<MudItem xs="12" sm="6" md="3">
-						<InputFile multiple OnChange="OnChange" accept="image/png, image/jpeg, image/gif" />
-
+						<div style="margin-top:10px;">
+							<InputFile OnChange="OnChange" accept="image/png, image/jpeg, image/gif" />
+						</div>
 					</MudItem>
-					<MudItem xs="12" sm="6" md="6">
+					<MudItem xs="12" sm="6" md="3">
 						<MudSelect T="MnNguonGocLoiModel" @bind-Value="@mnNguonGocLoiBaoHanhModel" Label="Nguồn Gốc Lỗi" Variant="Variant.Outlined" ToStringFunc="@converterNguonGocLoiBH" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
 							@if (listNguonGocLoi != null)
 							{
@@ -61,7 +58,7 @@
 							}
 						</MudSelect>
 					</MudItem>
-					<MudItem xs="12" sm="6" md="6">
+					<MudItem xs="12" sm="6" md="3">
 						<MudSelect Typo="Typo.subtitle2" T="LCTXETDUYETModel" @bind-Value="@lctXETDUYETModel" Label="Hình Thức Chỉnh Sửa" Variant="Variant.Outlined" ToStringFunc="@converterLoaiChungTuXD" AnchorOrigin="Origin.BottomCenter" Dense="true" Margin="Margin.Dense">
 							@if (listChungTuXD != null)
 							{
@@ -73,8 +70,8 @@
 						</MudSelect>
 					</MudItem>
 					<MudItem xs="12" sm="6" md="6">
-						<MudTextField Typo="Typo.subtitle2" T="string" Label="Nội dung" Required="true" Variant="Variant.Outlined" Lines="2" Margin="Margin.Dense"
-									  @bind-Value="@inModel.NoiDung" For="@(()=>inModel.NoiDung)" />
+						<MudTextField Typo="Typo.subtitle2" T="string" Label="Nội dung" Required="true" Variant="Variant.Outlined" Lines="1" Margin="Margin.Dense"
+										@bind-Value="@inModel.NoiDung" For="@(()=>inModel.NoiDung)" />
 					</MudItem>
 				</MudGrid>
 			</MudCardContent>
@@ -152,13 +149,13 @@
 	// user
 	private string username = "";
 	private DateTime dateFrom = DateTime.Today;
-	
+
 	//Convert
 	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
 	Func<MnNguonGocLoiModel, string> converterNguonGocLoiBH = p => p?.LoaiLoi;
 	Func<LCTXETDUYETModel, string> converterLoaiChungTuXD = p => p?.MoTa;
 	//
-	
+
 
 	//
 	protected override async Task OnInitializedAsync()
@@ -177,7 +174,7 @@
 			}
 		}
 	}
-	List<UploadedFile> filesBase64 = new List<UploadedFile>();
+	private UploadedFile uploadedFile = new UploadedFile();
 	private async Task OnChange(InputFileChangeEventArgs e)
 	{
 		var files = e.GetMultipleFiles();
@@ -188,12 +185,8 @@
 				using (var ms = new MemoryStream())
 				{
 					await file.OpenReadStream().CopyToAsync(ms);
-
-					var uploadedFile = new UploadedFile();
 					uploadedFile.FileName = file.Name;
 					uploadedFile.FileContent = ms.ToArray();
-					filesBase64.Add(uploadedFile);
-					
 				}
 			}
 		}
@@ -207,7 +200,7 @@
 		inModel.HinhThucChinhSua = lctXETDUYETModel.MaXetDuyet;
 		inModel.ChungTuLq = loaiChungTuModel.LoaiPhieu;
 		inModel.CreatedBy = username;
-		inModel.UrlAnh = filesBase64;
+		inModel.UrlAnh = uploadedFile;
 		if (inModel.CreatedBy == null)
 		{
 			Snackbar.Add("Chua co ten username", Severity.Warning);

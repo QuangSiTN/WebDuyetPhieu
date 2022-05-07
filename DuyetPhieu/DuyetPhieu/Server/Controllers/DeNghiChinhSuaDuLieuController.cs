@@ -30,20 +30,21 @@ namespace DuyetPhieu.Server.Controllers
 			var checkSoChungTu = _deliveryDBContext.EmsDeNghiChinhSuaDuLieus.Where(x => x.SoChungTu == model.SoChungTu && x.Status == 1).FirstOrDefault();
 			if (checkSoChungTu != null) return Ok(new ResultModel { Successful = false ,Errors ="So phieu bien nhan da ton tai ",Token= null});
 			//save image
-			string linkimg = "";
 			var wwwpath = $"{_environment.WebRootPath}";
 			string pathfolder = Path.Combine($"{_environment.WebRootPath}", "ImageChungTu");
-			if(!Directory.Exists(pathfolder))
+			string link = "";
+			if (!Directory.Exists(pathfolder))
 			{
 				Directory.CreateDirectory(pathfolder);
 			}
-			foreach (var file in model.UrlAnh)
-			{
-				var path = $"{pathfolder}\\{file.FileName}";
-				linkimg = path.ToString();
-				await using var fs = new FileStream(path, FileMode.Create);
-				fs.Write(file.FileContent, 0, file.FileContent.Length);
-			}
+			
+			string fileanh = model.SoChungTu + "-"+model.UrlAnh.FileName;
+			var path = $"{pathfolder}\\{fileanh}";
+			link = $"ImageChungTu\\{fileanh}";
+
+			await using var fs = new FileStream(path, FileMode.Create);
+			fs.Write(model.UrlAnh.FileContent, 0, model.UrlAnh.FileContent.Length);
+			
 			var phieuDeNghiChinhSuaModel = new EmsDeNghiChinhSuaDuLieu
 			{
 				ChungTuLq = model.ChungTuLq,
@@ -55,7 +56,7 @@ namespace DuyetPhieu.Server.Controllers
 				NoiDung = model.NoiDung,
 				SoChungTu = model.SoChungTu,
 				Status = 1,
-				UrlAnh = linkimg
+				UrlAnh = link
 			};
 			await _deliveryDBContext.EmsDeNghiChinhSuaDuLieus.AddAsync(phieuDeNghiChinhSuaModel);
 			await _deliveryDBContext.SaveChangesAsync();

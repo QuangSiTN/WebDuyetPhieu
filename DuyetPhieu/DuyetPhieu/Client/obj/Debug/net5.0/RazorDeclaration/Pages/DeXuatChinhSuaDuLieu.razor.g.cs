@@ -189,7 +189,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 109 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeXuatChinhSuaDuLieu.razor"
+#line 106 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeXuatChinhSuaDuLieu.razor"
        
 
 	//button
@@ -236,13 +236,13 @@ using System.IO;
 	// user
 	private string username = "";
 	private DateTime dateFrom = DateTime.Today;
-	
+
 	//Convert
 	Func<LoaiChungTuModel, string> converterLoaiChungTu = p => p?.LoaiPhieu;
 	Func<MnNguonGocLoiModel, string> converterNguonGocLoiBH = p => p?.LoaiLoi;
 	Func<LCTXETDUYETModel, string> converterLoaiChungTuXD = p => p?.MoTa;
 	//
-	
+
 
 	//
 	protected override async Task OnInitializedAsync()
@@ -261,7 +261,7 @@ using System.IO;
 			}
 		}
 	}
-	List<UploadedFile> filesBase64 = new List<UploadedFile>();
+	private UploadedFile uploadedFile = new UploadedFile();
 	private async Task OnChange(InputFileChangeEventArgs e)
 	{
 		var files = e.GetMultipleFiles();
@@ -272,12 +272,8 @@ using System.IO;
 				using (var ms = new MemoryStream())
 				{
 					await file.OpenReadStream().CopyToAsync(ms);
-
-					var uploadedFile = new UploadedFile();
 					uploadedFile.FileName = file.Name;
 					uploadedFile.FileContent = ms.ToArray();
-					filesBase64.Add(uploadedFile);
-					
 				}
 			}
 		}
@@ -291,7 +287,7 @@ using System.IO;
 		inModel.HinhThucChinhSua = lctXETDUYETModel.MaXetDuyet;
 		inModel.ChungTuLq = loaiChungTuModel.LoaiPhieu;
 		inModel.CreatedBy = username;
-		inModel.UrlAnh = filesBase64;
+		inModel.UrlAnh = uploadedFile;
 		if (inModel.CreatedBy == null)
 		{
 			Snackbar.Add("Chua co ten username", Severity.Warning);
