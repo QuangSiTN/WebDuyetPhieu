@@ -189,7 +189,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 87 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeNghiCapQuyen.razor"
+#line 86 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\DeNghiCapQuyen.razor"
        
 	// loai chung tu zet duyet
 	private IEnumerable<LCTXETDUYETModel> listChungTuXD { get; set; }

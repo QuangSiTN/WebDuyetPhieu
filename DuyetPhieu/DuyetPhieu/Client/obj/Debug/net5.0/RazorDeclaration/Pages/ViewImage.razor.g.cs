@@ -189,7 +189,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 13 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\ViewImage.razor"
+#line 15 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\ViewImage.razor"
        
 	private string imgSrc;
 	private List<string> dsanh = new List<string>();

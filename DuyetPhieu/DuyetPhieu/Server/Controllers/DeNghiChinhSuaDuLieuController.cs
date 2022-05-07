@@ -5,7 +5,6 @@ using DuyetPhieu.Shared.ChinhSuaDuLieu.In;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -68,27 +67,15 @@ namespace DuyetPhieu.Server.Controllers
 			var list = _deliveryDBContext.EmsDeNghiChinhSuaDuLieus.Where(x => x.Status == 1).ToList();
 			return Ok(list);
 		}
-		
-		[HttpPost]
-		
-		public async Task<IActionResult> FileUpload(List<UploadedFile> files)
-		{
-			foreach (var file in files)
-			{
-				var path = $"{_environment.WebRootPath}\\{file.FileName}";
-				await using var fs = new FileStream(path, FileMode.Create);
-				fs.Write(file.FileContent, 0, file.FileContent.Length);
-			}
-			return Ok(new ResultModel { Successful = true });
-		}
 		[HttpGet]
 		public IActionResult getFile()
 		{
+			var wwwpath = $"{_environment.WebRootPath}";
 			var list = (from i in _deliveryDBContext.EmsDeNghiChinhSuaDuLieus
 						where i.Status == 1
 						select new UploadedFile
 						{
-							FileContent = System.IO.File.ReadAllBytes(i.UrlAnh),
+							FileContent = System.IO.File.ReadAllBytes(wwwpath+"\\"+i.UrlAnh),
 							FileName = i.SoChungTu
 						}).ToList();
 			return Ok(list);
