@@ -189,7 +189,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 232 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\Index.razor"
+#line 235 "C:\Users\lequa\OneDrive\Documents\GitHub\WebDuyetPhieu\DuyetPhieu\DuyetPhieu\Client\Pages\Index.razor"
       
 	private TestModel testModel;
 	Justify _justify = Justify.Center;
@@ -265,8 +265,6 @@ using System.IO;
 	// tinh trang bao hanh
 	private IEnumerable<MnTinhTrangBhModel> listTinhTrangBH { get; set; }
 	private MnTinhTrangBhModel mnTinhTrangBhModel { get; set; } = new MnTinhTrangBhModel();
-
-
 	protected override async Task OnInitializedAsync()
 	{
 		listLoaiHangBH = (await MNService.ListLoaiBaoHanh()).ToList();

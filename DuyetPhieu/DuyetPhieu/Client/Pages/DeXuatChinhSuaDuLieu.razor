@@ -77,21 +77,25 @@
 			</MudCardContent>
 		</MudCard>
 	</MudPaper>
-	<MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Elevation="0" Height="40px;" Style="background-color: #F9E5A4;" Square="true" Outlined="true">
-		<MudPaper Class="mud-theme-info"  Width="160px" Height="35px">
-			<MudButton Disabled="@disableAdd" Style="width:160px;height:35px;"  OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
+	
+</MudPaper>
+
+<MudAppBar Bottom="true" Style="width: 100%; height: 40px; background-color: #F9E5A4;">
+	<MudPaper Class="d-flex justify-center flex-grow-1" Elevation="0" Style="background-color: #F9E5A4; margin-left: 5%;">
+		<MudPaper Class="mud-theme-info" Width="160px" Height="35px">
+			<MudButton Disabled="@disableAdd" Style="width:160px;height:35px;" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.RemoveRedEye" Color="Color.Info">Xem Quy Trình</MudButton>
 		</MudPaper>
 		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
-			<MudButton Disabled="@disableAdd" Style="width:80px;height:35px;"  OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
+			<MudButton Disabled="@disableAdd" Style="width:80px;height:35px;" OnClick="@UpdateStateButtonAdd" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Color="Color.Info">Thêm</MudButton>
 		</MudPaper>
 		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
-			<MudButton Disabled="@disableDelete" Style="width:80px;height:35px;"  Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Info">Xóa</MudButton>
+			<MudButton Disabled="@disableDelete" Style="width:80px;height:35px;" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Info">Xóa</MudButton>
 		</MudPaper>
 		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
-			<MudButton Disabled="@disableUpdate" Style="width:80px;height:35px;"  Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
+			<MudButton Disabled="@disableUpdate" Style="width:80px;height:35px;" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">Sửa</MudButton>
 		</MudPaper>
 		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
-			<MudButton Disabled="@disableSave" Style="width:80px;height:35px;"  OnClick="@SaveEMSChungTu" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
+			<MudButton Disabled="@disableSave" Style="width:80px;height:35px;" OnClick="@SaveEMSChungTu" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Save" Color="Color.Info">Lưu</MudButton>
 		</MudPaper>
 		<MudPaper Class="mud-theme-info" Width="80px" Height="35px">
 			<MudButton Disabled="@disableFind" Style="width:80px;height:35px;" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Filled.Search" Color="Color.Info">Tìm</MudButton>
@@ -100,8 +104,8 @@
 			<MudButton Disabled="@disableUndo" Style="width:120px;height:35px;" OnClick="@UpdateStateButtonUndo" Variant="Variant.Filled" Size="Size.Small" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info">Trở lại</MudButton>
 		</MudPaper>
 	</MudPaper>
-</MudPaper>
-
+	<MudSpacer />
+</MudAppBar>
 
 @code {
 
