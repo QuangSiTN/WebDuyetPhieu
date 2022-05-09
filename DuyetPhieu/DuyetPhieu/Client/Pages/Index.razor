@@ -4,9 +4,8 @@
 @inject IMNService MNService
 @*@attribute [Authorize(Roles = "Administrator")]*@
 
-<MudPaper Class="d-flex align-content-space-between flex-wrap flex-grow-1 gap-4">
-	@*Height="660px;" *@
-	<MudPaper Style="margin: 2px 2px 2px 2px;" Outlined="true" Elevation="2">
+<MudPaper Class="d-flex align-content-space-between flex-wrap flex-grow-1 gap-4" Elevation="0" Outlined="false">
+	<MudPaper Style="margin: 2px 2px 2px 2px;" Outlined="true" Elevation="0">
 		<MudCard>
 			<MudCardHeader Style="background-color: #E0E0E0;height:50px;">
 				<CardHeaderContent>
@@ -14,8 +13,8 @@
 				</CardHeaderContent>
 			</MudCardHeader>
 			<MudCardContent>
-				<MudField Label="Thong tin phieu bien nhan" Variant="Variant.Outlined" InnerPadding="false">
-					<MudGrid Spacing="1" Style="margin-top:3px;margin-bottom:2px;">
+				<MudField Label="Thong tin phieu bien nhan" Variant="Variant.Outlined" InnerPadding="true">
+					<MudGrid Spacing="2">
 						<MudItem xs="12" sm="6" md="4">
 							<MudTextField T="string" Adornment="Adornment.Start" Label="Số Phiếu Biên Nhận" Required="true" Disabled="@disabletxtSbn" Variant="Variant.Outlined" Margin="Margin.Dense"
 										  @bind-Value="@searchModel.SoPhieuBienNhan" For="@(()=>searchModel.SoPhieuBienNhan)" />
@@ -31,8 +30,8 @@
 						</MudItem>
 					</MudGrid>
 				</MudField>
-				<MudField Label="Thong tin phieu bien nhan" Variant="Variant.Outlined" InnerPadding="false">
-					<MudGrid Spacing="1" Style="margin-top:3px;margin-bottom:2px;">
+				<MudField Style="margin-top:10px;" Label="Thong tin phieu bien nhan" Variant="Variant.Outlined" InnerPadding="true">
+					<MudGrid Spacing="1">
 						<MudItem xs="12" sm="6" md="3">
 							<MudTextField T="string" Adornment="Adornment.Start" Label="Số Phiếu Biên Nhận" Required="true" Disabled="@disabletxtSbn" Variant="Variant.Outlined" Margin="Margin.Dense" />
 						</MudItem>
@@ -91,9 +90,8 @@
 						</MudItem>
 					</MudGrid>
 				</MudField>
-
-				<MudField Label="Khach hang" Variant="Variant.Outlined" InnerPadding="false">
-					<MudGrid Spacing="1" Style="margin-top:3px;margin-bottom:2px;">
+				<MudField Style="margin-top:10px;" Label="Khach hang" Variant="Variant.Outlined" InnerPadding="true">
+					<MudGrid Spacing="1">
 						<MudItem xs="6" sm="3" md="2">
 							<MudTextField T="string" Adornment="Adornment.Start" Label="Tên Khách Hàng" Required="true" Variant="Variant.Outlined" Margin="Margin.Dense" />
 						</MudItem>
